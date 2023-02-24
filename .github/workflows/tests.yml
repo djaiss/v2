@@ -129,15 +129,3 @@ jobs:
         run: vendor/bin/phpunit -c phpunit.xml --testsuite ${{ matrix.testsuite }} --log-junit ./results/${{ matrix.connection }}/junit/results${{ matrix.testsuite }}.xml
         env:
           DB_CONNECTION: ${{ matrix.connection }}
-
-      - name: Fix results files
-        run: sed -i -e "s%$GITHUB_WORKSPACE/%%g" **/*.xml
-        working-directory: results/${{ matrix.connection }}
-        if: success() || failure()
-
-      - name: Store results
-        if: matrix.php-version == env.default-php-version && (success() || failure())
-        uses: actions/upload-artifact@v3
-        with:
-          name: results
-          path: results
