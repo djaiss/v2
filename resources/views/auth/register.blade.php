@@ -1,19 +1,17 @@
 <x-guest-layout>
+  <img src="img/logo.svg" alt="logo" class="text-center mx-auto mb-4 block">
+
+  <h2 class="font-bold text-center mb-2">{{ __('Welcome to OfficeLife') }}</h2>
+  <h3 class="text-sm text-gray-700 mb-4 text-center">{{ __('Create your account now for free.') }}</h3>
+
   <form method="POST" action="{{ route('register.store') }}">
     @csrf
-
-    <!-- Name -->
-    <div>
-      <x-input-label for="name" :value="__('Name')" />
-      <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
-      <x-input-error :messages="$errors->get('name')" class="mt-2" />
-    </div>
 
     <!-- Email Address -->
     <div class="mt-4">
       <x-input-label for="email" :value="__('Email')" />
-      <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
-      <x-input-help>{{ __('We will send you a verification email.') }}</x-input-help>
+      <x-text-input id="email" autofocus class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
+      <x-input-help>{{ __('We will send you a verification email, and won\'t spam you.') }}</x-input-help>
       <x-input-error :messages="$errors->get('email')" class="mt-2" />
     </div>
 
@@ -21,7 +19,7 @@
     <div class="mt-4">
       <x-input-label for="password" :value="__('Password')" />
       <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
-      <x-input-help>{{ __('Minimum 8 characters, up to 60.') }}</x-input-help>
+      <x-input-help>{{ __('Minimum 6 characters, up to 60.') }}</x-input-help>
       <x-input-error :messages="$errors->get('password')" class="mt-2" />
     </div>
 
@@ -33,7 +31,7 @@
     </div>
 
     <div class="flex items-center justify-end mt-4">
-      <x-link :route="'login.index'">{{ __('Already registered?') }}</x-link>
+      <x-link :route="'login.create'">{{ __('Already registered?') }}</x-link>
 
       <x-primary-button class="ml-4">
         {{ __('Register') }}

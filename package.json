@@ -2,7 +2,9 @@
     "private": true,
     "scripts": {
         "dev": "vite",
-        "build": "vite build"
+        "build": "vite build",
+        "pretest": "DB_CONNECTION=testing php artisan migrate:fresh",
+        "test": "vendor/bin/phpunit"
     },
     "devDependencies": {
         "@tailwindcss/forms": "^0.5.2",
