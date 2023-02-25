@@ -2,7 +2,9 @@
   <img src="img/logo.svg" alt="logo" class="text-center mx-auto mb-4 block">
 
   <h2 class="font-bold text-center mb-2">{{ __('Welcome back to OfficeLife') }}</h2>
-  <x-link :route="'register'" class="mb-4 text-center block">{{ __('Don\'t have an account?') }}</x-link>
+  <p class="mb-4 text-center">
+    <x-link :route="'register'">{{ __('Don\'t have an account?') }}</x-link>
+  </p>
 
   <!-- Session Status -->
   <x-auth-session-status class="mb-4" :status="session('status')" />
@@ -36,7 +38,7 @@
 
     <div class="flex items-center justify-between mt-4">
       @if (Route::has('password.request'))
-      <x-link :route="'password.request'">{{ __('Forgot your password?') }}</x-link>
+      <x-link :route="route('password.request')">{{ __('Forgot your password?') }}</x-link>
       @endif
 
       <x-primary-button class="ml-3">

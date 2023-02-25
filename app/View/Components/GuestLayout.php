@@ -2,6 +2,7 @@
 
 namespace App\View\Components;
 
+use App\Domains\Layout\Web\ViewHelpers\LayoutViewHelper;
 use Illuminate\View\Component;
 use Illuminate\View\View;
 
@@ -12,6 +13,8 @@ class GuestLayout extends Component
      */
     public function render(): View
     {
-        return view('layouts.guest');
+        return view('layouts.guest', [
+            'layout' => LayoutViewHelper::data(),
+        ]);
     }
 }

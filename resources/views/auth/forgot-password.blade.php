@@ -17,10 +17,10 @@
     </div>
 
     <div class="flex justify-between items-center mt-4">
-      <x-link :route="'login.create'">{{ __('Go back') }}</x-link>
+      <x-link :route="route('login.create')">{{ __('Go back') }}</x-link>
 
       <x-primary-button class="ml-4">
-        {{ __('Email Password Reset Link') }}
+        {{ __('Email password reset link') }}
       </x-primary-button>
     </div>
   </form>
