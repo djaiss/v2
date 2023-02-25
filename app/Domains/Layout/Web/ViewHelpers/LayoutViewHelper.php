@@ -2,6 +2,8 @@
 
 namespace App\Domains\Layout\Web\ViewHelpers;
 
+use Carbon\Carbon;
+
 class LayoutViewHelper
 {
     public static function data(): array
@@ -18,6 +20,7 @@ class LayoutViewHelper
 
         return [
             'locales' => $localesCollection,
+            'currentYear' => Carbon::now()->format('Y'),
         ];
     }
 }
