@@ -13,20 +13,21 @@
         "vite": "^4.0.0"
     },
     "dependencies": {
+        "alpinejs": "^3.11.1",
         "autoprefixer": "^10.4.13",
         "husky": "^8.0.3",
         "postcss": "^8.4.21",
         "tailwindcss": "^3.2.7"
     },
     "lint-staged": {
-      "*.js|resources/**/*.{vue,js}": [
-        "prettier --write --ignore-unknown"
-      ],
-      "resources/**/*.{css,scss}": [
-        "prettier --write --ignore-unknown"
-      ],
-      "**/*.php": [
-        "vendor/bin/pint"
-      ]
+        "*.js|resources/**/*.{vue,js}": [
+            "prettier --write --ignore-unknown"
+        ],
+        "resources/**/*.{css,scss}": [
+            "prettier --write --ignore-unknown"
+        ],
+        "**/*.php": [
+            "vendor/bin/pint"
+        ]
     }
 }
