@@ -2,12 +2,7 @@
 
 namespace Tests\Unit\Domains\Layout\Web\ViewHelpers;
 
-use App\Domains\Contact\ManageLoans\Web\ViewHelpers\ModuleLoanViewHelper;
 use App\Domains\Layout\Web\ViewHelpers\LayoutViewHelper;
-use App\Models\Contact;
-use App\Models\Currency;
-use App\Models\Loan;
-use App\Models\User;
 use Carbon\Carbon;
 use function env;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
@@ -35,11 +30,11 @@ class LayoutViewHelperTest extends TestCase
             [
                 0 => [
                     'name' => 'English',
-                    'url' => env('APP_URL') . '/locale/en',
+                    'url' => env('APP_URL').'/locale/en',
                 ],
                 1 => [
                     'name' => 'Français',
-                    'url' => env('APP_URL') . '/locale/fr',
+                    'url' => env('APP_URL').'/locale/fr',
                 ],
             ],
             $array['locales']->toArray()
