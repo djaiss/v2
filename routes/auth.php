@@ -3,6 +3,8 @@
 use App\Domains\Auth\Web\Controllers\AuthenticatedSessionController;
 use App\Domains\Auth\Web\Controllers\EmailVerificationNotificationController;
 use App\Domains\Auth\Web\Controllers\EmailVerificationPromptController;
+use App\Domains\Auth\Web\Controllers\NewPasswordController;
+use App\Domains\Auth\Web\Controllers\PasswordResetLinkController;
 use App\Domains\Auth\Web\Controllers\RegisteredUserController;
 use App\Domains\Auth\Web\Controllers\VerifyEmailController;
 use Illuminate\Support\Facades\Route;

@@ -34,7 +34,7 @@
       </label>
     </div>
 
-    <div class="flex items-center justify-end mt-4">
+    <div class="flex items-center justify-between mt-4">
       @if (Route::has('password.request'))
       <x-link :route="'password.request'">{{ __('Forgot your password?') }}</x-link>
       @endif
