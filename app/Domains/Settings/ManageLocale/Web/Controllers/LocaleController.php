@@ -4,14 +4,12 @@ namespace App\Domains\Settings\ManageLocale\Web\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Auth;
 
 class LocaleController extends Controller
 {
     public function update(string $locale): RedirectResponse
     {
-        if (!in_array($locale, ['en', 'fr'])) {
+        if (! in_array($locale, ['en', 'fr'])) {
             abort(400);
         }
 
