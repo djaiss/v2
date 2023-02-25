@@ -4,6 +4,7 @@ namespace App\Domains\Auth\Web\Controllers;
 
 use App\Domains\Auth\Services\CreateAccount;
 use App\Http\Controllers\Controller;
+use App\Domains\Auth\Web\Controllers\EmailVerificationPromptController;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
