@@ -5,7 +5,6 @@ namespace App\Domains\Settings\ManageCompany\Jobs;
 use App\Models\Company;
 use App\Models\Role;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
@@ -20,14 +19,14 @@ class SetupCompany implements ShouldQueue
      */
     public function __construct(
         public Company $company
-    ) {}
+    ) {
+    }
 
     /**
      * Execute the job.
      */
     public function handle(): void
     {
-
     }
 
     private function createRoles(): void
