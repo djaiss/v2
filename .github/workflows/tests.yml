@@ -1,4 +1,4 @@
-name: Build and test
+name: Unit tests
 
 on:
   push:
@@ -23,7 +23,7 @@ jobs:
   #############
   tests:
     runs-on: ubuntu-latest
-    name: Testsuite ${{ matrix.testsuite }} with PHP ${{ matrix.php-version }} + ${{ matrix.connection }}
+    name: PHP ${{ matrix.php-version }} + ${{ matrix.connection }}
 
     strategy:
       fail-fast: false
