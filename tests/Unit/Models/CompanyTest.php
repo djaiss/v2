@@ -3,9 +3,7 @@
 namespace Tests\Unit\Models;
 
 use App\Models\Company;
-use App\Models\Emotion;
 use App\Models\Employee;
-use App\Models\Note;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
 
