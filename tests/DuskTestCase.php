@@ -2,10 +2,10 @@
 
 namespace Tests;
 
-use Illuminate\Support\Collection;
 use Facebook\WebDriver\Chrome\ChromeOptions;
 use Facebook\WebDriver\Remote\DesiredCapabilities;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
+use Illuminate\Support\Collection;
 use Laravel\Dusk\TestCase as BaseTestCase;
 
 abstract class DuskTestCase extends BaseTestCase
@@ -21,14 +21,14 @@ abstract class DuskTestCase extends BaseTestCase
      */
     public static function prepare(): void
     {
-        if (!self::$assetsBuilt) {
+        if (! self::$assetsBuilt) {
             if (is_file('public/hot')) {
                 dd('You should stop the Vite dev server.');
             }
 
-            echo 'Compiling front-end assets.' . PHP_EOL;
+            echo 'Compiling front-end assets.'.PHP_EOL;
             exec('yarn build');
-            echo 'Front-end assets compiled.' . PHP_EOL;
+            echo 'Front-end assets compiled.'.PHP_EOL;
 
             self::$assetsBuilt = true;
         }
