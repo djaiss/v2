@@ -2,15 +2,11 @@
 
 namespace Tests\Unit\Domains\Settings\ManageCompany\Services;
 
-use App\Domains\Settings\CreateAccount\Jobs\SetupAccount;
-use App\Domains\Settings\CreateAccount\Services\CreateAccount;
 use App\Domains\Settings\ManageCompany\Services\CreateCompany;
 use App\Models\Company;
 use App\Models\Employee;
-use App\Models\User;
 use Exception;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Illuminate\Support\Facades\Queue;
 use Illuminate\Validation\ValidationException;
 use Tests\TestCase;
 

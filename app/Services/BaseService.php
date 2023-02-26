@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use App\Models\Employee;
 use Illuminate\Support\Facades\Validator;
 
 abstract class BaseService
