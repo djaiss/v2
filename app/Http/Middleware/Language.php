@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 class Language
 {
     protected Application $app;
+
     protected Request $request;
 
     public function __construct(Application $app, Request $request)
@@ -21,7 +22,6 @@ class Language
      * Handle an incoming request.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
      * @return mixed
      */
     public function handle($request, Closure $next)

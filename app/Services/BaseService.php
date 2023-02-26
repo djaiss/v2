@@ -8,11 +8,6 @@ use Illuminate\Support\Facades\Validator;
 abstract class BaseService
 {
     /**
-     * The employee who calls the service.
-     */
-    public Employee $author;
-
-    /**
      * Get the validation rules that apply to the service.
      */
     public function rules(): array
