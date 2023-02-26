@@ -4,6 +4,7 @@
         "dev": "vite",
         "build": "vite build",
         "pretest": "DB_CONNECTION=testing php artisan migrate:fresh",
+        "posttest": "vendor/bin/phpstan analyse && vendor/bin/psalm",
         "test": "vendor/bin/phpunit"
     },
     "devDependencies": {

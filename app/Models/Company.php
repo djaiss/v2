@@ -21,6 +21,11 @@ class Company extends Model
         'name',
     ];
 
+    public function roles(): HasMany
+    {
+        return $this->hasMany(Role::class);
+    }
+
     public function employees(): HasMany
     {
         return $this->hasMany(Employee::class);
