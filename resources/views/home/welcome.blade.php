@@ -19,7 +19,7 @@
         </svg>
 
         <span class="">
-          Add your company
+          {{ __('Add your company') }}
         </span>
       </a>
       <a href="{{ route('create_company.index') }}" dusk="" class="mb-4 border group border-gray-200 rounded-lg p-5 flex hover:bg-gray-50 cursor-pointer hover:border-gray-300 items-center">
@@ -27,9 +27,8 @@
           <path stroke-linecap="round" stroke-linejoin="round" d="M19 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zM4 19.235v-.11a6.375 6.375 0 0112.75 0v.109A12.318 12.318 0 0110.374 21c-2.331 0-4.512-.645-6.374-1.766z" />
         </svg>
 
-
         <span class="">
-          Join an existing company
+          {{ __('Join an existing company') }}
         </span>
       </a>
     </div>

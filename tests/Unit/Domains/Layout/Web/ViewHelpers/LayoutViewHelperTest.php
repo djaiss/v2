@@ -29,22 +29,29 @@ class LayoutViewHelperTest extends TestCase
         $array = LayoutViewHelper::data();
 
         $this->assertEquals(
-            3,
+            4,
             count($array)
         );
 
+        $this->assertArrayHasKey('currentLocale', $array);
         $this->assertArrayHasKey('locales', $array);
         $this->assertArrayHasKey('currentYear', $array);
         $this->assertArrayHasKey('company', $array);
 
         $this->assertEquals(
+            'en',
+            $array['currentLocale']
+        );
+        $this->assertEquals(
             [
                 0 => [
                     'name' => 'English',
+                    'shortCode' => 'en',
                     'url' => env('APP_URL').'/locale/en',
                 ],
                 1 => [
                     'name' => 'Français',
+                    'shortCode' => 'fr',
                     'url' => env('APP_URL').'/locale/fr',
                 ],
             ],
