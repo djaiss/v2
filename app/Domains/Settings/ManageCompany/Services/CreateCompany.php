@@ -6,6 +6,7 @@ use App\Models\Company;
 use App\Models\Employee;
 use App\Services\BaseService;
 use Exception;
+use Illuminate\Support\Str;
 
 class CreateCompany extends BaseService
 {
@@ -54,6 +55,7 @@ class CreateCompany extends BaseService
     {
         $this->company = Company::create([
             'name' => $this->data['name'],
+            'invitation_code' => Str::random(40)
         ]);
     }
 

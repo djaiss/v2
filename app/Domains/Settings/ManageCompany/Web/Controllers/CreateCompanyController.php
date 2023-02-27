@@ -11,7 +11,7 @@ use Illuminate\View\View;
 
 class CreateCompanyController extends Controller
 {
-    public function index(): View
+    public function index(): View|RedirectResponse
     {
         if (Auth::user()->company_id) {
             return redirect()->route('home.index');

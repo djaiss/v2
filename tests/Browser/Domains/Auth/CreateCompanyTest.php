@@ -49,9 +49,9 @@ class CreateCompanyTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) use ($employee) {
             $browser->loginAs($employee)
-                ->visit('welcome.index')
+                ->visitRoute('welcome.index')
                 ->assertRouteIs('home.index')
-                ->visit('create_company.index')
+                ->visitRoute('create_company.index')
                 ->assertRouteIs('home.index');
         });
     }

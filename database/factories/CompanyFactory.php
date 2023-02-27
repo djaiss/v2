@@ -18,6 +18,7 @@ class CompanyFactory extends Factory
     {
         return [
             'name' => fake()->name,
+            'invitation_code' => fake()->unique()->word,
         ];
     }
 }

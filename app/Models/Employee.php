@@ -24,6 +24,7 @@ class Employee extends Authenticatable implements MustVerifyEmail
         'last_name',
         'email',
         'password',
+        'locale',
     ];
 
     /**

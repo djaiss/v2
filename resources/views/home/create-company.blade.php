@@ -1,7 +1,7 @@
 <x-guest-layout>
   <img src="img/logo.svg" alt="logo" class="text-center mx-auto mb-4 block">
 
-  <h2 class="font-bold text-center mb-2">{{ __('Let\'s setup your company\'s account') }}</h2>
+  <h2 class="font-bold text-center mb-2 text-gray-600 dark:text-gray-400">{{ __('Let\'s setup your company\'s account') }}</h2>
   <p class="text-center mb-6 text-gray-600">{{ __('It will host all your company\'s data.') }}</p>
 
   <!-- Session Status -->

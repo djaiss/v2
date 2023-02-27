@@ -11,10 +11,13 @@ Route::get('/', [ApplicationController::class, 'index'])->name('application.inde
 Route::get('/locale/{locale}', [LocaleController::class, 'update'])->name('locale.update');
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('home', [HomeController::class, 'index'])->name('home.index');
     Route::get('welcome', [WelcomeController::class, 'index'])->name('welcome.index');
     Route::get('create-company', [CreateCompanyController::class, 'index'])->name('create_company.index');
     Route::post('create-company', [CreateCompanyController::class, 'store'])->name('create_company.store');
+
+    Route::middleware(['company'])->group(function () {
+        Route::get('home', [HomeController::class, 'index'])->name('home.index');
+    });
 });
 
 require __DIR__.'/auth.php';
