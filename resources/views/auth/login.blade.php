@@ -3,7 +3,7 @@
 
   <h2 class="font-bold text-center mb-2">{{ __('Welcome back to OfficeLife') }}</h2>
   <p class="mb-4 text-center">
-    <x-link :route="'register'">{{ __('Don\'t have an account?') }}</x-link>
+    <x-link :route="route('register')">{{ __('Don\'t have an account?') }}</x-link>
   </p>
 
   <!-- Session Status -->
