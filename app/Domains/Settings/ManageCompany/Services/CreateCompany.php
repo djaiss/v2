@@ -55,7 +55,7 @@ class CreateCompany extends BaseService
     {
         $this->company = Company::create([
             'name' => $this->data['name'],
-            'invitation_code' => Str::random(40)
+            'invitation_code' => Str::random(40),
         ]);
     }
 
