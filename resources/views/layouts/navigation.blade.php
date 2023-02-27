@@ -1,7 +1,7 @@
 <!-- main nav -->
 <nav x-data="{ open: false }" class="max-w-8xl mx-auto flex h-10 items-center justify-between border-b bg-gray-50 px-3 dark:border-slate-600 dark:bg-gray-800 dark:text-slate-200 sm:px-6">
   <div class="dark:highlight-white/5 items-center rounded-lg border border-gray-200 bg-white px-2 py-1 text-sm dark:border-0 dark:border-gray-700 dark:bg-gray-900 dark:bg-gray-400/20 sm:flex">
-    asfk
+    {{ $layout['company']['name'] }}
   </div>
 
   <!-- search box -->

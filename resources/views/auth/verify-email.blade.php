@@ -30,7 +30,7 @@
     <form method="POST" action="{{ route('logout') }}">
       @csrf
 
-      <x-link-button>{{ __('Log out') }}</x-link-button>
+      <x-button-as-link>{{ __('Log out') }}</x-button-as-link>
     </form>
   </div>
 </x-guest-layout>

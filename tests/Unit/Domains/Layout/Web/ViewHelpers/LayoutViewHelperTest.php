@@ -3,6 +3,8 @@
 namespace Tests\Unit\Domains\Layout\Web\ViewHelpers;
 
 use App\Domains\Layout\Web\ViewHelpers\LayoutViewHelper;
+use App\Models\Company;
+use App\Models\Employee;
 use Carbon\Carbon;
 use function env;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
@@ -16,24 +18,40 @@ class LayoutViewHelperTest extends TestCase
     public function it_gets_the_data_needed_for_the_view(): void
     {
         Carbon::setTestNow(Carbon::create(2023, 1, 1));
+        $company = Company::factory()->create([
+            'name' => 'Company name',
+        ]);
+        $employee = Employee::factory()->create([
+            'company_id' => $company->id,
+        ]);
+        $this->be($employee);
+
         $array = LayoutViewHelper::data();
 
         $this->assertEquals(
-            2,
+            4,
             count($array)
         );
 
+        $this->assertArrayHasKey('currentLocale', $array);
         $this->assertArrayHasKey('locales', $array);
         $this->assertArrayHasKey('currentYear', $array);
+        $this->assertArrayHasKey('company', $array);
 
+        $this->assertEquals(
+            'en',
+            $array['currentLocale']
+        );
         $this->assertEquals(
             [
                 0 => [
                     'name' => 'English',
+                    'shortCode' => 'en',
                     'url' => env('APP_URL').'/locale/en',
                 ],
                 1 => [
                     'name' => 'Français',
+                    'shortCode' => 'fr',
                     'url' => env('APP_URL').'/locale/fr',
                 ],
             ],
@@ -42,6 +60,12 @@ class LayoutViewHelperTest extends TestCase
         $this->assertEquals(
             2023,
             $array['currentYear']
+        );
+        $this->assertEquals(
+            [
+                'name' => 'Company name',
+            ],
+            $array['company']
         );
     }
 }

@@ -2,16 +2,10 @@
 
 namespace App\Services;
 
-use App\Models\Employee;
 use Illuminate\Support\Facades\Validator;
 
 abstract class BaseService
 {
-    /**
-     * The employee who calls the service.
-     */
-    public Employee $author;
-
     /**
      * Get the validation rules that apply to the service.
      */

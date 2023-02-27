@@ -38,13 +38,7 @@
         <p class="mb-2 text-gray-600">{{ __('OfficeLife. All rights reserved. 2019 — :year. Made from all over the world. We ❤️ you.', ['year' => $layout['currentYear']]) }}</p>
 
         <!-- language selector -->
-        <ul class="list">
-          @foreach ($layout['locales'] as $locale)
-          <li class="inline mr-2">
-            <x-link :route="$locale['url']" class="text-xs">{{ $locale['name'] }}</x-link>
-          </li>
-          @endforeach
-        </ul>
+        @include('layouts.language-selector')
       </div>
     </div>
   </div>

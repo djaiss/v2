@@ -2,6 +2,8 @@
 
 use App\Domains\Auth\Web\Controllers\ApplicationController;
 use App\Domains\Home\Web\Controllers\HomeController;
+use App\Domains\Settings\ManageCompany\Web\Controllers\CreateCompanyController;
+use App\Domains\Settings\ManageCompany\Web\Controllers\WelcomeController;
 use App\Domains\Settings\ManageLocale\Web\Controllers\LocaleController;
 use Illuminate\Support\Facades\Route;
 
@@ -9,7 +11,13 @@ Route::get('/', [ApplicationController::class, 'index'])->name('application.inde
 Route::get('/locale/{locale}', [LocaleController::class, 'update'])->name('locale.update');
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('home', [HomeController::class, 'index'])->name('home.index');
+    Route::get('welcome', [WelcomeController::class, 'index'])->name('welcome.index');
+    Route::get('create-company', [CreateCompanyController::class, 'index'])->name('create_company.index');
+    Route::post('create-company', [CreateCompanyController::class, 'store'])->name('create_company.store');
+
+    Route::middleware(['company'])->group(function () {
+        Route::get('home', [HomeController::class, 'index'])->name('home.index');
+    });
 });
 
 require __DIR__.'/auth.php';

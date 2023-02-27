@@ -14,7 +14,7 @@ class LoginTest extends DuskTestCase
     /** @test */
     public function it_logs_into_an_account(): void
     {
-        $employee = Employee::factory()->create([
+        Employee::factory()->create([
             'email' => 'regis@officelife.io',
         ]);
 

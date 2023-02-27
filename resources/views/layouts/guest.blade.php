@@ -24,13 +24,8 @@
 
     <!-- language selector -->
     <div class="text-sm mb-10">
-      <ul class="list">
-        @foreach ($layout['locales'] as $locale)
-        <li class="inline mr-2">
-          <x-link :route="$locale['url']">{{ $locale['name'] }}</x-link>
-        </li>
-        @endforeach
-      </ul>
+      <!-- language selector -->
+      @include('layouts.language-selector')
     </div>
   </div>
 </body>
