@@ -14,18 +14,14 @@
     <div class="text-center">
       <!-- create a company -->
       <a href="{{ route('create_company.index') }}" dusk="link-create-company" class="mb-4 border group border-gray-200 rounded-lg p-5 flex hover:bg-gray-50 cursor-pointer hover:border-gray-300 items-center">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 group-hover:text-emerald-600 mr-2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-        </svg>
+        <x-heroicon-s-plus-circle class="w-5 h-5 text-gray-400 group-hover:text-emerald-600 mr-2" />
 
         <span class="">
           {{ __('Add your company') }}
         </span>
       </a>
-      <a href="{{ route('create_company.index') }}" dusk="" class="mb-4 border group border-gray-200 rounded-lg p-5 flex hover:bg-gray-50 cursor-pointer hover:border-gray-300 items-center">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 group-hover:text-emerald-600 mr-2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M19 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zM4 19.235v-.11a6.375 6.375 0 0112.75 0v.109A12.318 12.318 0 0110.374 21c-2.331 0-4.512-.645-6.374-1.766z" />
-        </svg>
+      <a href=" {{ route('create_company.index') }}" dusk="" class="mb-4 border group border-gray-200 rounded-lg p-5 flex hover:bg-gray-50 cursor-pointer hover:border-gray-300 items-center">
+        <x-heroicon-s-user-plus class="w-5 h-5 text-gray-400 group-hover:text-emerald-600 mr-2" />
 
         <span class="">
           {{ __('Join an existing company') }}
