@@ -8,8 +8,9 @@
 
   <title>{{ config('app.name', 'OfficeLife') }}</title>
 
-  <!-- Scripts -->
   @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+  @livewireStyles
 </head>
 
 <body class="font-sans antialiased">
@@ -31,16 +32,9 @@
     </main>
 
     <!-- footer -->
-    <div class="max-w-8xl mx-auto text-xs flex h-10 items-center justify-center sm:px-6 mb-10">
+    @include('layouts.footer')
 
-      <!-- copyright -->
-      <div class="text-center">
-        <p class="mb-2 text-gray-600">{{ __('OfficeLife. All rights reserved. 2019 — :year. Made from all over the world. We ❤️ you.', ['year' => $layout['currentYear']]) }}</p>
-
-        <!-- language selector -->
-        @include('layouts.language-selector')
-      </div>
-    </div>
+    @livewireScripts
   </div>
 </body>
 
