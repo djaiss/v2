@@ -2,6 +2,7 @@
 
 namespace App\Domains\Settings\ManageSettings\Web\Controllers;
 
+use App\Domains\Settings\ManageSettings\Web\ViewHelpers\SettingsIndexViewHelper;
 use App\Domains\Settings\ManageSettings\Web\ViewModels\SettingsIndexViewModel;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -11,11 +12,7 @@ class SettingsController extends Controller
 {
     public function index(): View
     {
-        $viewModel = new SettingsIndexViewModel(
-            firstName: Auth::user()->first_name,
-            lastName: Auth::user()->last_name,
-            email: Auth::user()->email,
-        );
+        $viewModel = SettingsIndexViewHelper::data(Auth::user());
 
         return view('settings.index', [
             'view' => $viewModel,

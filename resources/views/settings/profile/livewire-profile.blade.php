@@ -1,7 +1,7 @@
 <div class="md:grid md:grid-cols-3 md:gap-16">
   <div class="md:col-span-1">
-    <h2 class="text-lg mb-2 font-bold">Your employee profile</h2>
-    <p>Everyone in the company will be able to see these information.</p>
+    <h2 class="text-lg mb-2 font-bold">{{ __('Your employee profile') }}</h2>
+    <p>{{ __('Everyone in the company will be able to see these information.') }}</p>
   </div>
 
   <div class="md:mt-0 md:col-span-2">

@@ -27,6 +27,7 @@
   "It will host all your company's data.": "Il hébergera toutes les données de votre entreprise.",
   "Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.": "Mot de passe oublié ? Pas de problème. Indiquez simplement votre adresse email et nous vous enverrons un lien de réinitialisation de mot de passe qui vous permettra d'en choisir un nouveau.",
   "Go back": "Retour",
+  "Back to home": "Retour à l'accueil",
   "Email password reset link": "Envoyer le lien de réinitialisation",
   "New password": "Nouveau mot de passe",
   "Reset password": "Réinitialiser le mot de passe",
@@ -35,5 +36,14 @@
   "A new verification link has been sent to the email address you provided during registration.": "Un nouveau lien de vérification a été envoyé à l'adresse email que vous avez fournie lors de votre inscription.",
   "Resend verification email": "Renvoyer l'email de vérification",
   "OfficeLife. All rights reserved. 2019 — :year. Made from all over the world. We ❤️ you.": "OfficeLife. Tous droits réservés. 2019 — :year. Crée par des gens du monde entier. Nous vous ❤️.",
-  "Your profile": "Votre profil"
+  "Settings": "Paramètres",
+  "Employee profile": "Profil employé",
+  "Your profile": "Votre profil",
+  "Profile": "Profil",
+  "Company": "Entreprise",
+  "Your employee profile": "Votre profil employé",
+  "Everyone in the company will be able to see these information.": "Tout le monde dans l'entreprise pourra voir ces informations.",
+  "First name": "Prénom",
+  "Last name": "Nom",
+  "We'll send you an email to confirm your new address if you change it.": "Nous vous enverrons un email pour confirmer votre nouvelle adresse si vous la changez."
 }
