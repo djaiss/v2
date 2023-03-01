@@ -16,7 +16,7 @@ class RegisterTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             $browser->visit('/register')
                     ->assertSee('Welcome to OfficeLife')
-                    ->type('@email-field', 'regis@officelife.io')
+                    ->type('@email-field', 'regis@dumb.io')
                     ->type('@password-field', 'admin123')
                     ->type('@password-confirmation-field', 'admin123')
                     ->press('@submit-button')
