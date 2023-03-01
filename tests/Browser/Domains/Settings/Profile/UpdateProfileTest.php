@@ -30,8 +30,7 @@ class UpdateProfileTest extends DuskTestCase
                 ->press('@submit-button')
                 ->assertValue('@first-name-field', 'Regis')
                 ->assertValue('@last-name-field', 'dumb')
-                ->assertValue('@email-field', 'regis@dumb.io')
-                ;
+                ->assertValue('@email-field', 'regis@dumb.io');
         });
     }
 }
