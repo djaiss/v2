@@ -31,17 +31,6 @@ class UpdateProfileInformationTest extends TestCase
         (new CreateCompany())->execute($request);
     }
 
-    /** @test */
-    public function it_fails_if_employee_enters_the_same_email(): void
-    {
-        $employee = Employee::factory()->create([
-            'email' => 'michael.scott@gmail.com',
-        ]);
-
-        $this->expectException(ValidationException::class);
-        $this->executeService($employee);
-    }
-
     private function executeService(Employee $employee): void
     {
         $request = [

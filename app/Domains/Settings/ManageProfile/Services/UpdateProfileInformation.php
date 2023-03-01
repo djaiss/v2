@@ -35,13 +35,13 @@ class UpdateProfileInformation extends BaseService
         $employee->last_name = $data['last_name'];
         $employee->save();
 
-        if (Employee::where('email', $data['email'])->exists()) {
-            throw ValidationException::withMessages([
-                'email' => __('This email has already been taken.'),
-            ]);
-        }
-
         if ($oldEmail !== $data['email']) {
+            if (Employee::where('email', $data['email'])->exists()) {
+                throw ValidationException::withMessages([
+                    'email' => __('This email has already been taken.'),
+                ]);
+            }
+
             $employee->email = $data['email'];
             $employee->email_verified_at = null;
             $employee->save();

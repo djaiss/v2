@@ -9,27 +9,27 @@
       <!-- first name -->
       <div class="w-full max-w-lg mb-4">
         <x-input-label for="first_name" :value="__('First name')" />
-        <x-text-input wire:model="firstName" id="first_name" dusk="first-name-field" class="block mt-1 w-full" type="text" name="first_name" :value="old('firstName')" autofocus autocomplete="first_name" />
+        <x-text-input wire:model.defer="firstName" id="first_name" dusk="first-name-field" class="block mt-1 w-full" type="text" name="first_name" :value="old('firstName')" autofocus autocomplete="first_name" />
         <x-input-error :messages="$errors->get('first_name')" class="mt-2" />
       </div>
 
       <!-- last name -->
       <div class="w-full max-w-lg mb-4">
         <x-input-label for="last_name" :value="__('Last name')" />
-        <x-text-input wire:model="lastName" id="last_name" dusk="last-name-field" class="block mt-1 w-full" type="text" name="last_name" :value="old('last_name')" autocomplete="last_name" />
+        <x-text-input wire:model.defer="lastName" id="last_name" dusk="last-name-field" class="block mt-1 w-full" type="text" name="last_name" :value="old('last_name')" autocomplete="last_name" />
         <x-input-error :messages="$errors->get('last_name')" class="mt-2" />
       </div>
 
       <!-- email -->
       <div class="w-full max-w-lg mb-6">
         <x-input-label for="email" :value="__('Email')" />
-        <x-text-input wire:model="email" id="email" dusk="email-field" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="email" />
+        <x-text-input wire:model.defer="email" id="email" dusk="email-field" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="email" />
         <x-input-help>{{ __('We\'ll send you an email to confirm your new address if you change it.') }}</x-input-help>
         <x-input-error :messages="$errors->get('email')" class="mt-2" />
       </div>
 
       <div class="flex items-center justify-between">
-        <x-primary-button dusk="submit-button">
+        <x-primary-button wire:loading.attr="disabled" dusk="submit-button">
           {{ __('Save') }}
         </x-primary-button>
       </div>
