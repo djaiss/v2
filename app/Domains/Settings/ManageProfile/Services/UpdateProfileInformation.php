@@ -4,6 +4,7 @@ namespace App\Domains\Settings\ManageProfile\Services;
 
 use App\Models\Employee;
 use App\Services\BaseService;
+use Illuminate\Validation\ValidationException;
 
 class UpdateProfileInformation extends BaseService
 {
@@ -33,6 +34,12 @@ class UpdateProfileInformation extends BaseService
         $employee->first_name = $data['first_name'];
         $employee->last_name = $data['last_name'];
         $employee->save();
+
+        if (Employee::where('email', $data['email'])->exists()) {
+            throw ValidationException::withMessages([
+                'email' => __('This email has already been taken.'),
+            ]);
+        }
 
         if ($oldEmail !== $data['email']) {
             $employee->email = $data['email'];
