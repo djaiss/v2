@@ -8,12 +8,14 @@
 
   <title>{{ config('app.name', 'OfficeLife') }}</title>
 
+  @wireUiScripts
   @vite(['resources/css/app.css', 'resources/js/app.js'])
-
   @livewireStyles
 </head>
 
 <body class="font-sans antialiased bg-gray-100 dark:bg-gray-900">
+  <x-notifications />
+
   <div class="min-h-screen">
     @include('layouts.navigation')
 
