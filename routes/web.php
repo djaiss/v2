@@ -5,6 +5,7 @@ use App\Domains\Home\Web\Controllers\HomeController;
 use App\Domains\Settings\ManageCompany\Web\Controllers\CreateCompanyController;
 use App\Domains\Settings\ManageCompany\Web\Controllers\WelcomeController;
 use App\Domains\Settings\ManageLocale\Web\Controllers\LocaleController;
+use App\Domains\Settings\ManageSettings\Web\Controllers\SettingsController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [ApplicationController::class, 'index'])->name('application.index');
@@ -17,6 +18,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::middleware(['company'])->group(function () {
         Route::get('home', [HomeController::class, 'index'])->name('home.index');
+
+        Route::get('settings', [SettingsController::class, 'index'])->name('settings.index');
     });
 });
 
