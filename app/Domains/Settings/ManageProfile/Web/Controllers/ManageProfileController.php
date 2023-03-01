@@ -2,7 +2,6 @@
 
 namespace App\Domains\Settings\ManageProfile\Web\Controllers;
 
-use App\Domains\Settings\ManageCompany\Services\CreateCompany;
 use App\Domains\Settings\ManageProfile\Services\UpdateProfileInformation;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;

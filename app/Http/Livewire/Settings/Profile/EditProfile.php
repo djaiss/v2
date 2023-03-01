@@ -4,7 +4,6 @@ namespace App\Http\Livewire\Settings\Profile;
 
 use App\Domains\Settings\ManageProfile\Services\UpdateProfileInformation;
 use App\Domains\Settings\ManageSettings\Web\ViewModels\SettingsIndexViewModel;
-use App\Models\Employee;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 

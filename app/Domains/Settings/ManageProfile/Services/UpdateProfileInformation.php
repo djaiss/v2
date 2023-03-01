@@ -2,11 +2,8 @@
 
 namespace App\Domains\Settings\ManageProfile\Services;
 
-use App\Models\Company;
 use App\Models\Employee;
 use App\Services\BaseService;
-use Exception;
-use Illuminate\Support\Str;
 
 class UpdateProfileInformation extends BaseService
 {

@@ -4,14 +4,8 @@ namespace Tests\Unit\Domains\Settings\ManageCompany\Services;
 
 use App\Domains\Settings\ManageCompany\Services\CreateCompany;
 use App\Domains\Settings\ManageProfile\Services\UpdateProfileInformation;
-use App\Models\Company;
 use App\Models\Employee;
-use Exception;
-use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
-use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Illuminate\Support\Facades\Event;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\ValidationException;
 use Tests\TestCase;
 
