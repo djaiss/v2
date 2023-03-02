@@ -3,7 +3,6 @@
 namespace App\Domains\Settings\ManagePermissions\Web\Controllers;
 
 use App\Domains\Settings\ManagePermissions\Web\ViewHelpers\SettingsPermissionIndexViewHelper;
-use App\Domains\Settings\ManageSettings\Web\ViewHelpers\SettingsIndexViewHelper;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
