@@ -27,6 +27,7 @@ class SetupCompany implements ShouldQueue
      */
     public function handle(): void
     {
+        $this->createRoles();
     }
 
     private function createRoles(): void
@@ -34,6 +35,11 @@ class SetupCompany implements ShouldQueue
         $role = Role::create([
             'company_id' => $this->company->id,
             'translation_key' => 'Administrator',
+        ]);
+
+        $role = Role::create([
+            'company_id' => $this->company->id,
+            'translation_key' => 'Employee',
         ]);
     }
 }

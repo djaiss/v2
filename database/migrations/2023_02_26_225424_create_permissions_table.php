@@ -20,13 +20,15 @@ return new class extends Migration
         });
 
         Schema::create('permission_role', function (Blueprint $table) {
+            $table->unsignedBigInteger('company_id');
             $table->string('permission_id');
             $table->string('role_id');
+            $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
         });
 
         DB::table('permissions')->insert([
-            'action' => 'create',
-            'translation_key' => 'permissions.create',
+            'action' => 'settings.roles.create',
+            'translation_key' => 'Create a new role',
         ]);
     }
 

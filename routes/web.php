@@ -5,6 +5,7 @@ use App\Domains\Home\Web\Controllers\HomeController;
 use App\Domains\Settings\ManageCompany\Web\Controllers\CreateCompanyController;
 use App\Domains\Settings\ManageCompany\Web\Controllers\WelcomeController;
 use App\Domains\Settings\ManageLocale\Web\Controllers\LocaleController;
+use App\Domains\Settings\ManagePermissions\Web\Controllers\SettingsPermissionController;
 use App\Domains\Settings\ManageSettings\Web\Controllers\SettingsController;
 use Illuminate\Support\Facades\Route;
 
@@ -20,6 +21,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('home', [HomeController::class, 'index'])->name('home.index');
 
         Route::get('settings', [SettingsController::class, 'index'])->name('settings.index');
+        Route::get('settings/roles', [SettingsPermissionController::class, 'index'])->name('settings.roles.index');
+        Route::get('settings/roles/{', [SettingsPermissionController::class, 'show'])->name('settings.roles.show');
     });
 });
 

@@ -2,6 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  color: #343a4b;
+.item-list:hover:first-child {
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.item-list:last-child {
+  border-bottom: 0;
+}
+
+.item-list:hover:last-child {
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
 }

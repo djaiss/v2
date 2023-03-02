@@ -2,11 +2,13 @@
 
 namespace Tests\Unit\Domains\Settings\ManageCompany\Services;
 
+use App\Domains\Settings\ManageCompany\Jobs\SetupCompany;
 use App\Domains\Settings\ManageCompany\Services\CreateCompany;
 use App\Models\Company;
 use App\Models\Employee;
 use Exception;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Support\Facades\Queue;
 use Illuminate\Validation\ValidationException;
 use Tests\TestCase;
 
@@ -47,6 +49,8 @@ class CreateCompanyTest extends TestCase
 
     private function executeService(Employee $employee): void
     {
+        Queue::fake();
+
         $request = [
             'employee_id' => $employee->id,
             'name' => 'acme',
@@ -68,5 +72,7 @@ class CreateCompanyTest extends TestCase
             Company::class,
             $company
         );
+
+        Queue::assertPushed(SetupCompany::class);
     }
 }
