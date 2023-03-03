@@ -2,7 +2,6 @@
 
 namespace Tests\Unit\Domains\Settings\ManageRoles\Services;
 
-use App\Domains\Settings\ManageCompany\Services\CreateCompany;
 use App\Domains\Settings\ManageRoles\Services\CreateRole;
 use App\Models\Employee;
 use App\Models\Role;

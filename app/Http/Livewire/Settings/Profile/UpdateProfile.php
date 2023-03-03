@@ -3,7 +3,6 @@
 namespace App\Http\Livewire\Settings\Profile;
 
 use App\Domains\Settings\ManageProfile\Services\UpdateProfileInformation;
-use App\Domains\Settings\ManageRoles\Services\CreateRole;
 use App\Domains\Settings\ManageSettings\Web\ViewModels\SettingsIndexViewModel;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;

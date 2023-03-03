@@ -4,7 +4,6 @@ namespace App\Http\Livewire\Settings\Roles;
 
 use App\Domains\Settings\ManageRoles\Services\CreateRole;
 use App\Domains\Settings\ManageRoles\Web\ViewModels\SettingsRoleIndexViewModel;
-use App\Domains\Settings\ManageSettings\Web\ViewModels\SettingsIndexViewModel;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
@@ -31,7 +30,7 @@ class ListAndCreateRole extends Component
 
     public function toggle(): void
     {
-        $this->openModal = !$this->openModal;
+        $this->openModal = ! $this->openModal;
     }
 
     public function store(): void

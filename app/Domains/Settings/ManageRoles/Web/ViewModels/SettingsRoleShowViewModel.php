@@ -2,8 +2,6 @@
 
 namespace App\Domains\Settings\ManageRoles\Web\ViewModels;
 
-use Illuminate\Support\Collection;
-
 class SettingsRoleShowViewModel
 {
     public function __construct(

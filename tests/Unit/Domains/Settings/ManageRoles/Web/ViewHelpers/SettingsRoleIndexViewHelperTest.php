@@ -4,10 +4,7 @@ namespace Tests\Unit\Domains\Settings\ManageRoles\Web\ViewHelpers;
 
 use App\Domains\Settings\ManageRoles\Web\ViewHelpers\SettingsRoleIndexViewHelper;
 use App\Domains\Settings\ManageRoles\Web\ViewModels\SettingsRoleIndexViewModel;
-use App\Domains\Settings\ManageSettings\Web\ViewHelpers\SettingsIndexViewHelper;
-use App\Domains\Settings\ManageSettings\Web\ViewModels\SettingsIndexViewModel;
 use App\Models\Company;
-use App\Models\Employee;
 use App\Models\Role;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;

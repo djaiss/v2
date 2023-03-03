@@ -5,7 +5,6 @@ namespace App\Domains\Settings\ManageRoles\Services;
 use App\Models\Employee;
 use App\Models\Role;
 use App\Services\BaseService;
-use Illuminate\Validation\ValidationException;
 
 class CreateRole extends BaseService
 {
