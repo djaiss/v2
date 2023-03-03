@@ -13,7 +13,7 @@ class SettingsController extends Controller
     {
         $viewModel = SettingsIndexViewHelper::data(Auth::user());
 
-        return view('settings.index', [
+        return view('settings.profile.index', [
             'view' => $viewModel,
         ]);
     }

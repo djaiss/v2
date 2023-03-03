@@ -1,20 +1,21 @@
 <?php
 
-namespace Tests\Unit\Domains\Settings\ManageCompany\Services;
+namespace Tests\Unit\Domains\Settings\ManageRoles\Services;
 
 use App\Domains\Settings\ManageCompany\Services\CreateCompany;
 use App\Domains\Settings\ManageRoles\Services\CreateRole;
 use App\Models\Employee;
+use App\Models\Role;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Validation\ValidationException;
 use Tests\TestCase;
 
-class UpdateProfileInformationTest extends TestCase
+class CreateRoleTest extends TestCase
 {
     use DatabaseTransactions;
 
     /** @test */
-    public function it_updates_the_information_of_the_employee(): void
+    public function it_creates_a_role(): void
     {
         $employee = Employee::factory()->create();
         $this->executeService($employee);
@@ -28,30 +29,26 @@ class UpdateProfileInformationTest extends TestCase
         ];
 
         $this->expectException(ValidationException::class);
-        (new CreateCompany())->execute($request);
+        (new CreateRole())->execute($request);
     }
 
     private function executeService(Employee $employee): void
     {
         $request = [
             'employee_id' => $employee->id,
-            'first_name' => 'michael',
-            'last_name' => 'scott',
-            'email' => 'michael.scott@gmail.com',
+            'name' => 'Dunder',
         ];
 
-        $employee = (new CreateRole())->execute($request);
+        $role = (new CreateRole())->execute($request);
 
-        $this->assertDatabaseHas('employees', [
-            'id' => $employee->id,
-            'first_name' => 'michael',
-            'last_name' => 'scott',
-            'email' => 'michael.scott@gmail.com',
+        $this->assertDatabaseHas('roles', [
+            'id' => $role->id,
+            'name' => 'Dunder',
         ]);
 
         $this->assertInstanceOf(
-            Employee::class,
-            $employee
+            Role::class,
+            $role
         );
     }
 }

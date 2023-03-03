@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Domains\Settings\ManagePermissions\Web\Controllers;
+namespace App\Domains\Settings\ManageRoles\Web\Controllers;
 
-use App\Domains\Settings\ManagePermissions\Web\ViewHelpers\SettingsPermissionIndexViewHelper;
+use App\Domains\Settings\ManageRoles\Web\ViewHelpers\SettingsRoleIndexViewHelper;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
-class SettingsPermissionController extends Controller
+class SettingsRoleController extends Controller
 {
     public function index(): View
     {
-        $viewModel = SettingsPermissionIndexViewHelper::data(Auth::user()->company);
+        $viewModel = SettingsRoleIndexViewHelper::data(Auth::user()->company);
 
         return view('settings.roles.index', [
             'view' => $viewModel,
@@ -21,7 +21,7 @@ class SettingsPermissionController extends Controller
 
     public function show(Request $request, int $roleId): View
     {
-        $viewModel = SettingsPermissionIndexViewHelper::data(Auth::user()->company);
+        $viewModel = SettingsRoleIndexViewHelper::data(Auth::user()->company);
 
         return view('settings.roles.index', [
             'view' => $viewModel,

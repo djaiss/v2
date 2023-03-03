@@ -7,13 +7,7 @@
       </div>
 
       <div class="md:mt-0 md:col-span-2">
-        <ul class=" list mb-2 rounded-lg border border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-900">
-          @foreach ($view->roles as $role)
-          <li class="item-list border-b border-gray-200 hover:bg-slate-50 dark:border-gray-700 dark:bg-slate-900 hover:dark:bg-slate-800 p-3">
-            <x-link route="{{ $role['url'] }}">{{ $role['name'] }}</x-link>
-          </li>
-          @endforeach
-        </ul>
+        <livewire:settings.roles.list-and-create-role :view="$view" />
       </div>
     </div>
   </div>

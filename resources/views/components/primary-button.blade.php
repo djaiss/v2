@@ -1,5 +1,16 @@
-@props(['disabled' => false])
-
-<button {{ $attributes->merge(['type' => 'submit', 'class' => 'transition-all hover:ring-4 ring-gray-300 inline-flex items-center px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-lg font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150 disabled:cursor-wait disabled:bg-stone-500']) }}>
+@if ($attributes->has('href'))
+<a {{ $attributes->merge(['class' => 'relative text-sm dark:text-gray-100 dark:box-s bg-white dark:bg-gray-800 border-zinc-900 dark:border-zinc-100 rounded button']) }} href="{{ $href }}">
+  @if ($attributes->has('save'))
+  <span class="flex items-center">
+    <x-heroicon-o-plus-small class="icon relative mr-1 inline h-5 w-5" />
+    <span>{{ $slot }}</span>
+  </span>
+  @else
+  {{ $slot }}
+  @endif
+</a>
+@else
+<button {{ $attributes->merge(['type' => 'submit', 'class' => 'relative text-sm dark:text-gray-100 dark:box-s bg-white dark:bg-gray-800 border-zinc-900 dark:border-zinc-100 rounded save button']) }}>
   {{ $slot }}
 </button>
+@endif

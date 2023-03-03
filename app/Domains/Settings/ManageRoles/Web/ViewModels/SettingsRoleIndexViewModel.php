@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Domains\Settings\ManagePermissions\Web\ViewModels;
+namespace App\Domains\Settings\ManageRoles\Web\ViewModels;
 
 use Illuminate\Support\Collection;
 
-class SettingsPermissionIndexViewModel
+class SettingsRoleIndexViewModel
 {
     public function __construct(
         public ?Collection $roles,

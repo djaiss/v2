@@ -3,12 +3,13 @@
 namespace App\Http\Livewire\Settings\Profile;
 
 use App\Domains\Settings\ManageProfile\Services\UpdateProfileInformation;
+use App\Domains\Settings\ManageRoles\Services\CreateRole;
 use App\Domains\Settings\ManageSettings\Web\ViewModels\SettingsIndexViewModel;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use WireUi\Traits\Actions;
 
-class EditProfile extends Component
+class UpdateProfile extends Component
 {
     use Actions;
 
@@ -25,10 +26,10 @@ class EditProfile extends Component
 
     public function render()
     {
-        return view('settings.profile.livewire-profile');
+        return view('settings.profile.livewire-update-profile');
     }
 
-    public function save(): void
+    public function store(): void
     {
         (new UpdateProfileInformation())->execute([
             'employee_id' => Auth::user()->id,
