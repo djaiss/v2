@@ -2,7 +2,6 @@
 
 namespace Tests\Unit\Domains\Settings\ManageCompany\Services;
 
-use App\Domains\Settings\ManageCompany\Services\CreateCompany;
 use App\Domains\Settings\ManageProfile\Services\UpdateProfileInformation;
 use App\Models\Employee;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
@@ -28,7 +27,7 @@ class UpdateProfileInformationTest extends TestCase
         ];
 
         $this->expectException(ValidationException::class);
-        (new CreateCompany())->execute($request);
+        (new UpdateProfileInformation())->execute($request);
     }
 
     private function executeService(Employee $employee): void

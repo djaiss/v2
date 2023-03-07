@@ -5,7 +5,7 @@
   </div>
 
   <div class="md:mt-0 md:col-span-2">
-    <form wire:submit.prevent="save">
+    <form wire:submit.prevent="store">
       <!-- first name -->
       <div class="w-full max-w-lg mb-4">
         <x-input-label for="first_name" :value="__('First name')" />
@@ -28,7 +28,7 @@
         <x-input-error :messages="$errors->get('email')" class="mt-2" />
       </div>
 
-      <div class="flex items-center justify-between">
+      <div class="flex items-center justify-between mb-4">
         <x-primary-button wire:loading.attr="disabled" dusk="submit-button">
           {{ __('Save') }}
         </x-primary-button>

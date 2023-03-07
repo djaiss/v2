@@ -23,7 +23,9 @@ class RoleTest extends TestCase
     {
         $permission = Permission::factory()->create();
         $role = Role::factory()->create();
-        $role->permissions()->sync($permission);
+        $role->permissions()->attach($permission, [
+            'company_id' => $role->company_id,
+        ]);
 
         $this->assertTrue($role->permissions()->exists());
     }

@@ -13,45 +13,18 @@
   </div>
 
   <!-- settings -->
-  <!-- Settings Dropdown -->
   <div class="hidden sm:flex sm:items-center sm:ml-6">
-    <x-dropdown align="right" width="48">
+    <x-dropdown>
       <x-slot name="trigger">
-        <div href class="cursor-pointer flex items-center">
-          <svg xmlns="http://www.w3.org/2000/svg" class="mr-1 inline-block h-4 w-4 cursor-pointer text-gray-600 dark:text-gray-400 sm:h-4 sm:w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-          </svg>
+        <div class="flex items-center">
+          <x-heroicon-o-cog-8-tooth class="mr-1 inline-block h-4 w-4 cursor-pointer text-gray-600 dark:text-gray-400 sm:h-4 sm:w-4" />
 
-          <span class="text-sm dark:text-sky-400">Settings</span>
+          <span class=" text-sm dark:text-sky-400">Settings</span>
         </div>
-
       </x-slot>
-
-      <x-slot name="content">
-        <x-dropdown-link :href="route('home.index')" class="group">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 mr-2 group-hover:text-cyan-600">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M15.182 15.182a4.5 4.5 0 01-6.364 0M21 12a9 9 0 11-18 0 9 9 0 0118 0zM9.75 9.75c0 .414-.168.75-.375.75S9 10.164 9 9.75 9.168 9 9.375 9s.375.336.375.75zm-.375 0h.008v.015h-.008V9.75zm5.625 0c0 .414-.168.75-.375.75s-.375-.336-.375-.75.168-.75.375-.75.375.336.375.75zm-.375 0h.008v.015h-.008V9.75z" />
-          </svg>
-
-          {{ __('Your profile') }}
-        </x-dropdown-link>
-
-        <!-- Authentication -->
-        <form method="POST" action="{{ route('logout') }}">
-          @csrf
-
-          <x-dropdown-link :href="route('logout')" onclick="event.preventDefault();
-                                                this.closest('form').submit();" class="group">
-
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 mr-2 group-hover:text-cyan-600">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
-            </svg>
-
-            {{ __('Log out') }}
-          </x-dropdown-link>
-        </form>
-      </x-slot>
+      <x-dropdown.item label="{{ __('Your profile') }}" />
+      <x-dropdown.item href="{{ route('settings.index') }}" separator label="{{ __('Settings') }}" />
+      <x-dropdown.item label="{{ __('Log out') }}" />
     </x-dropdown>
   </div>
 
@@ -102,27 +75,27 @@
     </div>
 
     <!-- Responsive Settings Options -->
-    <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
-      <div class="px-4">
-        <div class="font-medium text-base text-gray-800 dark:text-gray-200">{{ Auth::user()->name }}</div>
-        <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
-      </div>
+    <div class=" pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
+        <div class="px-4">
+          <div class="font-medium text-base text-gray-800 dark:text-gray-200">{{ Auth::user()->name }}</div>
+          <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
+        </div>
 
-      <div class="mt-3 space-y-1">
-        <x-link :route="'home.index'">
-          {{ __('Profile') }}
-        </x-link>
-
-        <!-- Authentication -->
-        <form method="POST" action="{{ route('logout') }}">
-          @csrf
-
-          <x-link :route="'logout'" onclick="event.preventDefault();
-                                        this.closest('form').submit();">
-            {{ __('Log Out') }}
+        <div class="mt-3 space-y-1">
+          <x-link :route="'home.index'">
+            {{ __('Profile') }}
           </x-link>
-        </form>
-      </div>
-    </div>
+
+          <!-- Authentication -->
+          <form method="POST" action="{{ route('logout') }}">
+            @csrf
+
+            <x-link :route="'logout'" onclick="event.preventDefault();
+                                        this.closest('form').submit();">
+              {{ __('Log Out') }}
+            </x-link>
+          </form>
+        </div>
+  </div>
   </div>
 </nav>

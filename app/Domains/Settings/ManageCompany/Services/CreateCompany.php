@@ -2,6 +2,7 @@
 
 namespace App\Domains\Settings\ManageCompany\Services;
 
+use App\Domains\Settings\ManageCompany\Jobs\SetupCompany;
 use App\Models\Company;
 use App\Models\Employee;
 use App\Services\BaseService;
@@ -57,6 +58,8 @@ class CreateCompany extends BaseService
             'name' => $this->data['name'],
             'invitation_code' => Str::random(40),
         ]);
+
+        SetupCompany::dispatch($this->company);
     }
 
     private function associateEmployeeToCompany(): void

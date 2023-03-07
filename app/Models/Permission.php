@@ -28,6 +28,9 @@ class Permission extends Model
         return $this->belongsToMany(Role::class, 'permission_role', 'permission_id', 'role_id');
     }
 
+    /**
+     * @return Attribute<?string,never>
+     */
     protected function name(): Attribute
     {
         return Attribute::make(
