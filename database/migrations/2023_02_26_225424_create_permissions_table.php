@@ -25,11 +25,6 @@ return new class extends Migration
             $table->unsignedBigInteger('company_id');
             $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
         });
-
-        DB::table('permissions')->insert([
-            'action' => 'settings.roles.create',
-            'translation_key' => 'Create a new role',
-        ]);
     }
 
     /**

@@ -17,8 +17,12 @@ class SettingsRoleIndexViewHelper
             ->get()
             ->map(fn (Role $role) => self::role($role));
 
+        $permissions = Permission::all()
+            ->map(fn (Permission $permission) => self::permission($permission));
+
         return [
             'roles' => $roles,
+            'permissions' => $permissions,
         ];
     }
 

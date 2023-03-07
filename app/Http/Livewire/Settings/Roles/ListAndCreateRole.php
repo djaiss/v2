@@ -16,6 +16,7 @@ class ListAndCreateRole extends Component
     public bool $openModal = false;
 
     public Collection $roles;
+    public Collection $permissions;
 
     public string $name;
 
@@ -23,6 +24,7 @@ class ListAndCreateRole extends Component
     {
         $this->openModal = false;
         $this->roles = $view['roles'];
+        $this->permissions = $view['permissions'];
     }
 
     public function render()

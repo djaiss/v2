@@ -17,13 +17,11 @@ class SettingsRoleIndexViewHelperTest extends TestCase
     public function it_gets_the_data_needed_for_the_view(): void
     {
         $company = Company::factory()->create();
-        $role = Role::factory()->create([
-            'company_id' => $company->id,
-        ]);
 
         $viewModel = SettingsRoleIndexViewHelper::data($company);
 
         $this->assertArrayHasKey('roles', $viewModel);
+        $this->assertArrayHasKey('permissions', $viewModel);
     }
 
     /** @test */

@@ -18,6 +18,17 @@
       </div>
     </div>
 
+    <!-- permissions -->
+    <div class="border-b border-gray-200 dark:border-gray-700 p-5">
+      <p class="block font-medium text-sm text-gray-700 dark:text-gray-300 mb-2">{{ __('Permissions') }}</p>
+
+      <div class="grid grid-cols-3 gap-1">
+        @foreach ($permissions as $permission)
+        <x-toggle label="{{ $permission['name'] }}" class="text-base" wire:model.defer="model" />
+        @endforeach
+      </div>
+    </div>
+
     <!-- actions -->
     <div class="flex justify-between p-5">
       <x-secondary-button wire:click="toggle">{{ __('Cancel') }}</x-secondary-button>
