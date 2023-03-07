@@ -52,7 +52,7 @@ class SetupDummyAccount extends Command
 
     private function start(): void
     {
-        if (!$this->confirmToProceed('Are you sure you want to proceed? This will delete ALL data in your environment.', true)) {
+        if (! $this->confirmToProceed('Are you sure you want to proceed? This will delete ALL data in your environment.', true)) {
             exit;
         }
 
@@ -86,7 +86,7 @@ class SetupDummyAccount extends Command
         $this->line('| username: blank@blank.com');
         $this->line('| password: blank123');
         $this->line('|------------------------–––-');
-        $this->line('| URL:      ' . config('app.url'));
+        $this->line('| URL:      '.config('app.url'));
         $this->line('-----------------------------');
 
         $this->info('Setup is done. Have fun.');
