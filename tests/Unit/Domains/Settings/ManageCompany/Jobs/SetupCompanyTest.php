@@ -26,5 +26,15 @@ class SetupCompanyTest extends TestCase
             'company_id' => $company->id,
             'translation_key' => 'Employee',
         ]);
+
+        $this->assertDatabaseHas('permissions', [
+            'action' => 'roles.create',
+        ]);
+        $this->assertDatabaseHas('permissions', [
+            'action' => 'roles.update',
+        ]);
+        $this->assertDatabaseHas('permissions', [
+            'action' => 'roles.destroy',
+        ]);
     }
 }

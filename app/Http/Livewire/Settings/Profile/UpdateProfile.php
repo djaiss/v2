@@ -3,7 +3,6 @@
 namespace App\Http\Livewire\Settings\Profile;
 
 use App\Domains\Settings\ManageProfile\Services\UpdateProfileInformation;
-use App\Domains\Settings\ManageSettings\Web\ViewModels\SettingsIndexViewModel;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use WireUi\Traits\Actions;
@@ -13,14 +12,16 @@ class UpdateProfile extends Component
     use Actions;
 
     public string $firstName = '';
+
     public string $lastName = '';
+
     public string $email = '';
 
-    public function mount(SettingsIndexViewModel $view)
+    public function mount(array $view)
     {
-        $this->firstName = $view->firstName ?? '';
-        $this->lastName = $view->lastName ?? '';
-        $this->email = $view->email ?? '';
+        $this->firstName = $view['firstName'] ?? '';
+        $this->lastName = $view['lastName'] ?? '';
+        $this->email = $view['email'] ?? '';
     }
 
     public function render()

@@ -3,7 +3,7 @@
 namespace App\Http\Livewire\Settings\Roles;
 
 use App\Domains\Settings\ManageRoles\Services\CreateRole;
-use App\Domains\Settings\ManageRoles\Web\ViewModels\SettingsRoleIndexViewModel;
+use App\Domains\Settings\ManageRoles\Web\ViewHelpers\SettingsRoleIndexViewHelper;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
@@ -17,10 +17,12 @@ class ListAndCreateRole extends Component
 
     public Collection $roles;
 
-    public function mount(SettingsRoleIndexViewModel $view)
+    public string $name;
+
+    public function mount(array $view)
     {
         $this->openModal = false;
-        $this->roles = $view->roles;
+        $this->roles = $view['roles'];
     }
 
     public function render()
@@ -31,20 +33,26 @@ class ListAndCreateRole extends Component
     public function toggle(): void
     {
         $this->openModal = ! $this->openModal;
+
+        if ($this->openModal) {
+            $this->emit('focusNameField');
+        }
     }
 
     public function store(): void
     {
-        (new CreateRole())->execute([
+        $role = (new CreateRole())->execute([
             'employee_id' => Auth::user()->id,
-            'first_name' => $this->firstName,
-            'last_name' => $this->lastName,
-            'email' => $this->email,
+            'name' => $this->name,
         ]);
 
         $this->notification()->success(
             $title = __('Changes saved'),
-            $description = __('Your profile was successfully saved.'),
+            $description = __('The role has been created.'),
         );
+
+        $this->roles->push(SettingsRoleIndexViewHelper::role($role));
+        $this->name = '';
+        $this->toggle();
     }
 }

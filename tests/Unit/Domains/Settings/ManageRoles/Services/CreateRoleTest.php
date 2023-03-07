@@ -40,14 +40,14 @@ class CreateRoleTest extends TestCase
 
         $role = (new CreateRole())->execute($request);
 
-        $this->assertDatabaseHas('roles', [
-            'id' => $role->id,
-            'name' => 'Dunder',
-        ]);
-
         $this->assertInstanceOf(
             Role::class,
             $role
         );
+
+        $this->assertDatabaseHas('roles', [
+            'id' => $role->id,
+            'name' => 'Dunder',
+        ]);
     }
 }

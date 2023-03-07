@@ -3,7 +3,6 @@
 namespace Tests\Unit\Domains\ManageSettings\Web\ViewHelpers;
 
 use App\Domains\Settings\ManageSettings\Web\ViewHelpers\SettingsIndexViewHelper;
-use App\Domains\Settings\ManageSettings\Web\ViewModels\SettingsIndexViewModel;
 use App\Models\Employee;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
@@ -23,22 +22,17 @@ class SettingsIndexViewHelperTest extends TestCase
 
         $viewModel = SettingsIndexViewHelper::data($employee);
 
-        $this->assertInstanceOf(
-            SettingsIndexViewModel::class,
-            $viewModel
-        );
-
         $this->assertEquals(
             'regis',
-            $viewModel->firstName
+            $viewModel['firstName']
         );
         $this->assertEquals(
             'boudin',
-            $viewModel->lastName
+            $viewModel['lastName']
         );
         $this->assertEquals(
             'regis@boudin.com',
-            $viewModel->email
+            $viewModel['email']
         );
     }
 }
