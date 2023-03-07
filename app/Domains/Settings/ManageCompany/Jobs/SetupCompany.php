@@ -46,16 +46,8 @@ class SetupCompany implements ShouldQueue
         // permissions
         $permissionsTable = [
             [
-                'action' => 'roles.create',
-                'translation_key' => 'Create a role',
-            ],
-            [
-                'action' => 'roles.update',
-                'translation_key' => 'Update a role',
-            ],
-            [
-                'action' => 'roles.destroy',
-                'translation_key' => 'Delete a role',
+                'action' => 'company.permissions',
+                'translation_key' => 'Manage company roles and permissions',
             ],
         ];
 

@@ -28,13 +28,7 @@ class SetupCompanyTest extends TestCase
         ]);
 
         $this->assertDatabaseHas('permissions', [
-            'action' => 'roles.create',
-        ]);
-        $this->assertDatabaseHas('permissions', [
-            'action' => 'roles.update',
-        ]);
-        $this->assertDatabaseHas('permissions', [
-            'action' => 'roles.destroy',
+            'action' => 'company.permissions',
         ]);
     }
 }

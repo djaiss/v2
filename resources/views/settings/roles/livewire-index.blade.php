@@ -13,7 +13,7 @@
       <!-- name -->
       <div class="w-full max-w-lg">
         <x-input-label for="name" :value="__('Label')" />
-        <x-text-input wire:model.defer="name" id="name" dusk="name-field" class="block mt-1 w-full name" type="text" name="name" :value="old('name')" autofocus />
+        <x-text-input wire:model.defer="name" id="name" dusk="name-field" class="block mt-1 w-full name" type="text" name="name" :value="old('name')" autofocus required />
         <x-input-error :messages="$errors->get('name')" class="mt-2" />
       </div>
     </div>
@@ -23,8 +23,8 @@
       <p class="block font-medium text-sm text-gray-700 dark:text-gray-300 mb-2">{{ __('Permissions') }}</p>
 
       <div class="grid grid-cols-3 gap-1">
-        @foreach ($permissions as $permission)
-        <x-toggle label="{{ $permission['name'] }}" class="text-base" wire:model.defer="model" />
+        @foreach ($permissions as $index => $permission)
+        <x-toggle label="{{ $permission['name'] }}" wire:model.defer="permissions.{{ $index }}.active" :checked="$permission['active'] == 1" class="text-base" :wire:key="$permission['id']" id="toggle-{{ $permission['id'] }}" />
         @endforeach
       </div>
     </div>
@@ -43,7 +43,7 @@
   <!-- list of roles -->
   <ul class=" list mb-2 rounded-lg border border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-900">
     @foreach ($roles as $role)
-    <li class="item-list border-b border-gray-200 hover:bg-slate-50 dark:border-gray-700 dark:bg-slate-900 hover:dark:bg-slate-800 p-3 flex justify-between items-center">
+    <li :wire:key="$role['id']" class="item-list border-b border-gray-200 hover:bg-slate-50 dark:border-gray-700 dark:bg-slate-900 hover:dark:bg-slate-800 p-3 flex justify-between items-center">
       <x-link route="{{ $role['url'] }}">{{ $role['name'] }}</x-link>
 
       <x-dropdown>

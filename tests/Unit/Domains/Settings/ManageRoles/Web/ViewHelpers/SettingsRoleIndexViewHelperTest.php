@@ -65,6 +65,7 @@ class SettingsRoleIndexViewHelperTest extends TestCase
             [
                 'id' => $permission->id,
                 'name' => 'janitor',
+                'active' => true,
             ],
             $array
         );

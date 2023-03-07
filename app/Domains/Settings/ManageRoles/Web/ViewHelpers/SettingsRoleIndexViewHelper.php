@@ -46,6 +46,7 @@ class SettingsRoleIndexViewHelper
         return [
             'id' => $permission->id,
             'name' => $permission->name,
+            'active' => true,
         ];
     }
 }

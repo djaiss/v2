@@ -4,6 +4,7 @@ namespace Tests\Unit\Domains\Settings\ManageRoles\Services;
 
 use App\Domains\Settings\ManageRoles\Services\CreateRole;
 use App\Models\Employee;
+use App\Models\Permission;
 use App\Models\Role;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Validation\ValidationException;
@@ -33,9 +34,17 @@ class CreateRoleTest extends TestCase
 
     private function executeService(Employee $employee): void
     {
+        $permission = Permission::factory()->create();
+
         $request = [
             'employee_id' => $employee->id,
             'name' => 'Dunder',
+            'permissions' => [
+                0 => [
+                    'id' => $permission->id,
+                    'active' => true,
+                ],
+            ],
         ];
 
         $role = (new CreateRole())->execute($request);
@@ -48,6 +57,12 @@ class CreateRoleTest extends TestCase
         $this->assertDatabaseHas('roles', [
             'id' => $role->id,
             'name' => 'Dunder',
+        ]);
+
+        $this->assertDatabaseHas('permission_role', [
+            'permission_id' => $permission->id,
+            'role_id' => $role->id,
+            'company_id' => $role->company_id,
         ]);
     }
 }

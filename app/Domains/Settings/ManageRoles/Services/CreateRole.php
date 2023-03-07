@@ -3,6 +3,7 @@
 namespace App\Domains\Settings\ManageRoles\Services;
 
 use App\Models\Employee;
+use App\Models\Permission;
 use App\Models\Role;
 use App\Services\BaseService;
 
@@ -16,6 +17,7 @@ class CreateRole extends BaseService
         return [
             'employee_id' => 'required|integer|exists:employees,id',
             'name' => 'required|string|max:255',
+            'permissions' => 'nullable|array',
         ];
     }
 
@@ -29,6 +31,17 @@ class CreateRole extends BaseService
             'company_id' => $employee->company_id,
             'name' => $data['name'],
         ]);
+
+        if ($data['permissions']) {
+            foreach ($data['permissions'] as $permission) {
+                $permissionObject = Permission::findOrFail($permission['id']);
+                if ($permission['active']) {
+                    $permissionObject->roles()->sync([$role->id => ['company_id' => $employee->company_id]]);
+                } else {
+                    $permissionObject->roles()->detach($role->id);
+                }
+            }
+        }
 
         return $role;
     }

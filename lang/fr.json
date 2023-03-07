@@ -55,7 +55,5 @@
   "Changes saved": "Modifications enregistrées",
   "Your profile was successfully saved.": "Votre profil a été enregistré avec succès.",
   "The role has been created.": "Le rôle a été créé.",
-  "Create a role": "Créer un rôle",
-  "Update a role": "Modifier un rôle",
-  "Delete a role": "Supprimer un rôle"
+  "Manage company roles and permissions": "Gérer les rôles et permissions de l'entreprise"
 }
