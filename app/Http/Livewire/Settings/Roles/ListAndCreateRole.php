@@ -43,10 +43,10 @@ class ListAndCreateRole extends Component
 
     public function store(): void
     {
-        dd($this->permissions);
         $role = (new CreateRole())->execute([
             'employee_id' => Auth::user()->id,
             'name' => $this->name,
+            'permissions' => $this->permissions->toArray(),
         ]);
 
         $this->notification()->success(

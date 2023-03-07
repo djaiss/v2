@@ -36,9 +36,9 @@ class CreateRole extends BaseService
             foreach ($data['permissions'] as $permission) {
                 $permissionObject = Permission::findOrFail($permission['id']);
                 if ($permission['active']) {
-                    $permissionObject->roles()->sync([$role->id => ['company_id' => $employee->company_id]]);
+                    $role->permissions()->sync([$permissionObject->id => ['company_id' => $employee->company_id]]);
                 } else {
-                    $permissionObject->roles()->detach($role->id);
+                    $role->permissions()->detach($permissionObject->id);
                 }
             }
         }
