@@ -19,9 +19,9 @@
     <div class="flex justify-between items-center mt-4">
       <x-link :route="route('login.create')">{{ __('Go back') }}</x-link>
 
-      <x-primary-button class="ml-4">
+      <x-button-form class="ml-4">
         {{ __('Email password reset link') }}
-      </x-primary-button>
+      </x-button-form>
     </div>
   </form>
 </x-guest-layout>

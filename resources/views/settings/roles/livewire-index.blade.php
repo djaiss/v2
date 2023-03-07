@@ -1,9 +1,9 @@
 <div class="">
   @if (! $openModal)
   <div class="flex justify-end mb-3">
-    <x-secondary-button wire:click="toggle" dusk="open-modal-button">
+    <x-button-form wire:click="toggle" dusk="open-modal-button" secondary>
       {{ __('Add') }}
-    </x-secondary-button>
+    </x-button-form>
   </div>
   @endif
 
@@ -31,11 +31,11 @@
 
     <!-- actions -->
     <div class="flex justify-between p-5">
-      <x-secondary-button wire:click="toggle">{{ __('Cancel') }}</x-secondary-button>
+      <x-button-form secondary wire:click="toggle">{{ __('Cancel') }}</x-button-form>
 
-      <x-primary-button wire:loading.attr="disabled" dusk="submit-button">
+      <x-button-form wire:loading.attr="disabled" dusk="submit-button">
         {{ __('Save') }}
-      </x-primary-button>
+      </x-button-form>
     </div>
   </form>
   @endif

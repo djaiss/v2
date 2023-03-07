@@ -29,9 +29,9 @@
       </div>
 
       <div class="flex items-center justify-between mb-4">
-        <x-primary-button wire:loading.attr="disabled" dusk="submit-button">
+        <x-button-form wire:loading.attr="disabled" dusk="submit-button">
           {{ __('Save') }}
-        </x-primary-button>
+        </x-button-form>
       </div>
     </form>
   </div>
