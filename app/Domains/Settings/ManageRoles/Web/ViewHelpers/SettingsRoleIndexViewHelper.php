@@ -31,7 +31,7 @@ class SettingsRoleIndexViewHelper
         return [
             'id' => $role->id,
             'name' => $role->name,
-            'permissions' => self::permissions($role->permissions),
+            'permissions' => self::permissions($role->permissions()->get()),
             'url' => route('settings.roles.show', $role->id),
         ];
     }
