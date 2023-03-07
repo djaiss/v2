@@ -20,9 +20,9 @@
     <div class="flex items-center justify-between mt-4">
       <x-link :route="route('welcome.index')">{{ __('Go back') }}</x-link>
 
-      <x-primary-button class="ml-3" dusk="submit-button">
+      <x-button-form class="ml-3" dusk="submit-button">
         {{ __('Create') }}
-      </x-primary-button>
+      </x-button-form>
     </div>
   </form>
 </x-guest-layout>

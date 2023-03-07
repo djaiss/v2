@@ -39,9 +39,9 @@
       <x-link :route="route('password.request')">{{ __('Forgot your password?') }}</x-link>
       @endif
 
-      <x-primary-button class="ml-3" dusk="submit-button">
+      <x-button-form class="ml-3" dusk="submit-button">
         {{ __('Log in') }}
-      </x-primary-button>
+      </x-button-form>
     </div>
   </form>
 </x-guest-layout>

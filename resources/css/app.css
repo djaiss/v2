@@ -29,10 +29,11 @@
   transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform, filter,
     backdrop-filter, -webkit-backdrop-filter !important;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) !important;
-  font-size: 0.875rem !important;
   line-height: 1.25rem !important;
-  padding-left: 9px;
-  padding-right: 9px;
+  padding-left: 12px;
+  padding-right: 12px;
+  padding-top: 3px;
+  padding-bottom: 3px;
 }
 .button:hover {
   box-shadow: none !important;

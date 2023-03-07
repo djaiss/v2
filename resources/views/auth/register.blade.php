@@ -33,9 +33,9 @@
     <div class="flex items-center justify-between mt-4">
       <x-link :route="route('login.create')">{{ __('Already registered?') }}</x-link>
 
-      <x-primary-button class="ml-4" dusk="submit-button">
+      <x-button-form class="ml-4" dusk="submit-button">
         {{ __('Register') }}
-      </x-primary-button>
+      </x-button-form>
     </div>
   </form>
 </x-guest-layout>
