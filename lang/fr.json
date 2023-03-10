@@ -58,6 +58,7 @@
   "Changes saved": "Modifications enregistrées",
   "Your profile was successfully saved.": "Votre profil a été enregistré avec succès.",
   "The role has been created.": "Le rôle a été créé.",
+  "The role has been updated": "Le rôle a été mis à jour",
   "Manage company roles and permissions": "Gérer les rôles et permissions de l'entreprise",
   "Roles & permissions": "Rôles & permissions",
   "You can configure all the roles and permissions used throughout the application.": "Vous pouvez configurer tous les rôles et permissions utilisés dans l'application."

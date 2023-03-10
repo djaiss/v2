@@ -33,6 +33,7 @@ class ListAndCreateRole extends Component
 
     public function toggle(): void
     {
+        $this->name = '';
         $this->openModal = ! $this->openModal;
 
         if ($this->openModal) {
@@ -66,6 +67,25 @@ class ListAndCreateRole extends Component
         $this->notification()->success(
             $title = __('Element added'),
             $description = __('The role has been created.'),
+        );
+
+        $this->roles->push(SettingsRoleIndexViewHelper::role($role));
+        $this->name = '';
+        $this->toggle();
+    }
+
+    public function update(int $roleId): void
+    {
+        $role = (new UpdateRole())->execute([
+            'employee_id' => Auth::user()->id,
+            'role_id' => $roleId,
+            'name' => $this->name,
+            'permissions' => $this->permissions->toArray(),
+        ]);
+
+        $this->notification()->success(
+            $title = __('Changes saved'),
+            $description = __('The role has been updated.'),
         );
 
         $this->roles->push(SettingsRoleIndexViewHelper::role($role));
