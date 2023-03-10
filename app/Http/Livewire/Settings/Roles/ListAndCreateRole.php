@@ -14,10 +14,9 @@ class ListAndCreateRole extends Component
     use Actions;
 
     public bool $openModal = false;
-
+    public int $editedRoleId = 0;
     public Collection $roles;
     public Collection $permissions;
-
     public string $name;
 
     public function mount(array $view)
@@ -41,6 +40,21 @@ class ListAndCreateRole extends Component
         }
     }
 
+    public function toggleEdit(int $roleId = 0): void
+    {
+        $this->editedRoleId = $roleId;
+
+        if ($roleId !== 0) {
+            $role = $this->roles->filter(function (array $value, int $key) use ($roleId) {
+                return $value['id'] === $roleId;
+            })->first();
+
+            $this->emit('focusNameField');
+            $this->name = $role['name'];
+
+        }
+    }
+
     public function store(): void
     {
         $role = (new CreateRole())->execute([
@@ -50,7 +64,7 @@ class ListAndCreateRole extends Component
         ]);
 
         $this->notification()->success(
-            $title = __('Changes saved'),
+            $title = __('Element added'),
             $description = __('The role has been created.'),
         );
 
