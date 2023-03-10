@@ -51,7 +51,6 @@ class ListAndCreateRole extends Component
 
             $this->emit('focusNameField');
             $this->name = $role['name'];
-
         }
     }
 
