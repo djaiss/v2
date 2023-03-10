@@ -6,7 +6,6 @@ use App\Domains\Layout\Web\ViewHelpers\LayoutViewHelper;
 use App\Models\Company;
 use App\Models\Employee;
 use Carbon\Carbon;
-use function env;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
 
@@ -47,12 +46,12 @@ class LayoutViewHelperTest extends TestCase
                 0 => [
                     'name' => 'English',
                     'shortCode' => 'en',
-                    'url' => env('APP_URL').'/locale/en',
+                    'url' => config('app.url').'/locale/en',
                 ],
                 1 => [
                     'name' => 'Français',
                     'shortCode' => 'fr',
-                    'url' => env('APP_URL').'/locale/fr',
+                    'url' => config('app.url').'/locale/fr',
                 ],
             ],
             $array['locales']->toArray()

@@ -4,7 +4,6 @@ namespace App\Domains\Layout\Web\ViewHelpers;
 
 use Carbon\Carbon;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Auth;
 
 class LayoutViewHelper
 {
@@ -24,8 +23,8 @@ class LayoutViewHelper
 
         // current company for the logged employee
         $company = null;
-        if (Auth::check()) {
-            $company = Auth::user()->company;
+        if (auth()->check()) {
+            $company = auth()->user()->company;
         }
 
         return [

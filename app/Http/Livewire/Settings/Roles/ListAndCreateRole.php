@@ -5,7 +5,6 @@ namespace App\Http\Livewire\Settings\Roles;
 use App\Domains\Settings\ManageRoles\Services\CreateRole;
 use App\Domains\Settings\ManageRoles\Web\ViewHelpers\SettingsRoleIndexViewHelper;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use WireUi\Traits\Actions;
 
@@ -14,9 +13,13 @@ class ListAndCreateRole extends Component
     use Actions;
 
     public bool $openModal = false;
+
     public int $editedRoleId = 0;
+
     public Collection $roles;
+
     public Collection $permissions;
+
     public string $name;
 
     public function mount(array $view)
@@ -58,7 +61,7 @@ class ListAndCreateRole extends Component
     public function store(): void
     {
         $role = (new CreateRole())->execute([
-            'employee_id' => Auth::user()->id,
+            'employee_id' => auth()->user()->id,
             'name' => $this->name,
             'permissions' => $this->permissions->toArray(),
         ]);
@@ -76,7 +79,7 @@ class ListAndCreateRole extends Component
     public function update(int $roleId): void
     {
         $role = (new UpdateRole())->execute([
-            'employee_id' => Auth::user()->id,
+            'employee_id' => auth()->user()->id,
             'role_id' => $roleId,
             'name' => $this->name,
             'permissions' => $this->permissions->toArray(),

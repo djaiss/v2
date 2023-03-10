@@ -10,7 +10,7 @@ use App\Domains\Settings\ManageSettings\Web\Controllers\SettingsController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [ApplicationController::class, 'index'])->name('application.index');
-Route::get('/locale/{locale}', [LocaleController::class, 'update'])->name('locale.update');
+Route::get('locale/{locale}', [LocaleController::class, 'update'])->name('locale.update');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('welcome', [WelcomeController::class, 'index'])->name('welcome.index');

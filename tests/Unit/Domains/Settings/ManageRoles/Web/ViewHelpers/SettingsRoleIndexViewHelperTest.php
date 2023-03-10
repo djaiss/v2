@@ -47,7 +47,7 @@ class SettingsRoleIndexViewHelperTest extends TestCase
             $array['name']
         );
         $this->assertEquals(
-            env('APP_URL').'/settings/roles/'.$role->id,
+            config('app.url').'/settings/roles/'.$role->id,
             $array['url']
         );
     }

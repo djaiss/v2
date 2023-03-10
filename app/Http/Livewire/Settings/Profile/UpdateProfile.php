@@ -3,7 +3,6 @@
 namespace App\Http\Livewire\Settings\Profile;
 
 use App\Domains\Settings\ManageProfile\Services\UpdateProfileInformation;
-use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use WireUi\Traits\Actions;
 
@@ -32,7 +31,7 @@ class UpdateProfile extends Component
     public function store(): void
     {
         (new UpdateProfileInformation())->execute([
-            'employee_id' => Auth::user()->id,
+            'employee_id' => auth()->user()->id,
             'first_name' => $this->firstName,
             'last_name' => $this->lastName,
             'email' => $this->email,
