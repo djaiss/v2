@@ -47,16 +47,16 @@
   @endif
 
   <!-- list of roles -->
-  <ul class=" list mb-2 rounded-lg border border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-900">
+  <ul dusk="role-list" class="list mb-2 rounded-lg border border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-900">
     @foreach ($roles as $role)
     <li :wire:key="$role['id']" class="item-list border-b border-gray-200 hover:bg-slate-50 dark:border-gray-700 dark:bg-slate-900 hover:dark:bg-slate-800">
       @if ($role['id'] !== $editedRoleId)
       <div class="p-3 flex justify-between items-center">
-        <x-link route="{{ $role['url'] }}">{{ $role['name'] }}</x-link>
+        <p class="font-bold">{{ $role['name'] }}</p>
 
         <x-dropdown>
           <x-dropdown.item wire:click="toggleEdit({{ $role['id'] }})" label="{{ __('Edit') }}" />
-          <x-dropdown.item wire:click="confirmDestroy({{ $role['id'] }})" label="{{ __('Delete') }}" />
+          <x-dropdown.item dusk="destroy-button-{{ $role['id'] }}" wire:click="confirmDestroy({{ $role['id'] }})" label="{{ __('Delete') }}" />
         </x-dropdown>
       </div>
       @endif

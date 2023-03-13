@@ -36,7 +36,6 @@ class SettingsRoleIndexViewHelperTest extends TestCase
         $this->assertArrayHasKey('id', $array);
         $this->assertArrayHasKey('name', $array);
         $this->assertArrayHasKey('permissions', $array);
-        $this->assertArrayHasKey('url', $array);
 
         $this->assertEquals(
             $role->id,
@@ -45,10 +44,6 @@ class SettingsRoleIndexViewHelperTest extends TestCase
         $this->assertEquals(
             'janitor',
             $array['name']
-        );
-        $this->assertEquals(
-            config('app.url').'/settings/roles/'.$role->id,
-            $array['url']
         );
     }
 

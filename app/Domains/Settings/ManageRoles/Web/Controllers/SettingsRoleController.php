@@ -17,13 +17,4 @@ class SettingsRoleController extends Controller
             'view' => $viewModel,
         ]);
     }
-
-    public function show(Request $request, int $roleId): View
-    {
-        $viewModel = SettingsRoleIndexViewHelper::data(auth()->user()->company);
-
-        return view('settings.roles.index', [
-            'view' => $viewModel,
-        ]);
-    }
 }
