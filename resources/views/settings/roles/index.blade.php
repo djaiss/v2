@@ -7,7 +7,7 @@
       </div>
 
       <div class="md:mt-0 md:col-span-2">
-        <livewire:settings.roles.list-and-create-role :view="$view" />
+        <livewire:settings.roles.manage-role :view="$view" />
       </div>
     </div>
   </div>

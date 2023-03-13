@@ -5,7 +5,6 @@ namespace App\Domains\Settings\ManageRoles\Web\ViewHelpers;
 use App\Models\Company;
 use App\Models\Permission;
 use App\Models\Role;
-use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Support\Collection;
 
 class SettingsRoleIndexViewHelper
@@ -22,7 +21,7 @@ class SettingsRoleIndexViewHelper
 
         return [
             'roles' => $roles,
-            'permissions' => $permissions,
+            'all_possible_permissions' => $permissions,
         ];
     }
 
@@ -31,22 +30,24 @@ class SettingsRoleIndexViewHelper
         return [
             'id' => $role->id,
             'name' => $role->name,
-            'permissions' => self::permissions($role->permissions()->get()),
+            'permissions' => self::permissions($role),
             'url' => route('settings.roles.show', $role->id),
         ];
     }
 
-    public static function permissions(EloquentCollection $permissions): Collection
+    public static function permissions(Role $role): Collection
     {
-        return $permissions->map(fn (Permission $permission) => self::permission($permission));
+        $permissions = $role->permissions()->get();
+
+        return $permissions->map(fn (Permission $permission) => self::permission($permission, $permission->pivot->active));
     }
 
-    public static function permission(Permission $permission): array
+    public static function permission(Permission $permission, bool $active = true): array
     {
         return [
             'id' => $permission->id,
             'name' => $permission->name,
-            'active' => true,
+            'active' => $active,
         ];
     }
 }

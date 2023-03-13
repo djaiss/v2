@@ -21,7 +21,7 @@ class SettingsRoleIndexViewHelperTest extends TestCase
         $viewModel = SettingsRoleIndexViewHelper::data($company);
 
         $this->assertArrayHasKey('roles', $viewModel);
-        $this->assertArrayHasKey('permissions', $viewModel);
+        $this->assertArrayHasKey('all_possible_permissions', $viewModel);
     }
 
     /** @test */

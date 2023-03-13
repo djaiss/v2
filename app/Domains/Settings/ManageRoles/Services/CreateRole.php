@@ -9,9 +9,6 @@ use App\Services\BaseService;
 
 class CreateRole extends BaseService
 {
-    /**
-     * Get the validation rules that apply to the service.
-     */
     public function rules(): array
     {
         return [
@@ -32,15 +29,9 @@ class CreateRole extends BaseService
             'name' => $data['name'],
         ]);
 
-        if ($data['permissions']) {
-            foreach ($data['permissions'] as $permission) {
-                $permissionObject = Permission::findOrFail($permission['id']);
-                if ($permission['active']) {
-                    $role->permissions()->sync([$permissionObject->id => ['company_id' => $employee->company_id]]);
-                } else {
-                    $role->permissions()->detach($permissionObject->id);
-                }
-            }
+        foreach ($data['permissions'] as $permission) {
+            $permissionObject = Permission::findOrFail($permission['id']);
+            $role->permissions()->syncWithoutDetaching([$permissionObject->id => ['active' => $permission['active']]]);
         }
 
         return $role;

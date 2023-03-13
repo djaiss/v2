@@ -16,6 +16,8 @@
 <body class="font-sans antialiased bg-gray-100 dark:bg-gray-900 text-slate-800">
   <x-notifications />
 
+  <x-dialog />
+
   <div class="min-h-screen">
     @include('layouts.navigation')
 

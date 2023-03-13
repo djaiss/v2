@@ -43,17 +43,39 @@ class SetupCompany implements ShouldQueue
             'translation_key' => 'Employee',
         ]);
 
-        // permissions
+        // permissions for administrators
         $permissionsTable = [
             [
                 'action' => 'company.permissions',
                 'translation_key' => 'Manage company roles and permissions',
+                'active' => true,
             ],
         ];
 
         foreach ($permissionsTable as $permission) {
-            $permission = Permission::create($permission);
-            $permission->roles()->attach($administratorRole->id, ['company_id' => $this->company->id]);
+            $object = Permission::create($permission);
+            $object->roles()->syncWithoutDetaching([
+                $administratorRole->id => [
+                    'active' => $permission['active'],
+                ],
+            ]);
+        }
+
+        // permissions for administrators
+        $permissionsTable = [
+            [
+                'action' => 'company.permissions',
+                'translation_key' => 'Manage company roles and permissions',
+                'active' => false,
+            ],
+        ];
+
+        foreach ($permissionsTable as $permission) {
+            $object->roles()->syncWithoutDetaching([
+                $employeeRole->id => [
+                    'active' => $permission['active'],
+                ],
+            ]);
         }
     }
 }

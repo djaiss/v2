@@ -23,8 +23,13 @@
       <p class="block font-medium text-sm text-gray-700 dark:text-gray-300 mb-2">{{ __('Permissions') }}</p>
 
       <div class="grid grid-cols-3 gap-1">
-        @foreach ($permissions as $index => $permission)
-        <x-toggle label="{{ $permission['name'] }}" wire:model.defer="permissions.{{ $index }}.active" :checked="$permission['active'] == 1" class="text-base" :wire:key="$permission['id']" id="toggle-{{ $permission['id'] }}" />
+        @foreach ($allPossiblePermissions as $index => $permission)
+        <x-toggle label="{{ $permission['name'] }}"
+          wire:model.defer="allPossiblePermissions.{{ $index }}.active"
+          :checked="$permission['active'] == 1"
+          :wire:key="$permission['id']"
+          class="text-base"
+          id="toggle-{{ $permission['id'] }}" />
         @endforeach
       </div>
     </div>
@@ -50,14 +55,14 @@
 
         <x-dropdown>
           <x-dropdown.item wire:click="toggleEdit({{ $role['id'] }})" label="{{ __('Edit') }}" />
-          <x-dropdown.item label="{{ __('Delete') }}" />
+          <x-dropdown.item wire:click="confirmDestroy({{ $role['id'] }})" label="{{ __('Delete') }}" />
         </x-dropdown>
       </div>
       @endif
 
-      <!-- edit role -->
+      <!-- edit role modal -->
       @if ($editedRoleId === $role['id'])
-      <form wire:submit.prevent="edit" class="">
+      <form wire:submit.prevent="update({{ $role['id'] }})" class="">
         <div class="border-b border-gray-200 dark:border-gray-700 p-5">
           <!-- name -->
           <div class="w-full max-w-lg">
@@ -73,7 +78,12 @@
 
           <div class="grid grid-cols-3 gap-1">
             @foreach ($permissions as $index => $permission)
-            <x-toggle label="{{ $permission['name'] }}" wire:model.defer="permissions.{{ $index }}.active" :checked="$permission['active'] == 1" class="text-base" :wire:key="$permission['id']" id="toggle-{{ $permission['id'] }}" />
+            <x-toggle label="{{ $permission['name'] }}"
+              wire:model.defer="permissions.{{ $index }}.active"
+              :checked="$permission['active'] == 1"
+              class="text-base"
+              :wire:key="$permission['id']"
+              id="toggle-{{ $permission['id'] }}" />
             @endforeach
           </div>
         </div>
