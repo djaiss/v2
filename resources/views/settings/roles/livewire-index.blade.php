@@ -29,6 +29,7 @@
           :checked="$permission['active'] == 1"
           :wire:key="$permission['id']"
           class="text-base"
+          dusk="toggle-{{ $permission['id'] }}"
           id="toggle-{{ $permission['id'] }}" />
         @endforeach
       </div>

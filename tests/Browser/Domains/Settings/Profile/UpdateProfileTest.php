@@ -12,7 +12,7 @@ class UpdateProfileTest extends DuskTestCase
     use DatabaseTruncation;
 
     /** @test */
-    public function it_update_the_profile_of_the_logged_employee(): void
+    public function it_updates_the_profile_of_the_logged_employee(): void
     {
         $employee = Employee::factory()->create([
             'email' => 'regis@dumb.io',
