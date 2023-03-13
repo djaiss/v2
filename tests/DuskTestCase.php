@@ -23,7 +23,8 @@ abstract class DuskTestCase extends BaseTestCase
     {
         if (! self::$assetsBuilt) {
             if (is_file('public/hot')) {
-                dd('You should stop the Vite dev server.');
+                echo 'You should stop the Vite dev server.';
+                exit;
             }
 
             echo 'Compiling front-end assets.'.PHP_EOL;

@@ -7,7 +7,6 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class RegisteredUserController extends Controller
@@ -32,7 +31,7 @@ class RegisteredUserController extends Controller
             'password' => $request->input('password'),
         ]);
 
-        Auth::login($employee);
+        auth()->login($employee);
 
         return redirect(RouteServiceProvider::HOME);
     }

@@ -10,7 +10,7 @@ use App\Domains\Settings\ManageSettings\Web\Controllers\SettingsController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [ApplicationController::class, 'index'])->name('application.index');
-Route::get('/locale/{locale}', [LocaleController::class, 'update'])->name('locale.update');
+Route::get('locale/{locale}', [LocaleController::class, 'update'])->name('locale.update');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('welcome', [WelcomeController::class, 'index'])->name('welcome.index');
@@ -22,7 +22,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         Route::get('settings', [SettingsController::class, 'index'])->name('settings.index');
         Route::get('settings/roles', [SettingsRoleController::class, 'index'])->name('settings.roles.index');
-        Route::get('settings/roles/{role}', [SettingsRoleController::class, 'show'])->name('settings.roles.show');
     });
 });
 

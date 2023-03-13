@@ -21,7 +21,7 @@ class SettingsRoleIndexViewHelperTest extends TestCase
         $viewModel = SettingsRoleIndexViewHelper::data($company);
 
         $this->assertArrayHasKey('roles', $viewModel);
-        $this->assertArrayHasKey('permissions', $viewModel);
+        $this->assertArrayHasKey('all_possible_permissions', $viewModel);
     }
 
     /** @test */
@@ -36,7 +36,6 @@ class SettingsRoleIndexViewHelperTest extends TestCase
         $this->assertArrayHasKey('id', $array);
         $this->assertArrayHasKey('name', $array);
         $this->assertArrayHasKey('permissions', $array);
-        $this->assertArrayHasKey('url', $array);
 
         $this->assertEquals(
             $role->id,
@@ -45,10 +44,6 @@ class SettingsRoleIndexViewHelperTest extends TestCase
         $this->assertEquals(
             'janitor',
             $array['name']
-        );
-        $this->assertEquals(
-            env('APP_URL').'/settings/roles/'.$role->id,
-            $array['url']
         );
     }
 
@@ -65,6 +60,7 @@ class SettingsRoleIndexViewHelperTest extends TestCase
             [
                 'id' => $permission->id,
                 'name' => 'janitor',
+                'active' => true,
             ],
             $array
         );

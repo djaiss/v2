@@ -13,7 +13,7 @@
       <!-- name -->
       <div class="w-full max-w-lg">
         <x-input-label for="name" :value="__('Label')" />
-        <x-text-input wire:model.defer="name" id="name" dusk="name-field" class="block mt-1 w-full name" type="text" name="name" :value="old('name')" autofocus />
+        <x-text-input wire:model.defer="name" wire:keydown.escape="toggle()" id="name" dusk="name-field" class="block mt-1 w-full name" type="text" name="name" :value="old('name')" autofocus required />
         <x-input-error :messages="$errors->get('name')" class="mt-2" />
       </div>
     </div>
@@ -23,8 +23,14 @@
       <p class="block font-medium text-sm text-gray-700 dark:text-gray-300 mb-2">{{ __('Permissions') }}</p>
 
       <div class="grid grid-cols-3 gap-1">
-        @foreach ($permissions as $permission)
-        <x-toggle label="{{ $permission['name'] }}" class="text-base" wire:model.defer="model" />
+        @foreach ($allPossiblePermissions as $index => $permission)
+        <x-toggle label="{{ $permission['name'] }}"
+          wire:model.defer="allPossiblePermissions.{{ $index }}.active"
+          :checked="$permission['active'] == 1"
+          :wire:key="$permission['id']"
+          class="text-base"
+          dusk="toggle-{{ $permission['id'] }}"
+          id="toggle-{{ $permission['id'] }}" />
         @endforeach
       </div>
     </div>
@@ -41,18 +47,58 @@
   @endif
 
   <!-- list of roles -->
-  <ul class=" list mb-2 rounded-lg border border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-900">
+  <ul dusk="role-list" class="list mb-2 rounded-lg border border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-900">
     @foreach ($roles as $role)
-    <li class="item-list border-b border-gray-200 hover:bg-slate-50 dark:border-gray-700 dark:bg-slate-900 hover:dark:bg-slate-800 p-3 flex justify-between items-center">
-      <x-link route="{{ $role['url'] }}">{{ $role['name'] }}</x-link>
+    <li :wire:key="$role['id']" class="item-list border-b border-gray-200 hover:bg-slate-50 dark:border-gray-700 dark:bg-slate-900 hover:dark:bg-slate-800">
+      @if ($role['id'] !== $editedRoleId)
+      <div class="p-3 flex justify-between items-center">
+        <p class="font-bold">{{ $role['name'] }}</p>
 
-      <x-dropdown>
-        <x-dropdown.header label="Settings">
-          <x-dropdown.item label="Preferences" />
-          <x-dropdown.item label="My Profile" />
-        </x-dropdown.header>
-        <x-dropdown.item label="Logout" />
-      </x-dropdown>
+        <x-dropdown>
+          <x-dropdown.item wire:click="toggleEdit({{ $role['id'] }})" label="{{ __('Edit') }}" />
+          <x-dropdown.item dusk="destroy-button-{{ $role['id'] }}" wire:click="confirmDestroy({{ $role['id'] }})" label="{{ __('Delete') }}" />
+        </x-dropdown>
+      </div>
+      @endif
+
+      <!-- edit role modal -->
+      @if ($editedRoleId === $role['id'])
+      <form wire:submit.prevent="update({{ $role['id'] }})" class="">
+        <div class="border-b border-gray-200 dark:border-gray-700 p-5">
+          <!-- name -->
+          <div class="w-full max-w-lg">
+            <x-input-label for="name" :value="__('Label')" />
+            <x-text-input wire:model.defer="name" id="name" wire:keydown.escape="toggleEdit(0)" dusk="name-field" class="block mt-1 w-full name" type="text" name="name" :value="old('name')" autofocus required />
+            <x-input-error :messages="$errors->get('name')" class="mt-2" />
+          </div>
+        </div>
+
+        <!-- permissions -->
+        <div class="border-b border-gray-200 dark:border-gray-700 p-5">
+          <p class="block font-medium text-sm text-gray-700 dark:text-gray-300 mb-2">{{ __('Permissions') }}</p>
+
+          <div class="grid grid-cols-3 gap-1">
+            @foreach ($permissions as $index => $permission)
+            <x-toggle label="{{ $permission['name'] }}"
+              wire:model.defer="permissions.{{ $index }}.active"
+              :checked="$permission['active'] == 1"
+              class="text-base"
+              :wire:key="$permission['id']"
+              id="toggle-{{ $permission['id'] }}" />
+            @endforeach
+          </div>
+        </div>
+
+        <!-- actions -->
+        <div class="flex justify-between p-5">
+          <x-button-form secondary wire:click="toggleEdit(0)">{{ __('Cancel') }}</x-button-form>
+
+          <x-button-form wire:loading.attr="disabled" dusk="submit-button">
+            {{ __('Save') }}
+          </x-button-form>
+        </div>
+      </form>
+      @endif
     </li>
     @endforeach
   </ul>
@@ -62,6 +108,6 @@
 <script>
   Livewire.on('focusNameField', () => {
     document.querySelector('.name').focus();
-  })
+  });
 </script>
 @endpush

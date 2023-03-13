@@ -26,7 +26,8 @@
         "nunomaduro/larastan": "^2.0",
         "phpunit/phpunit": "^10.0",
         "psalm/plugin-laravel": "^2.7",
-        "spatie/laravel-ignition": "^2.0"
+        "spatie/laravel-ignition": "^2.0",
+        "tightenco/duster": "^1.0"
     },
     "autoload": {
         "psr-4": {
