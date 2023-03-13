@@ -4,7 +4,6 @@ namespace App\Domains\Settings\ManageRoles\Web\Controllers;
 
 use App\Domains\Settings\ManageRoles\Web\ViewHelpers\SettingsRoleIndexViewHelper;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class SettingsRoleController extends Controller
