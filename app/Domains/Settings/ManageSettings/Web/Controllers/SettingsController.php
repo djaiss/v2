@@ -3,6 +3,7 @@
 namespace App\Domains\Settings\ManageSettings\Web\Controllers;
 
 use App\Domains\Settings\ManageSettings\Web\ViewHelpers\SettingsIndexViewHelper;
+use App\Domains\Settings\ManageSettings\Web\ViewHelpers\SettingsMenuViewHelper;
 use App\Http\Controllers\Controller;
 use Illuminate\View\View;
 

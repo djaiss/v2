@@ -52,7 +52,7 @@
     <li :wire:key="$role['id']" class="item-list border-b border-gray-200 hover:bg-slate-50 dark:border-gray-700 dark:bg-slate-900 hover:dark:bg-slate-800">
       @if ($role['id'] !== $editedRoleId)
       <div class="p-3 flex justify-between items-center">
-        <p class="font-bold">{{ $role['name'] }}</p>
+        <p class="font-semibold">{{ $role['name'] }}</p>
 
         <x-dropdown>
           <x-dropdown.item wire:click="toggleEdit({{ $role['id'] }})" label="{{ __('Edit') }}" />
