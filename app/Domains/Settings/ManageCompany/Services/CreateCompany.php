@@ -59,7 +59,7 @@ class CreateCompany extends BaseService
             'invitation_code' => Str::random(40),
         ]);
 
-        SetupCompany::dispatch($this->company);
+        SetupCompany::dispatch($this->company, $this->employee);
     }
 
     private function associateEmployeeToCompany(): void

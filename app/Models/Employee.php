@@ -20,6 +20,7 @@ class Employee extends Authenticatable implements MustVerifyEmail
      */
     protected $fillable = [
         'company_id',
+        'role_id',
         'first_name',
         'last_name',
         'email',
@@ -49,5 +50,15 @@ class Employee extends Authenticatable implements MustVerifyEmail
     public function company(): BelongsTo
     {
         return $this->belongsTo(Company::class);
+    }
+
+    public function role(): BelongsTo
+    {
+        return $this->belongsTo(Role::class);
+    }
+
+    public function hasTheRightTo(string $action): bool
+    {
+        return $this->role->permissions->contains(fn (Permission $permission) => $permission->action === $action && $permission->pivot->active);
     }
 }

@@ -4,6 +4,7 @@ namespace Tests\Unit\Domains\Settings\ManageCompany\Jobs;
 
 use App\Domains\Settings\ManageCompany\Jobs\SetupCompany;
 use App\Models\Company;
+use App\Models\Employee;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
 
@@ -15,8 +16,9 @@ class SetupCompanyTest extends TestCase
     public function it_sets_a_company_up(): void
     {
         $company = Company::factory()->create();
+        $employee = Employee::factory()->create();
 
-        SetupCompany::dispatchSync($company);
+        SetupCompany::dispatchSync($company, $employee);
 
         $this->assertDatabaseHas('roles', [
             'company_id' => $company->id,

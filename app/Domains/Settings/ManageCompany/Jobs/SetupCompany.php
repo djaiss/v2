@@ -3,6 +3,7 @@
 namespace App\Domains\Settings\ManageCompany\Jobs;
 
 use App\Models\Company;
+use App\Models\Employee;
 use App\Models\Permission;
 use App\Models\Role;
 use Illuminate\Bus\Queueable;
@@ -19,7 +20,8 @@ class SetupCompany implements ShouldQueue
      * Create a new job instance.
      */
     public function __construct(
-        public Company $company
+        public Company $company,
+        public Employee $employee
     ) {
     }
 
@@ -43,10 +45,13 @@ class SetupCompany implements ShouldQueue
             'translation_key' => 'Employee',
         ]);
 
+        $this->employee->role_id = $administratorRole->id;
+        $this->employee->save();
+
         // permissions for administrators
         $permissionsTable = [
             [
-                'action' => 'company.permissions',
+                'action' => Permission::COMPANY_PERMISSIONS,
                 'translation_key' => 'Manage company roles and permissions',
                 'active' => true,
             ],

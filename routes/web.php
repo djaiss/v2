@@ -22,6 +22,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         Route::get('settings', [SettingsController::class, 'index'])->name('settings.index');
         Route::get('settings/roles', [SettingsRoleController::class, 'index'])->name('settings.roles.index');
+        Route::get('settings/employees', [SettingsEmployeeController::class, 'index'])->name('settings.employees.index');
     });
 });
 
