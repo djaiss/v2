@@ -14,6 +14,7 @@ class Permission extends Model
     protected $table = 'permissions';
 
     public const COMPANY_PERMISSIONS = 'company.permissions';
+    public const COMPANY_MANAGE_EMPLOYEES = 'company.employees';
 
     /**
      * The attributes that are mass assignable.

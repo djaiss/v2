@@ -63,6 +63,7 @@
   "The role has been updated.": "Le rôle a été mis à jour",
   "The role has been deleted.": "Le rôle a été supprimé",
   "Manage company roles and permissions": "Gérer les rôles et permissions de l'entreprise",
+  "Manage employees": "Gérer les employés",
   "Roles & permissions": "Rôles & permissions",
   "You can configure all the roles and permissions used throughout the application.": "Vous pouvez configurer tous les rôles et permissions utilisés dans l'application.",
   "All employees who have this permission will be without permissions, meaning they will not be able to do anything in the application.": "Tous les employés qui ont cette permission seront sans permissions, ce qui signifie qu'ils ne pourront rien faire dans l'application."

@@ -55,6 +55,11 @@ class SetupCompany implements ShouldQueue
                 'translation_key' => 'Manage company roles and permissions',
                 'active' => true,
             ],
+            [
+                'action' => Permission::COMPANY_MANAGE_EMPLOYEES,
+                'translation_key' => 'Manage employees',
+                'active' => true,
+            ],
         ];
 
         foreach ($permissionsTable as $permission) {
@@ -66,7 +71,7 @@ class SetupCompany implements ShouldQueue
             ]);
         }
 
-        // permissions for administrators
+        // permissions for employees
         $permissionsTable = [
             [
                 'action' => 'company.permissions',
