@@ -34,6 +34,7 @@ abstract class BaseService
 
         if ($this->permissions() !== '') {
             $this->author = Employee::findOrFail($data['employee_id']);
+
             return $this->author->hasTheRightTo($this->permissions());
         }
 
