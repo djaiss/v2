@@ -7,7 +7,6 @@ use App\Exceptions\NotEnoughPermissionException;
 use App\Models\Employee;
 use App\Models\Office;
 use App\Models\Permission;
-use App\Models\Role;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Validation\ValidationException;

@@ -2,7 +2,6 @@
 
 namespace App\Domains\Settings\ManageRoles\Services;
 
-use App\Models\Employee;
 use App\Models\Permission;
 use App\Models\Role;
 use App\Services\BaseService;

@@ -4,7 +4,6 @@ namespace Tests\Unit\Domains\Settings\ManageOffices\Web\ViewHelpers;
 
 use App\Domains\Settings\ManageOffices\Web\ViewHelpers\SettingsOfficeIndexViewHelper;
 use App\Models\Company;
-use App\Models\Permission;
 use App\Models\office;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;

@@ -36,7 +36,7 @@ abstract class BaseService
         if ($this->permissions() !== '') {
             $this->author = Employee::findOrFail($data['author_id']);
 
-            if(! $this->author->hasTheRightTo($this->permissions())) {
+            if (! $this->author->hasTheRightTo($this->permissions())) {
                 throw new NotEnoughPermissionException();
             }
         }

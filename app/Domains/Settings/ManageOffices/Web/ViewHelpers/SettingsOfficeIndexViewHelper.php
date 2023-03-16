@@ -4,9 +4,6 @@ namespace App\Domains\Settings\ManageOffices\Web\ViewHelpers;
 
 use App\Models\Company;
 use App\Models\Office;
-use App\Models\Permission;
-use App\Models\Role;
-use Illuminate\Support\Collection;
 
 class SettingsOfficeIndexViewHelper
 {
