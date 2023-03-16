@@ -48,6 +48,14 @@
                 <x-link :route="route('settings.roles.index')" class="no-underline text-slate-800">{{ __('Permissions') }}</x-link>
               </li>
               @endif
+
+              @if ($menu['can_see_offices'])
+              <li class="bg-slate-100 hover:bg-slate-100 pl-2 pr-8 py-1 rounded cursor-pointer mb-1 flex items-center group">
+                <x-heroicon-s-building-office class="w-4 h-4 mr-2 text-cyan-800 group-hover:text-cyan-800" />
+
+                <x-link :route="route('settings.offices.index')" class="no-underline text-slate-800">{{ __('Offices') }}</x-link>
+              </li>
+              @endif
             </ul>
           </nav>
 

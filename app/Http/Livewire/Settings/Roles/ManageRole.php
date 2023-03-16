@@ -67,7 +67,7 @@ class ManageRole extends Component
     public function store(): void
     {
         $role = (new CreateRole())->execute([
-            'employee_id' => auth()->user()->id,
+            'author_id' => auth()->user()->id,
             'name' => $this->name,
             'permissions' => $this->allPossiblePermissions->toArray(),
         ]);
@@ -88,7 +88,7 @@ class ManageRole extends Component
             ->findOrFail($roleId);
 
         $role = (new UpdateRole())->execute([
-            'employee_id' => auth()->user()->id,
+            'author_id' => auth()->user()->id,
             'role_id' => $roleId,
             'name' => $this->name,
             'permissions' => $this->permissions,
@@ -135,7 +135,7 @@ class ManageRole extends Component
     public function destroy(Role $role): void
     {
         (new DestroyRole())->execute([
-            'employee_id' => auth()->user()->id,
+            'author_id' => auth()->user()->id,
             'role_id' => $role->id,
         ]);
 

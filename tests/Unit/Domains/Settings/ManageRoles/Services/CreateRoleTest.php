@@ -3,6 +3,7 @@
 namespace Tests\Unit\Domains\Settings\ManageRoles\Services;
 
 use App\Domains\Settings\ManageRoles\Services\CreateRole;
+use App\Exceptions\NotEnoughPermissionException;
 use App\Models\Employee;
 use App\Models\Permission;
 use App\Models\Role;
@@ -17,7 +18,7 @@ class CreateRoleTest extends TestCase
     /** @test */
     public function it_creates_a_role(): void
     {
-        $employee = Employee::factory()->create();
+        $employee = $this->createEmployeeWithPermission(Permission::COMPANY_MANAGE_PERMISSIONS);
         $this->executeService($employee);
     }
 
@@ -32,12 +33,21 @@ class CreateRoleTest extends TestCase
         (new CreateRole())->execute($request);
     }
 
+    /** @test */
+    public function it_cant_execute_the_service_with_the_wrong_permissions(): void
+    {
+        $employee = Employee::factory()->create();
+
+        $this->expectException(NotEnoughPermissionException::class);
+        $this->executeService($employee);
+    }
+
     private function executeService(Employee $employee): void
     {
         $permission = Permission::factory()->create();
 
         $request = [
-            'employee_id' => $employee->id,
+            'author_id' => $employee->id,
             'name' => 'Dunder',
             'permissions' => [
                 0 => [

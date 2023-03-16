@@ -5,6 +5,7 @@ use App\Domains\Home\Web\Controllers\HomeController;
 use App\Domains\Settings\ManageCompany\Web\Controllers\CreateCompanyController;
 use App\Domains\Settings\ManageCompany\Web\Controllers\WelcomeController;
 use App\Domains\Settings\ManageLocale\Web\Controllers\LocaleController;
+use App\Domains\Settings\ManageOffices\Web\Controllers\SettingsOfficeController;
 use App\Domains\Settings\ManageRoles\Web\Controllers\SettingsRoleController;
 use App\Domains\Settings\ManageSettings\Web\Controllers\SettingsController;
 use Illuminate\Support\Facades\Route;
