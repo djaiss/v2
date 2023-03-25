@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Domains\Settings\ManageRoles\Services;
+namespace App\Domains\Settings\ManageEmployees\Services;
 
-use App\Models\Permission;
+use App\Models\Employee;
 use App\Models\Role;
 use App\Services\BaseService;
 
@@ -11,21 +11,17 @@ class DestroyRole extends BaseService
     public function rules(): array
     {
         return [
-            'author_id' => 'required|integer|exists:employees,id',
+            'employee_id' => 'required|integer|exists:employees,id',
             'role_id' => 'required|integer|exists:roles,id',
         ];
-    }
-
-    public function permissions(): string
-    {
-        return Permission::COMPANY_MANAGE_PERMISSIONS;
     }
 
     public function execute(array $data): void
     {
         $this->validateRules($data);
 
-        $role = Role::where('company_id', $this->author->company_id)
+        $employee = Employee::findOrFail($data['employee_id']);
+        $role = Role::where('company_id', $employee->company_id)
             ->findOrFail($data['role_id']);
 
         $role->delete();

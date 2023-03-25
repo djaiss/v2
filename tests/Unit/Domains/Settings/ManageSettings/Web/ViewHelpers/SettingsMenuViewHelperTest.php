@@ -19,7 +19,7 @@ class SettingsMenuViewHelperTest extends TestCase
         $employee = Employee::factory()->create();
         $role = Role::factory()->create();
         $permission = Permission::factory()->create([
-            'action' => Permission::COMPANY_PERMISSIONS,
+            'action' => Permission::COMPANY_MANAGE_PERMISSIONS,
         ]);
         $role->permissions()->syncWithoutDetaching([$permission->id => ['active' => true]]);
         $employee->role_id = $role->id;
@@ -28,5 +28,6 @@ class SettingsMenuViewHelperTest extends TestCase
         $array = SettingsMenuViewHelper::data($employee);
 
         $this->assertTrue($array['can_see_permissions']);
+        $this->assertFalse($array['can_see_offices']);
     }
 }

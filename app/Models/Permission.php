@@ -11,9 +11,13 @@ class Permission extends Model
 {
     use HasFactory;
 
-    protected $table = 'permissions';
+    public const COMPANY_MANAGE_PERMISSIONS = 'company.permissions';
 
-    public const COMPANY_PERMISSIONS = 'company.permissions';
+    public const COMPANY_MANAGE_EMPLOYEES = 'company.employees';
+
+    public const COMPANY_MANAGE_OFFICES = 'company.offices';
+
+    protected $table = 'permissions';
 
     /**
      * The attributes that are mass assignable.

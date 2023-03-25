@@ -1,35 +1,34 @@
 <?php
 
-namespace App\Domains\Settings\ManageRoles\Services;
+namespace App\Domains\Settings\ManageEmployees\Services;
 
+use App\Models\Employee;
 use App\Models\Permission;
 use App\Models\Role;
 use App\Services\BaseService;
 
-class CreateRole extends BaseService
+class UpdateRole extends BaseService
 {
     public function rules(): array
     {
         return [
-            'author_id' => 'required|integer|exists:employees,id',
+            'employee_id' => 'required|integer|exists:employees,id',
+            'role_id' => 'required|integer|exists:roles,id',
             'name' => 'required|string|max:255',
             'permissions' => 'nullable|array',
         ];
-    }
-
-    public function permissions(): string
-    {
-        return Permission::COMPANY_MANAGE_PERMISSIONS;
     }
 
     public function execute(array $data): Role
     {
         $this->validateRules($data);
 
-        $role = Role::create([
-            'company_id' => $this->author->company_id,
-            'name' => $data['name'],
-        ]);
+        $employee = Employee::findOrFail($data['employee_id']);
+        $role = Role::where('company_id', $employee->company_id)
+            ->findOrFail($data['role_id']);
+
+        $role->name = $data['name'];
+        $role->save();
 
         foreach ($data['permissions'] as $permission) {
             $permissionObject = Permission::findOrFail($permission['id']);

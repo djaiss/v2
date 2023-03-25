@@ -51,8 +51,18 @@ class SetupCompany implements ShouldQueue
         // permissions for administrators
         $permissionsTable = [
             [
-                'action' => Permission::COMPANY_PERMISSIONS,
+                'action' => Permission::COMPANY_MANAGE_PERMISSIONS,
                 'translation_key' => 'Manage company roles and permissions',
+                'active' => true,
+            ],
+            [
+                'action' => Permission::COMPANY_MANAGE_EMPLOYEES,
+                'translation_key' => 'Manage employees',
+                'active' => true,
+            ],
+            [
+                'action' => Permission::COMPANY_MANAGE_OFFICES,
+                'translation_key' => 'Manage offices',
                 'active' => true,
             ],
         ];
@@ -66,7 +76,7 @@ class SetupCompany implements ShouldQueue
             ]);
         }
 
-        // permissions for administrators
+        // permissions for employees
         $permissionsTable = [
             [
                 'action' => 'company.permissions',
