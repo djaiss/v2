@@ -22,6 +22,8 @@ class ManageOffice extends Component
 
     public string $name;
 
+    public bool $isMainOffice = false;
+
     public Collection $offices;
 
     public function mount(array $view)
@@ -38,6 +40,7 @@ class ManageOffice extends Component
     public function toggle(): void
     {
         $this->name = '';
+        $this->isMainOffice = false;
         $this->openModal = ! $this->openModal;
 
         if ($this->openModal) {
@@ -56,6 +59,7 @@ class ManageOffice extends Component
 
             $this->emit('focusNameField');
             $this->name = $office['name'];
+            $this->isMainOffice = $office['is_main_office'];
         }
     }
 
@@ -64,6 +68,7 @@ class ManageOffice extends Component
         $office = (new CreateOffice())->execute([
             'author_id' => auth()->user()->id,
             'name' => $this->name,
+            'is_main_office' => $this->isMainOffice,
         ]);
 
         $this->notification()->success(
@@ -73,6 +78,7 @@ class ManageOffice extends Component
 
         $this->offices->push(SettingsOfficeIndexViewHelper::dto($office));
         $this->name = '';
+        $this->isMainOffice = false;
         $this->toggle();
     }
 
@@ -85,6 +91,7 @@ class ManageOffice extends Component
             'author_id' => auth()->user()->id,
             'office_id' => $officeId,
             'name' => $this->name,
+            'is_main_office' => $this->isMainOffice,
         ]);
 
         $this->editedOfficeId = 0;
@@ -102,6 +109,7 @@ class ManageOffice extends Component
             return $value;
         });
         $this->name = '';
+        $this->isMainOffice = false;
     }
 
     public function confirmDestroy(int $officeId): void

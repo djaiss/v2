@@ -33,12 +33,14 @@ class SettingsOfficeIndexViewHelperTest extends TestCase
         $office = Office::create([
             'company_id' => $company->id,
             'name' => 'HQ',
+            'is_main_office' => true,
         ]);
 
         $array = SettingsOfficeIndexViewHelper::dto($office);
 
         $this->assertArrayHasKey('id', $array);
         $this->assertArrayHasKey('name', $array);
+        $this->assertArrayHasKey('is_main_office', $array);
 
         $this->assertEquals(
             $office->id,
@@ -47,6 +49,10 @@ class SettingsOfficeIndexViewHelperTest extends TestCase
         $this->assertEquals(
             'HQ',
             $array['name']
+        );
+        $this->assertEquals(
+            true,
+            $array['is_main_office']
         );
     }
 }

@@ -18,6 +18,16 @@
       </div>
     </div>
 
+    <!-- permissions -->
+    <div class="border-b border-gray-200 dark:border-gray-700 p-5">
+      <p class="block font-medium text-sm text-gray-700 dark:text-gray-300 mb-2">{{ __('Main office') }}</p>
+
+      <x-toggle label="{{ __('Indicate that this office is the main office') }}"
+        wire:model.defer="isMainOffice"
+        class="text-base"
+        id="toggle-main-office" />
+    </div>
+
     <!-- actions -->
     <div class="flex justify-between p-5">
       <x-button-form secondary wire:click="toggle">{{ __('Cancel') }}</x-button-form>
@@ -36,7 +46,13 @@
     <li :wire:key="$office['id']" class="item-list border-b border-gray-200 hover:bg-slate-50 dark:border-gray-700 dark:bg-slate-900 hover:dark:bg-slate-800">
       @if ($office['id'] !== $editedOfficeId)
       <div class="p-3 flex justify-between items-center">
-        <p class="font-semibold">{{ $office['name'] }}</p>
+        <p class="font-semibold">
+          {{ $office['name'] }}
+
+          @if ($office['is_main_office'])
+          <span class="ml-2 bg-blue-100 font-normal text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 hidden md:inline">{{ __('Main office') }}</span>
+          @endif
+        </p>
 
         <x-dropdown>
           <x-dropdown.item wire:click="toggleEdit({{ $office['id'] }})" label="{{ __('Edit') }}" />
@@ -55,6 +71,17 @@
             <x-text-input wire:model.defer="name" id="name" wire:keydown.escape="toggleEdit(0)" dusk="name-field" class="block mt-1 w-full name" type="text" name="name" :value="old('name')" autofocus required />
             <x-input-error :messages="$errors->get('name')" class="mt-2" />
           </div>
+        </div>
+
+        <!-- permissions -->
+        <div class="border-b border-gray-200 dark:border-gray-700 p-5">
+          <p class="block font-medium text-sm text-gray-700 dark:text-gray-300 mb-2">{{ __('Main office') }}</p>
+
+          <x-toggle label="{{ __('Indicate that this office is the main office') }}"
+            :checked="$isMainOffice == true"
+            wire:model.defer="isMainOffice"
+            class="text-base"
+            id="toggle-main-office" />
         </div>
 
         <!-- actions -->

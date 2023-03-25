@@ -24,6 +24,7 @@ class SettingsOfficeIndexViewHelper
         return [
             'id' => $office->id,
             'name' => $office->name,
+            'is_main_office' => $office->is_main_office,
         ];
     }
 }

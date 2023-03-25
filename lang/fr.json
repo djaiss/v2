@@ -73,5 +73,7 @@
   "Roles & permissions": "Rôles & permissions",
   "You can configure all the roles and permissions used throughout the application.": "Vous pouvez configurer tous les rôles et permissions utilisés dans l'application.",
   "All employees who have this permission will be without permissions, meaning they will not be able to do anything in the application.": "Tous les employés qui ont cette permission seront sans permissions, ce qui signifie qu'ils ne pourront rien faire dans l'application.",
-  "You can have one or more offices, and designate which office is the main office. You can also choose to not have any office at all if you are full remote.": "Vous pouvez avoir un ou plusieurs bureaux, et désigner quel bureau est le bureau principal. Vous pouvez également choisir de ne pas avoir de bureau du tout si vous êtes à distance."
+  "You can have one or more offices, and designate which office is the main office. You can also choose to not have any office at all if you are full remote.": "Vous pouvez avoir un ou plusieurs bureaux, et désigner quel bureau est le bureau principal. Vous pouvez également choisir de ne pas avoir de bureau du tout si vous êtes à distance.",
+  "Main office": "Bureau principal",
+  "Indicate that this office is the main office": "Indiquez que ce bureau est le bureau principal"
 }

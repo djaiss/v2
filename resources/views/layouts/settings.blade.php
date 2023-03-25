@@ -28,7 +28,13 @@
           <nav class="pt-5 max-w-[25%] space-y-6 sidebar whitespace-nowrap p-3">
             <ul>
               <li class="uppercase text-xs mb-2 font-light">{{ __('Employee profile') }}</li>
+
+              <!-- employee profile -->
+              @if (request()->route()->named('settings.index'))
               <li class="bg-slate-100 hover:bg-slate-100 pl-2 pr-8 py-1 rounded cursor-pointer mb-1 flex items-center group">
+              @else
+              <li class="hover:bg-slate-100 pl-2 pr-8 py-1 rounded cursor-pointer mb-1 flex items-center group">
+              @endif
                 <x-heroicon-s-user-circle class="w-4 h-4 mr-2 text-cyan-800 group-hover:text-cyan-800" />
 
                 <x-link :route="route('settings.index')" class="no-underline text-slate-800">{{ __('Profile') }}</x-link>
@@ -38,23 +44,32 @@
             <ul>
               @if ($menu['can_see_permissions'])
               <li class="uppercase text-xs mb-2 font-light">{{ __('Company') }}</li>
-              </li>
               @endif
 
+              <!-- company permissions -->
               @if ($menu['can_see_permissions'])
-              <li class="bg-slate-100 hover:bg-slate-100 pl-2 pr-8 py-1 rounded cursor-pointer mb-1 flex items-center group">
-                <x-heroicon-s-lock-closed class="w-4 h-4 mr-2 text-cyan-800 group-hover:text-cyan-800" />
+                @if (request()->route()->named('settings.roles.index'))
+                <li class="bg-slate-100 hover:bg-slate-100 pl-2 pr-8 py-1 rounded cursor-pointer mb-1 flex items-center group">
+                @else
+                <li class="hover:bg-slate-100 pl-2 pr-8 py-1 rounded cursor-pointer mb-1 flex items-center group">
+                @endif
+                  <x-heroicon-s-lock-closed class="w-4 h-4 mr-2 text-cyan-800 group-hover:text-cyan-800" />
 
-                <x-link :route="route('settings.roles.index')" class="no-underline text-slate-800">{{ __('Permissions') }}</x-link>
-              </li>
+                  <x-link :route="route('settings.roles.index')" class="no-underline text-slate-800">{{ __('Permissions') }}</x-link>
+                </li>
               @endif
 
+              <!-- company offices -->
               @if ($menu['can_see_offices'])
-              <li class="bg-slate-100 hover:bg-slate-100 pl-2 pr-8 py-1 rounded cursor-pointer mb-1 flex items-center group">
-                <x-heroicon-s-building-office class="w-4 h-4 mr-2 text-cyan-800 group-hover:text-cyan-800" />
+                @if (request()->route()->named('settings.offices.index'))
+                <li class="bg-slate-100 hover:bg-slate-100 pl-2 pr-8 py-1 rounded cursor-pointer mb-1 flex items-center group">
+                @else
+                <li class="hover:bg-slate-100 pl-2 pr-8 py-1 rounded cursor-pointer mb-1 flex items-center group">
+                @endif
+                  <x-heroicon-s-building-office class="w-4 h-4 mr-2 text-cyan-800 group-hover:text-cyan-800" />
 
-                <x-link :route="route('settings.offices.index')" class="no-underline text-slate-800">{{ __('Offices') }}</x-link>
-              </li>
+                  <x-link :route="route('settings.offices.index')" class="no-underline text-slate-800">{{ __('Offices') }}</x-link>
+                </li>
               @endif
             </ul>
           </nav>

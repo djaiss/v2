@@ -8,11 +8,16 @@ use App\Services\BaseService;
 
 class CreateOffice extends BaseService
 {
+    private Office $office;
+
+    private array $data;
+
     public function rules(): array
     {
         return [
             'author_id' => 'required|integer|exists:employees,id',
             'name' => 'required|string|max:255',
+            'is_main_office' => 'required|boolean',
         ];
     }
 
@@ -24,12 +29,25 @@ class CreateOffice extends BaseService
     public function execute(array $data): Office
     {
         $this->validateRules($data);
+        $this->data = $data;
 
-        $office = Office::create([
+        $this->office = Office::create([
             'company_id' => $this->author->company_id,
             'name' => $data['name'],
+            'is_main_office' => $data['is_main_office'],
         ]);
 
-        return $office;
+        return $this->office;
+    }
+
+    private function toggleMainOfficeForAllTheOtherOffices(): void
+    {
+        if ($this->data['is_main_office']) {
+            Office::where('company_id', $this->author->company_id)
+                ->whereNot('id', $this->office->id)
+                ->update([
+                    'is_main_office' => false,
+                ]);
+        }
     }
 }

@@ -63,6 +63,7 @@ class UpdateOfficeTest extends TestCase
             'author_id' => $employee->id,
             'office_id' => $office->id,
             'name' => 'Dunder',
+            'is_main_office' => true,
         ];
 
         $office = (new UpdateOffice())->execute($request);
@@ -75,6 +76,7 @@ class UpdateOfficeTest extends TestCase
         $this->assertDatabaseHas('offices', [
             'id' => $office->id,
             'name' => 'Dunder',
+            'is_main_office' => true,
         ]);
     }
 }

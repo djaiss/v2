@@ -47,6 +47,7 @@ class CreateOfficeTest extends TestCase
         $request = [
             'author_id' => $employee->id,
             'name' => 'Dunder',
+            'is_main_office' => true,
         ];
 
         $office = (new CreateOffice())->execute($request);
@@ -59,6 +60,7 @@ class CreateOfficeTest extends TestCase
         $this->assertDatabaseHas('offices', [
             'id' => $office->id,
             'name' => 'Dunder',
+            'is_main_office' => true,
         ]);
     }
 }
