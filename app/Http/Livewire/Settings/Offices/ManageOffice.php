@@ -7,7 +7,6 @@ use App\Domains\Settings\ManageOffices\Services\DestroyOffice;
 use App\Domains\Settings\ManageOffices\Services\UpdateOffice;
 use App\Domains\Settings\ManageOffices\Web\ViewHelpers\SettingsOfficeIndexViewHelper;
 use App\Models\Office;
-use App\Models\Role;
 use Illuminate\Support\Collection;
 use Livewire\Component;
 use WireUi\Traits\Actions;
