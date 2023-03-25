@@ -133,7 +133,7 @@ class ManageOffice extends Component
         ]);
     }
 
-    public function destroy(Role $office): void
+    public function destroy(Office $office): void
     {
         (new DestroyOffice())->execute([
             'author_id' => auth()->user()->id,
