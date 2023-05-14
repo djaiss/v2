@@ -2,6 +2,7 @@
 
 use App\Domains\Auth\Web\Controllers\ApplicationController;
 use App\Domains\Home\Web\Controllers\HomeController;
+use App\Domains\Search\Web\Controllers\SearchController;
 use App\Domains\Settings\ManageCompany\Web\Controllers\CreateCompanyController;
 use App\Domains\Settings\ManageCompany\Web\Controllers\WelcomeController;
 use App\Domains\Settings\ManageLocale\Web\Controllers\LocaleController;
@@ -21,6 +22,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::middleware(['company'])->group(function () {
         Route::get('home', [HomeController::class, 'index'])->name('home.index');
 
+        // search
+        Route::post('search', [SearchController::class, 'show'])->name('search.show');
+
+        // settings
         Route::get('settings', [SettingsController::class, 'index'])->name('settings.index');
         Route::get('settings/roles', [SettingsRoleController::class, 'index'])->name('settings.roles.index');
         Route::get('settings/employees', [SettingsEmployeeController::class, 'index'])->name('settings.employees.index');

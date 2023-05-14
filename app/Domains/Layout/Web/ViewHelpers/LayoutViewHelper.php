@@ -34,6 +34,9 @@ class LayoutViewHelper
             'company' => $company ? [
                 'name' => $company->name,
             ] : null,
+            'url' => [
+                'search' => route('search.show'),
+            ],
         ];
     }
 }

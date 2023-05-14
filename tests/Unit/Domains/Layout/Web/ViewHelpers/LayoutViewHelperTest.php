@@ -28,7 +28,7 @@ class LayoutViewHelperTest extends TestCase
         $array = LayoutViewHelper::data();
 
         $this->assertEquals(
-            4,
+            5,
             count($array)
         );
 
@@ -65,6 +65,12 @@ class LayoutViewHelperTest extends TestCase
                 'name' => 'Company name',
             ],
             $array['company']
+        );
+        $this->assertEquals(
+            [
+                'search' => env('APP_URL').'/search',
+            ],
+            $array['url']
         );
     }
 }

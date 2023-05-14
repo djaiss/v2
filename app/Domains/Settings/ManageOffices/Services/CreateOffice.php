@@ -37,6 +37,8 @@ class CreateOffice extends BaseService
             'is_main_office' => $data['is_main_office'],
         ]);
 
+        $this->toggleMainOfficeForAllTheOtherOffices();
+
         return $this->office;
     }
 

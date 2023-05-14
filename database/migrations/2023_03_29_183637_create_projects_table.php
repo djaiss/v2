@@ -2,29 +2,35 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+    /**
+     * Run the migrations.
+     */
     public function up(): void
     {
-        Schema::create('offices', function (Blueprint $table) {
+        Schema::create('projects', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('company_id');
+            $table->string('status');
+            $table->boolean('completed')->default(false);
             $table->string('name');
-            $table->boolean('is_main_office')->default(false);
+            $table->string('code')->nullable();
+            $table->string('emoji', 5)->nullable();
+            $table->string('summary')->nullable();
+            $table->text('description')->nullable();
             $table->timestamps();
             $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
-
-            if (config('scout.driver') === 'database' && in_array(DB::connection()->getDriverName(), ['mysql', 'pgsql'])) {
-                $table->fullText('name');
-            }
         });
     }
 
+    /**
+     * Reverse the migrations.
+     */
     public function down(): void
     {
-        Schema::dropIfExists('offices');
+        Schema::dropIfExists('projects');
     }
 };

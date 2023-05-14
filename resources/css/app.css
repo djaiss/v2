@@ -23,3 +23,8 @@
     --tw-shadow: 2px 2px 0 rgb(242, 242, 245) !important;
   }
 }
+
+.icon-search {
+  left: 8px;
+  top: 8px;
+}
