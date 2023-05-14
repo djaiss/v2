@@ -2,8 +2,10 @@
 
 namespace Tests\Unit\Services;
 
+use App\Models\Organization;
 use App\Models\User;
 use App\Services\CreateAccount;
+use Exception;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Support\Facades\Event;
@@ -31,6 +33,28 @@ class CreateAccountTest extends TestCase
         (new CreateAccount())->execute($request);
     }
 
+    /** @test */
+    public function it_fails_if_slug_already_exists(): void
+    {
+        User::factory()->create([
+            'slug' => 'johnny',
+        ]);
+
+        $this->expectException(Exception::class);
+        $this->executeService();
+    }
+
+    /** @test */
+    public function it_fails_if_slug_already_exists_for_organization(): void
+    {
+        Organization::factory()->create([
+            'slug' => 'johnny',
+        ]);
+
+        $this->expectException(Exception::class);
+        $this->executeService();
+    }
+
     private function executeService(): void
     {
         Event::fake();
@@ -38,6 +62,7 @@ class CreateAccountTest extends TestCase
         $request = [
             'email' => 'john@email.com',
             'password' => 'johnny',
+            'username' => 'johnny',
         ];
 
         $user = (new CreateAccount())->execute($request);
@@ -45,6 +70,8 @@ class CreateAccountTest extends TestCase
         $this->assertDatabaseHas('users', [
             'id' => $user->id,
             'email' => 'john@email.com',
+            'username' => 'johnny',
+            'slug' => 'johnny',
         ]);
 
         $this->assertInstanceOf(

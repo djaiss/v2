@@ -12,6 +12,8 @@ class CreateOrganization extends BaseService
 {
     private User $user;
 
+    private string $slug;
+
     private array $data;
 
     private Organization $organization;
@@ -36,6 +38,7 @@ class CreateOrganization extends BaseService
         $this->data = $data;
 
         $this->checkUser();
+        $this->checkSlugUniqueness();
         $this->createOrganization();
         $this->associateUserToOrganization();
 
@@ -51,10 +54,24 @@ class CreateOrganization extends BaseService
         }
     }
 
+    private function checkSlugUniqueness(): void
+    {
+        $this->slug = Str::slug($this->data['name']);
+
+        if (Organization::where('slug', $this->slug)->exists()) {
+            throw new Exception(trans_key('This name already exists'));
+        }
+
+        if (User::where('slug', $this->slug)->exists()) {
+            throw new Exception(trans_key('This name already exists'));
+        }
+    }
+
     private function createOrganization(): void
     {
         $this->organization = Organization::create([
             'name' => $this->data['name'],
+            'slug' => $this->slug,
             'invitation_code' => Str::random(40),
         ]);
 
@@ -63,7 +80,6 @@ class CreateOrganization extends BaseService
 
     private function associateUserToOrganization(): void
     {
-        $this->user->organization_id = $this->organization->id;
-        $this->user->save();
+        $this->organization->users()->attach($this->user->id);
     }
 }

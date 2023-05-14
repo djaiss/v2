@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -19,8 +19,8 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array<int, string>
      */
     protected $fillable = [
-        'organization_id',
-        'role_id',
+        'username',
+        'slug',
         'first_name',
         'last_name',
         'email',
@@ -48,18 +48,13 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
-    public function organization(): BelongsTo
+    public function organizations(): BelongsToMany
     {
-        return $this->belongsTo(Organization::class);
+        return $this->belongsToMany(Organization::class, 'organization_user')->withPivot('role_id')->withTimestamps();
     }
 
-    public function role(): BelongsTo
-    {
-        return $this->belongsTo(Role::class);
-    }
-
-    public function hasTheRightTo(string $action): bool
-    {
-        return $this->role->permissions->contains(fn (Permission $permission) => $permission->action === $action && $permission->pivot->active);
-    }
+    // public function hasTheRightTo(string $action): bool
+    // {
+    //     return $this->role->permissions->contains(fn (Permission $permission) => $permission->action === $action && $permission->pivot->active);
+    // }
 }

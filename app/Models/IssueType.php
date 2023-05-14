@@ -23,6 +23,7 @@ class IssueType extends Model
         'label',
         'label_translation_key',
         'emoji',
+        'position',
     ];
 
     public function organization(): BelongsTo

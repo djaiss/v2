@@ -58,7 +58,7 @@ abstract class DuskTestCase extends BaseTestCase
             DesiredCapabilities::chrome()->setCapability(
                 ChromeOptions::CAPABILITY, $options
             )
-            ->setCapability('acceptInsecureCerts', true)
+                ->setCapability('acceptInsecureCerts', true)
         );
     }
 

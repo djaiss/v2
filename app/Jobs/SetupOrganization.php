@@ -12,6 +12,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\DB;
 
 class SetupOrganization implements ShouldQueue
 {
@@ -47,8 +48,11 @@ class SetupOrganization implements ShouldQueue
             'label_translation_key' => trans_key('User'),
         ]);
 
-        $this->user->role_id = $administratorRole->id;
-        $this->user->save();
+        // set the user as the administrator of the organization
+        DB::table('organization_user')
+            ->where('user_id', $this->user->id)
+            ->where('organization_id', $this->organization->id)
+            ->update(['role_id' => $administratorRole->id]);
 
         // permissions for administrators
         $permissionsTable = [

@@ -18,6 +18,7 @@ class OrganizationFactory extends Factory
     {
         return [
             'name' => fake()->name,
+            'slug' => fake()->unique()->slug,
             'invitation_code' => fake()->unique()->word,
         ];
     }

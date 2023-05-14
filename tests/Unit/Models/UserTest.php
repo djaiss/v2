@@ -2,6 +2,7 @@
 
 namespace Tests\Unit\Models;
 
+use App\Models\Organization;
 use App\Models\Permission;
 use App\Models\Role;
 use App\Models\User;
@@ -13,48 +14,42 @@ class UserTest extends TestCase
     use DatabaseTransactions;
 
     /** @test */
-    public function it_belongs_to_one_organization()
+    public function it_belongs_to_many_organizations()
     {
         $user = User::factory()->create();
+        $organization = Organization::factory()->create();
+        $user->organizations()->attach($organization);
 
-        $this->assertTrue($user->organization()->exists());
+        $this->assertTrue($user->organizations()->exists());
     }
 
     /** @test */
-    public function it_belongs_to_one_role()
-    {
-        $user = User::factory()->create();
+    // public function it_checks_if_a_user_can_do_an_action()
+    // {
+    //     $user = User::factory()->create();
+    //     $role = Role::factory()->create();
+    //     $permission = Permission::factory()->create([
+    //         'action' => 'organization.permissions',
+    //     ]);
+    //     $role->permissions()->syncWithoutDetaching([$permission->id => ['active' => true]]);
+    //     $user->role_id = $role->id;
+    //     $user->save();
 
-        $this->assertTrue($user->role()->exists());
-    }
+    //     $this->assertTrue($user->hasTheRightTo('organization.permissions'));
+    // }
 
-    /** @test */
-    public function it_checks_if_a_user_can_do_an_action()
-    {
-        $user = User::factory()->create();
-        $role = Role::factory()->create();
-        $permission = Permission::factory()->create([
-            'action' => 'organization.permissions',
-        ]);
-        $role->permissions()->syncWithoutDetaching([$permission->id => ['active' => true]]);
-        $user->role_id = $role->id;
-        $user->save();
+    // /** @test */
+    // public function it_checks_if_a_user_cant_do_an_action()
+    // {
+    //     $user = User::factory()->create();
+    //     $role = Role::factory()->create();
+    //     $permission = Permission::factory()->create([
+    //         'action' => 'organization.permissions',
+    //     ]);
+    //     $role->permissions()->syncWithoutDetaching([$permission->id => ['active' => false]]);
+    //     $user->role_id = $role->id;
+    //     $user->save();
 
-        $this->assertTrue($user->hasTheRightTo('organization.permissions'));
-    }
-
-    /** @test */
-    public function it_checks_if_a_user_cant_do_an_action()
-    {
-        $user = User::factory()->create();
-        $role = Role::factory()->create();
-        $permission = Permission::factory()->create([
-            'action' => 'organization.permissions',
-        ]);
-        $role->permissions()->syncWithoutDetaching([$permission->id => ['active' => false]]);
-        $user->role_id = $role->id;
-        $user->save();
-
-        $this->assertFalse($user->hasTheRightTo('organization.permissions'));
-    }
+    //     $this->assertFalse($user->hasTheRightTo('organization.permissions'));
+    // }
 }

@@ -20,13 +20,13 @@ class CreateCompanyTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) use ($user) {
             $browser->loginAs($user)
-                    ->visitRoute('home.index')
-                    ->assertRouteIs('welcome.index')
-                    ->click('@link-create-company')
-                    ->assertRouteIs('create_company.index')
-                    ->type('@company-name-field', 'My company')
-                    ->press('@submit-button')
-                    ->assertRouteIs('home.index');
+                ->visitRoute('home.index')
+                ->assertRouteIs('welcome.index')
+                ->click('@link-create-company')
+                ->assertRouteIs('create_company.index')
+                ->type('@company-name-field', 'My company')
+                ->press('@submit-button')
+                ->assertRouteIs('home.index');
         });
     }
 
@@ -37,8 +37,8 @@ class CreateCompanyTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) use ($user) {
             $browser->loginAs($user)
-                    ->visitRoute('home.index')
-                    ->assertRouteIs('home.index');
+                ->visitRoute('home.index')
+                ->assertRouteIs('home.index');
         });
     }
 

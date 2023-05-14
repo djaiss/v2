@@ -19,9 +19,7 @@ class CreateOrganizationTest extends TestCase
     /** @test */
     public function it_creates_an_organization(): void
     {
-        $user = User::factory()->create([
-            'organization_id' => null,
-        ]);
+        $user = User::factory()->create();
         $this->executeService($user);
     }
 
@@ -37,10 +35,23 @@ class CreateOrganizationTest extends TestCase
     }
 
     /** @test */
+    public function it_fails_if_organization_slug_already_exists(): void
+    {
+        $request = [
+            'title' => 'Ross',
+        ];
+
+        $this->expectException(ValidationException::class);
+        (new CreateOrganization())->execute($request);
+    }
+
+    /** @test */
     public function it_fails_if_user_already_owns_a_company(): void
     {
-        $user = User::factory()->create([
-            'organization_id' => Organization::factory(),
+        $user = User::factory()->create();
+        Organization::factory()->create([
+            'name' => 'acme',
+            'slug' => 'acme',
         ]);
 
         $this->expectException(Exception::class);
@@ -58,20 +69,21 @@ class CreateOrganizationTest extends TestCase
 
         $organization = (new CreateOrganization())->execute($request);
 
-        $this->assertDatabaseHas('organizations', [
-            'id' => $organization->id,
-            'name' => 'acme',
-        ]);
-
-        $this->assertDatabaseHas('users', [
-            'id' => $user->id,
-            'organization_id' => $organization->id,
-        ]);
-
         $this->assertInstanceOf(
             Organization::class,
             $organization
         );
+
+        $this->assertDatabaseHas('organizations', [
+            'id' => $organization->id,
+            'name' => 'acme',
+            'slug' => 'acme',
+        ]);
+
+        $this->assertDatabaseHas('organization_user', [
+            'organization_id' => $organization->id,
+            'user_id' => $user->id,
+        ]);
 
         Queue::assertPushed(SetupOrganization::class);
     }

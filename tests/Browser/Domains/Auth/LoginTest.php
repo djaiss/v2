@@ -20,10 +20,10 @@ class LoginTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) {
             $browser->visit('/login')
-                    ->type('@email-field', 'regis@dumb.io')
-                    ->type('@password-field', 'password')
-                    ->press('@submit-button')
-                    ->assertRouteIs('home.index');
+                ->type('@email-field', 'regis@dumb.io')
+                ->type('@password-field', 'password')
+                ->press('@submit-button')
+                ->assertRouteIs('home.index');
         });
     }
 }

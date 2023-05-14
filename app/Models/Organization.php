@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Organization extends Model
@@ -19,21 +20,22 @@ class Organization extends Model
      */
     protected $fillable = [
         'name',
+        'slug',
         'invitation_code',
     ];
 
-    public function roles(): HasMany
+    public function users(): BelongsToMany
     {
-        return $this->hasMany(Role::class);
-    }
-
-    public function users(): HasMany
-    {
-        return $this->hasMany(User::class);
+        return $this->belongsToMany(User::class, 'organization_user')->withPivot('role_id')->withTimestamps();
     }
 
     public function offices(): HasMany
     {
         return $this->hasMany(Office::class);
+    }
+
+    public function roles(): HasMany
+    {
+        return $this->hasMany(Role::class);
     }
 }
