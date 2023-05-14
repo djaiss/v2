@@ -3,7 +3,7 @@
   <img src="img/logo.svg" alt="logo" class="text-center mx-auto mb-4 block">
 
   <div class="text-center font-bold mb-4 text-gray-600 dark:text-gray-400">
-    {{ __('Does your company already exist in OfficeLife?') }}
+    {{ __('Does your company already exist in OpenGrind?') }}
   </div>
 
   <div class="mb-8 text-center text-gray-600 dark:text-gray-400">

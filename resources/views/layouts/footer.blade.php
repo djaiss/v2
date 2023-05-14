@@ -2,7 +2,7 @@
 
   <!-- copyright -->
   <div class="text-center">
-    <p class="mb-2 text-gray-600">{{ __('OfficeLife. All rights reserved. 2019 — :year. Made from all over the world. We ❤️ you.', ['year' => $layout['currentYear']]) }}</p>
+    <p class="mb-2 text-gray-600">{{ __('OpenGrind. All rights reserved. 2019 — :year. Made from all over the world. We ❤️ you.', ['year' => $layout['currentYear']]) }}</p>
 
     <!-- language selector -->
     @include('layouts.language-selector')

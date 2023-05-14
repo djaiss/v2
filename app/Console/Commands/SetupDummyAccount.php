@@ -25,7 +25,7 @@ class SetupDummyAccount extends Command
      *
      * @var string
      */
-    protected $signature = 'officelife:dummy
+    protected $signature = 'opengrind:dummy
                             {--migrate : Use migrate command instead of migrate:fresh.}
                             {--force : Force the operation to run.}';
 
@@ -74,7 +74,7 @@ class SetupDummyAccount extends Command
         $this->line('');
         $this->line('-----------------------------');
         $this->line('|');
-        $this->line('| Welcome to OfficeLife');
+        $this->line('| Welcome to OpenGrind');
         $this->line('|');
         $this->line('-----------------------------');
         $this->info('| You can now sign in with one of these two accounts:');
