@@ -37,12 +37,12 @@ class SetupCompany implements ShouldQueue
     {
         $administratorRole = Role::create([
             'company_id' => $this->company->id,
-            'translation_key' => 'Administrator',
+            'label_translation_key' => 'Administrator',
         ]);
 
         $employeeRole = Role::create([
             'company_id' => $this->company->id,
-            'translation_key' => 'Employee',
+            'label_translation_key' => 'Employee',
         ]);
 
         $this->employee->role_id = $administratorRole->id;
@@ -52,17 +52,17 @@ class SetupCompany implements ShouldQueue
         $permissionsTable = [
             [
                 'action' => Permission::COMPANY_MANAGE_PERMISSIONS,
-                'translation_key' => 'Manage company roles and permissions',
+                'label_translation_key' => 'Manage company roles and permissions',
                 'active' => true,
             ],
             [
                 'action' => Permission::COMPANY_MANAGE_EMPLOYEES,
-                'translation_key' => 'Manage employees',
+                'label_translation_key' => 'Manage employees',
                 'active' => true,
             ],
             [
                 'action' => Permission::COMPANY_MANAGE_OFFICES,
-                'translation_key' => 'Manage offices',
+                'label_translation_key' => 'Manage offices',
                 'active' => true,
             ],
         ];
@@ -80,7 +80,7 @@ class SetupCompany implements ShouldQueue
         $permissionsTable = [
             [
                 'action' => 'company.permissions',
-                'translation_key' => 'Manage company roles and permissions',
+                'label_translation_key' => 'Manage company roles and permissions',
                 'active' => false,
             ],
         ];

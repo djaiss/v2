@@ -12,7 +12,7 @@ class CreateRole extends BaseService
     {
         return [
             'author_id' => 'required|integer|exists:employees,id',
-            'name' => 'required|string|max:255',
+            'label' => 'required|string|max:255',
             'permissions' => 'nullable|array',
         ];
     }
@@ -28,7 +28,7 @@ class CreateRole extends BaseService
 
         $role = Role::create([
             'company_id' => $this->author->company_id,
-            'name' => $data['name'],
+            'label' => $data['label'],
         ]);
 
         foreach ($data['permissions'] as $permission) {

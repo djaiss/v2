@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit\Domains\ManageSettings\Web\ViewHelpers;
+namespace Tests\Unit\Domains\Settings\ManageSettings\Web\ViewHelpers;
 
 use App\Domains\Settings\ManageSettings\Web\ViewHelpers\SettingsMenuViewHelper;
 use App\Models\Employee;

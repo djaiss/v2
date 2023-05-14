@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Browser\Domains\Settings\Profile;
+namespace Tests\Browser\Domains\Settings\Roles;
 
 use App\Domains\Settings\ManageCompany\Jobs\SetupCompany;
 use App\Models\Employee;

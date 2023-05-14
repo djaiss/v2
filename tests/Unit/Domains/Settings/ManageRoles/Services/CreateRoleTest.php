@@ -48,7 +48,7 @@ class CreateRoleTest extends TestCase
 
         $request = [
             'author_id' => $employee->id,
-            'name' => 'Dunder',
+            'label' => 'Dunder',
             'permissions' => [
                 0 => [
                     'id' => $permission->id,
@@ -66,7 +66,7 @@ class CreateRoleTest extends TestCase
 
         $this->assertDatabaseHas('roles', [
             'id' => $role->id,
-            'name' => 'Dunder',
+            'label' => 'Dunder',
         ]);
 
         $this->assertDatabaseHas('permission_role', [

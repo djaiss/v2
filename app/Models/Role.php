@@ -21,8 +21,8 @@ class Role extends Model
      */
     protected $fillable = [
         'company_id',
-        'translation_key',
-        'name',
+        'label_translation_key',
+        'label',
     ];
 
     public function company(): BelongsTo
@@ -38,12 +38,12 @@ class Role extends Model
     /**
      * @return Attribute<?string,never>
      */
-    protected function name(): Attribute
+    protected function label(): Attribute
     {
         return Attribute::make(
             get: function ($value, $attributes) {
                 if (! $value) {
-                    return __($attributes['translation_key']);
+                    return __($attributes['label_translation_key']);
                 }
 
                 return $value;

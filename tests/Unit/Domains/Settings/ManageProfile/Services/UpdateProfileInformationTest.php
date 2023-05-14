@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit\Domains\Settings\ManageCompany\Services;
+namespace Tests\Unit\Domains\Settings\ManageProfile\Services;
 
 use App\Domains\Settings\ManageProfile\Services\UpdateProfileInformation;
 use App\Models\Employee;

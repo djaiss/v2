@@ -25,12 +25,12 @@ class PermissionTest extends TestCase
     public function it_gets_the_name()
     {
         $permission = Permission::factory()->create([
-            'translation_key' => 'life_event_category.label',
+            'label_translation_key' => 'life_event_category.label',
         ]);
 
         $this->assertEquals(
             'life_event_category.label',
-            $permission->name
+            $permission->label
         );
     }
 }

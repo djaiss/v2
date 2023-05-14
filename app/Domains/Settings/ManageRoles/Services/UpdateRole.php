@@ -13,7 +13,7 @@ class UpdateRole extends BaseService
         return [
             'author_id' => 'required|integer|exists:employees,id',
             'role_id' => 'required|integer|exists:roles,id',
-            'name' => 'required|string|max:255',
+            'label' => 'required|string|max:255',
             'permissions' => 'nullable|array',
         ];
     }
@@ -30,7 +30,7 @@ class UpdateRole extends BaseService
         $role = Role::where('company_id', $this->author->company_id)
             ->findOrFail($data['role_id']);
 
-        $role->name = $data['name'];
+        $role->label = $data['label'];
         $role->save();
 
         foreach ($data['permissions'] as $permission) {

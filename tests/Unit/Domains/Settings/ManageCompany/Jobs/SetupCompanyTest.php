@@ -22,11 +22,11 @@ class SetupCompanyTest extends TestCase
 
         $this->assertDatabaseHas('roles', [
             'company_id' => $company->id,
-            'translation_key' => 'Administrator',
+            'label_translation_key' => 'Administrator',
         ]);
         $this->assertDatabaseHas('roles', [
             'company_id' => $company->id,
-            'translation_key' => 'Employee',
+            'label_translation_key' => 'Employee',
         ]);
 
         $this->assertDatabaseHas('permissions', [

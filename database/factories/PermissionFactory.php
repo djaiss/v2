@@ -18,7 +18,7 @@ class PermissionFactory extends Factory
     {
         return [
             'action' => fake()->name,
-            'translation_key' => fake()->name,
+            'label_translation_key' => fake()->name,
         ];
     }
 }

@@ -66,7 +66,7 @@ class UpdateRoleTest extends TestCase
         $request = [
             'author_id' => $employee->id,
             'role_id' => $role->id,
-            'name' => 'Dunder',
+            'label' => 'Dunder',
             'permissions' => [
                 0 => [
                     'id' => $permission->id,
@@ -84,7 +84,7 @@ class UpdateRoleTest extends TestCase
 
         $this->assertDatabaseHas('roles', [
             'id' => $role->id,
-            'name' => 'Dunder',
+            'label' => 'Dunder',
         ]);
 
         $this->assertDatabaseHas('permission_role', [

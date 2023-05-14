@@ -29,7 +29,7 @@ class SettingsRoleIndexViewHelper
     {
         return [
             'id' => $role->id,
-            'name' => $role->name,
+            'label' => $role->label,
             'permissions' => self::permissions($role),
         ];
     }
@@ -45,7 +45,7 @@ class SettingsRoleIndexViewHelper
     {
         return [
             'id' => $permission->id,
-            'name' => $permission->name,
+            'label' => $permission->label,
             'active' => $active,
         ];
     }

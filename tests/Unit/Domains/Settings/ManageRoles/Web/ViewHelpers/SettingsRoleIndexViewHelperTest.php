@@ -28,13 +28,13 @@ class SettingsRoleIndexViewHelperTest extends TestCase
     public function it_gets_the_data_needed_for_the_role(): void
     {
         $role = Role::factory()->create([
-            'name' => 'janitor',
+            'label' => 'janitor',
         ]);
 
         $array = SettingsRoleIndexViewHelper::role($role);
 
         $this->assertArrayHasKey('id', $array);
-        $this->assertArrayHasKey('name', $array);
+        $this->assertArrayHasKey('label', $array);
         $this->assertArrayHasKey('permissions', $array);
 
         $this->assertEquals(
@@ -43,7 +43,7 @@ class SettingsRoleIndexViewHelperTest extends TestCase
         );
         $this->assertEquals(
             'janitor',
-            $array['name']
+            $array['label']
         );
     }
 
@@ -51,7 +51,7 @@ class SettingsRoleIndexViewHelperTest extends TestCase
     public function it_gets_the_data_needed_for_the_permission(): void
     {
         $permission = Permission::factory()->create([
-            'translation_key' => 'janitor',
+            'label_translation_key' => 'janitor',
         ]);
 
         $array = SettingsRoleIndexViewHelper::permission($permission);
@@ -59,7 +59,7 @@ class SettingsRoleIndexViewHelperTest extends TestCase
         $this->assertEquals(
             [
                 'id' => $permission->id,
-                'name' => 'janitor',
+                'label' => 'janitor',
                 'active' => true,
             ],
             $array

@@ -19,8 +19,8 @@ class RoleFactory extends Factory
     {
         return [
             'company_id' => Company::factory(),
-            'translation_key' => fake()->name,
-            'name' => fake()->name,
+            'label_translation_key' => fake()->name,
+            'label' => fake()->name,
         ];
     }
 }

@@ -11,7 +11,7 @@ return new class extends Migration
         Schema::create('permissions', function (Blueprint $table) {
             $table->id();
             $table->string('action');
-            $table->string('translation_key');
+            $table->string('label_translation_key');
             $table->timestamps();
         });
 

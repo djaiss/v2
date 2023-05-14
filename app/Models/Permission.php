@@ -26,7 +26,8 @@ class Permission extends Model
      */
     protected $fillable = [
         'action',
-        'translation_key',
+        'label_translation_key',
+        'label',
     ];
 
     public function roles(): BelongsToMany
@@ -37,10 +38,10 @@ class Permission extends Model
     /**
      * @return Attribute<?string,never>
      */
-    protected function name(): Attribute
+    protected function label(): Attribute
     {
         return Attribute::make(
-            get: fn ($value, $attributes) => __($attributes['translation_key']),
+            get: fn ($value, $attributes) => __($attributes['label_translation_key']),
         );
     }
 }
