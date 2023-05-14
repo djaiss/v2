@@ -11,7 +11,7 @@ return new class extends Migration
         Schema::create('issue_types', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('company_id');
-            $table->string('label_translation_key');
+            $table->string('label_translation_key')->nullable();
             $table->string('label')->nullable();
             $table->string('emoji', 5)->nullable();
             $table->timestamps();
