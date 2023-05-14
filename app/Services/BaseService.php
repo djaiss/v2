@@ -3,12 +3,12 @@
 namespace App\Services;
 
 use App\Exceptions\NotEnoughPermissionException;
-use App\Models\Employee;
+use App\Models\User;
 use Illuminate\Support\Facades\Validator;
 
 abstract class BaseService
 {
-    public Employee $author;
+    public User $author;
 
     /**
      * Get the validation rules that apply to the service.
@@ -34,7 +34,7 @@ abstract class BaseService
         Validator::make($data, $this->rules())->validate();
 
         if ($this->permissions() !== '') {
-            $this->author = Employee::findOrFail($data['author_id']);
+            $this->author = User::findOrFail($data['author_id']);
 
             if (! $this->author->hasTheRightTo($this->permissions())) {
                 throw new NotEnoughPermissionException();

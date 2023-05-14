@@ -11,14 +11,14 @@ class DestroyRole extends BaseService
     public function rules(): array
     {
         return [
-            'author_id' => 'required|integer|exists:employees,id',
+            'author_id' => 'required|integer|exists:users,id',
             'role_id' => 'required|integer|exists:roles,id',
         ];
     }
 
     public function permissions(): string
     {
-        return Permission::COMPANY_MANAGE_PERMISSIONS;
+        return Permission::ORGANIZATION_MANAGE_PERMISSIONS;
     }
 
     public function execute(array $data): void

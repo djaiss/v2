@@ -26,7 +26,7 @@ class CreateCompanyController extends Controller
         }
 
         (new CreateCompany())->execute([
-            'employee_id' => auth()->user()->id,
+            'user_id' => auth()->user()->id,
             'name' => $request->input('name'),
         ]);
 

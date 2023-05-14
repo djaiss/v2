@@ -11,11 +11,11 @@ class Permission extends Model
 {
     use HasFactory;
 
-    public const COMPANY_MANAGE_PERMISSIONS = 'company.permissions';
+    public const ORGANIZATION_MANAGE_PERMISSIONS = 'organization.permissions';
 
-    public const COMPANY_MANAGE_EMPLOYEES = 'company.employees';
+    public const ORGANIZATION_MANAGE_USERS = 'organization.users';
 
-    public const COMPANY_MANAGE_OFFICES = 'company.offices';
+    public const ORGANIZATION_MANAGE_OFFICES = 'organization.offices';
 
     protected $table = 'permissions';
 

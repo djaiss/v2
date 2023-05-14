@@ -4,9 +4,9 @@ namespace Tests\Unit\Domains\Settings\ManageOffices\Services;
 
 use App\Domains\Settings\ManageOffices\Services\DestroyOffice;
 use App\Exceptions\NotEnoughPermissionException;
-use App\Models\Employee;
 use App\Models\Office;
 use App\Models\Permission;
+use App\Models\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Validation\ValidationException;
@@ -19,11 +19,11 @@ class DestroyOfficeTest extends TestCase
     /** @test */
     public function it_destroys_an_office(): void
     {
-        $employee = $this->createEmployeeWithPermission(Permission::COMPANY_MANAGE_OFFICES);
+        $user = $this->createUserWithPermission(Permission::ORGANIZATION_MANAGE_OFFICES);
         $office = Office::factory()->create([
-            'organization_id' => $employee->organization_id,
+            'organization_id' => $user->organization_id,
         ]);
-        $this->executeService($employee, $office);
+        $this->executeService($user, $office);
     }
 
     /** @test */
@@ -40,27 +40,27 @@ class DestroyOfficeTest extends TestCase
     /** @test */
     public function it_cant_execute_the_service_with_the_wrong_permissions(): void
     {
-        $employee = Employee::factory()->create();
+        $user = User::factory()->create();
         $office = Office::factory()->create();
 
         $this->expectException(NotEnoughPermissionException::class);
-        $this->executeService($employee, $office);
+        $this->executeService($user, $office);
     }
 
     /** @test */
     public function it_fails_if_office_doesnt_belong_to_company(): void
     {
-        $employee = $this->createEmployeeWithPermission(Permission::COMPANY_MANAGE_OFFICES);
+        $user = $this->createUserWithPermission(Permission::ORGANIZATION_MANAGE_OFFICES);
         $office = Office::factory()->create();
 
         $this->expectException(ModelNotFoundException::class);
-        $this->executeService($employee, $office);
+        $this->executeService($user, $office);
     }
 
-    private function executeService(Employee $employee, Office $office): void
+    private function executeService(User $user, Office $office): void
     {
         $request = [
-            'author_id' => $employee->id,
+            'author_id' => $user->id,
             'office_id' => $office->id,
         ];
 

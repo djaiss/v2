@@ -3,7 +3,7 @@
 namespace Tests\Unit\Domains\Auth\Services;
 
 use App\Domains\Auth\Services\CreateAccount;
-use App\Models\Employee;
+use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Support\Facades\Event;
@@ -40,16 +40,16 @@ class CreateAccountTest extends TestCase
             'password' => 'johnny',
         ];
 
-        $employee = (new CreateAccount())->execute($request);
+        $user = (new CreateAccount())->execute($request);
 
-        $this->assertDatabaseHas('employees', [
-            'id' => $employee->id,
+        $this->assertDatabaseHas('users', [
+            'id' => $user->id,
             'email' => 'john@email.com',
         ]);
 
         $this->assertInstanceOf(
-            Employee::class,
-            $employee
+            User::class,
+            $user
         );
 
         Event::assertDispatched(Registered::class);

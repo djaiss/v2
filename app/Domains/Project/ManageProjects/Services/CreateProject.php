@@ -4,9 +4,9 @@ namespace App\Domains\Project\ManageProjects\Services;
 
 use App\Exceptions\ProjectCodeAlreadyExistException;
 use App\Jobs\LogAccountAudit;
-use App\Models\Organization\Employee;
 use App\Models\Organization\Project;
 use App\Models\Organization\ProjectMemberActivity;
+use App\Models\Organization\User;
 use App\Services\BaseService;
 use Carbon\Carbon;
 
@@ -22,9 +22,9 @@ class CreateProject extends BaseService
     public function rules(): array
     {
         return [
-            'organization_id' => 'required|integer|exists:companies,id',
-            'author_id' => 'required|integer|exists:employees,id',
-            'project_lead_id' => 'nullable|integer|exists:employees,id',
+            'organization_id' => 'required|integer|exists:organizations,id',
+            'author_id' => 'required|integer|exists:users,id',
+            'project_lead_id' => 'nullable|integer|exists:users,id',
             'name' => 'required|string|max:255',
             'code' => 'nullable|string|max:255',
             'short_code' => 'nullable|string|max:3',
@@ -80,7 +80,7 @@ class CreateProject extends BaseService
         }
 
         if (! is_null($this->valueOrNull($this->data, 'project_lead_id'))) {
-            Employee::where('organization_id', $this->data['organization_id'])
+            User::where('organization_id', $this->data['organization_id'])
                 ->findOrFail($this->data['project_lead_id']);
         }
     }
@@ -100,7 +100,7 @@ class CreateProject extends BaseService
         ]);
 
         if (! is_null($this->valueOrNull($this->data, 'project_lead_id'))) {
-            $this->project->employees()->syncWithoutDetaching([
+            $this->project->users()->syncWithoutDetaching([
                 $this->data['project_lead_id'] => [
                     'role' => trans('project.project_title_lead'),
                 ],
@@ -112,7 +112,7 @@ class CreateProject extends BaseService
     {
         ProjectMemberActivity::create([
             'project_id' => $this->project->id,
-            'employee_id' => $this->author->id,
+            'user_id' => $this->author->id,
         ]);
     }
 

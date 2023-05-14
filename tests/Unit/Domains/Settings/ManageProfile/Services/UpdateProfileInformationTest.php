@@ -3,7 +3,7 @@
 namespace Tests\Unit\Domains\Settings\ManageProfile\Services;
 
 use App\Domains\Settings\ManageProfile\Services\UpdateProfileInformation;
-use App\Models\Employee;
+use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Validation\ValidationException;
 use Tests\TestCase;
@@ -13,10 +13,10 @@ class UpdateProfileInformationTest extends TestCase
     use DatabaseTransactions;
 
     /** @test */
-    public function it_updates_the_information_of_the_employee(): void
+    public function it_updates_the_information_of_the_user(): void
     {
-        $employee = Employee::factory()->create();
-        $this->executeService($employee);
+        $user = User::factory()->create();
+        $this->executeService($user);
     }
 
     /** @test */
@@ -30,27 +30,27 @@ class UpdateProfileInformationTest extends TestCase
         (new UpdateProfileInformation())->execute($request);
     }
 
-    private function executeService(Employee $employee): void
+    private function executeService(User $user): void
     {
         $request = [
-            'employee_id' => $employee->id,
+            'user_id' => $user->id,
             'first_name' => 'michael',
             'last_name' => 'scott',
             'email' => 'michael.scott@gmail.com',
         ];
 
-        $employee = (new UpdateProfileInformation())->execute($request);
+        $user = (new UpdateProfileInformation())->execute($request);
 
-        $this->assertDatabaseHas('employees', [
-            'id' => $employee->id,
+        $this->assertDatabaseHas('users', [
+            'id' => $user->id,
             'first_name' => 'michael',
             'last_name' => 'scott',
             'email' => 'michael.scott@gmail.com',
         ]);
 
         $this->assertInstanceOf(
-            Employee::class,
-            $employee
+            User::class,
+            $user
         );
     }
 }

@@ -21,7 +21,7 @@ class LayoutViewHelper
             'url' => route('locale.update', ['locale' => 'fr']),
         ]);
 
-        // current organization for the logged employee
+        // current organization for the logged user
         $organization = null;
         if (auth()->check()) {
             $organization = auth()->user()->organization;

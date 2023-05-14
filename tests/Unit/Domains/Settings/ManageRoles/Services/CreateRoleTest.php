@@ -4,9 +4,9 @@ namespace Tests\Unit\Domains\Settings\ManageRoles\Services;
 
 use App\Domains\Settings\ManageRoles\Services\CreateRole;
 use App\Exceptions\NotEnoughPermissionException;
-use App\Models\Employee;
 use App\Models\Permission;
 use App\Models\Role;
+use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Validation\ValidationException;
 use Tests\TestCase;
@@ -18,8 +18,8 @@ class CreateRoleTest extends TestCase
     /** @test */
     public function it_creates_a_role(): void
     {
-        $employee = $this->createEmployeeWithPermission(Permission::COMPANY_MANAGE_PERMISSIONS);
-        $this->executeService($employee);
+        $user = $this->createUserWithPermission(Permission::ORGANIZATION_MANAGE_PERMISSIONS);
+        $this->executeService($user);
     }
 
     /** @test */
@@ -36,18 +36,18 @@ class CreateRoleTest extends TestCase
     /** @test */
     public function it_cant_execute_the_service_with_the_wrong_permissions(): void
     {
-        $employee = Employee::factory()->create();
+        $user = User::factory()->create();
 
         $this->expectException(NotEnoughPermissionException::class);
-        $this->executeService($employee);
+        $this->executeService($user);
     }
 
-    private function executeService(Employee $employee): void
+    private function executeService(User $user): void
     {
         $permission = Permission::factory()->create();
 
         $request = [
-            'author_id' => $employee->id,
+            'author_id' => $user->id,
             'label' => 'Dunder',
             'permissions' => [
                 0 => [

@@ -2,7 +2,7 @@
 
 namespace App\Domains\Settings\ManageProfile\Services;
 
-use App\Models\Employee;
+use App\Models\User;
 use App\Services\BaseService;
 use Illuminate\Validation\ValidationException;
 
@@ -14,7 +14,7 @@ class UpdateProfileInformation extends BaseService
     public function rules(): array
     {
         return [
-            'employee_id' => 'required|integer|exists:employees,id',
+            'user_id' => 'required|integer|exists:users,id',
             'first_name' => 'nullable|string|max:255',
             'last_name' => 'nullable|string|max:255',
             'email' => 'required|email|max:255',
@@ -22,32 +22,32 @@ class UpdateProfileInformation extends BaseService
     }
 
     /**
-     * Update the information about the employee.
+     * Update the information about the user.
      */
-    public function execute(array $data): Employee
+    public function execute(array $data): User
     {
         $this->validateRules($data);
 
-        $employee = Employee::findOrFail($data['employee_id']);
-        $oldEmail = $employee->email;
+        $user = User::findOrFail($data['user_id']);
+        $oldEmail = $user->email;
 
-        $employee->first_name = $data['first_name'];
-        $employee->last_name = $data['last_name'];
-        $employee->save();
+        $user->first_name = $data['first_name'];
+        $user->last_name = $data['last_name'];
+        $user->save();
 
         if ($oldEmail !== $data['email']) {
-            if (Employee::where('email', $data['email'])->exists()) {
+            if (User::where('email', $data['email'])->exists()) {
                 throw ValidationException::withMessages([
                     'email' => __('This email has already been taken.'),
                 ]);
             }
 
-            $employee->email = $data['email'];
-            $employee->email_verified_at = null;
-            $employee->save();
-            $employee->refresh()->sendEmailVerificationNotification();
+            $user->email = $data['email'];
+            $user->email_verified_at = null;
+            $user->save();
+            $user->refresh()->sendEmailVerificationNotification();
         }
 
-        return $employee;
+        return $user;
     }
 }

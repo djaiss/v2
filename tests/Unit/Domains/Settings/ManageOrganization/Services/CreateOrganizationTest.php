@@ -4,8 +4,8 @@ namespace Tests\Unit\Domains\Settings\ManageOrganization\Services;
 
 use App\Domains\Settings\ManageOrganization\Jobs\SetupOrganization;
 use App\Domains\Settings\ManageOrganization\Services\CreateOrganization;
-use App\Models\Employee;
 use App\Models\Organization;
+use App\Models\User;
 use Exception;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Support\Facades\Queue;
@@ -19,10 +19,10 @@ class CreateOrganizationTest extends TestCase
     /** @test */
     public function it_creates_an_organization(): void
     {
-        $employee = Employee::factory()->create([
+        $user = User::factory()->create([
             'organization_id' => null,
         ]);
-        $this->executeService($employee);
+        $this->executeService($user);
     }
 
     /** @test */
@@ -37,22 +37,22 @@ class CreateOrganizationTest extends TestCase
     }
 
     /** @test */
-    public function it_fails_if_employee_already_owns_a_company(): void
+    public function it_fails_if_user_already_owns_a_company(): void
     {
-        $employee = Employee::factory()->create([
+        $user = User::factory()->create([
             'organization_id' => Organization::factory(),
         ]);
 
         $this->expectException(Exception::class);
-        $this->executeService($employee);
+        $this->executeService($user);
     }
 
-    private function executeService(Employee $employee): void
+    private function executeService(User $user): void
     {
         Queue::fake();
 
         $request = [
-            'employee_id' => $employee->id,
+            'user_id' => $user->id,
             'name' => 'acme',
         ];
 
@@ -63,8 +63,8 @@ class CreateOrganizationTest extends TestCase
             'name' => 'acme',
         ]);
 
-        $this->assertDatabaseHas('employees', [
-            'id' => $employee->id,
+        $this->assertDatabaseHas('users', [
+            'id' => $user->id,
             'organization_id' => $organization->id,
         ]);
 

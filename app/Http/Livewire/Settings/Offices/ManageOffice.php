@@ -118,7 +118,7 @@ class ManageOffice extends Component
 
         $this->dialog()->confirm([
             'title' => __('Are you sure?'),
-            'description' => __('All employees who have this permission will be without permissions, meaning they will not be able to do anything in the application.'),
+            'description' => __('All users who have this permission will be without permissions, meaning they will not be able to do anything in the application.'),
             'icon' => 'trash',
             'iconColor' => 'text-red-600',
             'accept' => [

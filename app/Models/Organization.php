@@ -27,9 +27,9 @@ class Organization extends Model
         return $this->hasMany(Role::class);
     }
 
-    public function employees(): HasMany
+    public function users(): HasMany
     {
-        return $this->hasMany(Employee::class);
+        return $this->hasMany(User::class);
     }
 
     public function offices(): HasMany

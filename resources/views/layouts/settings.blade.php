@@ -27,9 +27,9 @@
         <div class="flex w-full divide-x divide-slate-200">
           <nav class="pt-5 max-w-[25%] space-y-6 sidebar whitespace-nowrap p-3">
             <ul>
-              <li class="uppercase text-xs mb-2 font-light">{{ __('Employee profile') }}</li>
+              <li class="uppercase text-xs mb-2 font-light">{{ __('User profile') }}</li>
 
-              <!-- employee profile -->
+              <!-- user profile -->
               <li @class([ 'bg-slate-100 hover:bg-slate-100 pl-2 pr-8 py-1 rounded cursor-pointer mb-1 flex items-center group'=> request()->route()->named('settings.index'),
                 'hover:bg-slate-100 pl-2 pr-8 py-1 rounded cursor-pointer mb-1 flex items-center group' => !request()->route()->named('settings.index')])>
                 <x-heroicon-s-user-circle class="w-4 h-4 mr-2 text-cyan-800 group-hover:text-cyan-800" />

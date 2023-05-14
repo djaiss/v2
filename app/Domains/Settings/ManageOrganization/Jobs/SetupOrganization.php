@@ -2,10 +2,10 @@
 
 namespace App\Domains\Settings\ManageOrganization\Jobs;
 
-use App\Models\Employee;
 use App\Models\Organization;
 use App\Models\Permission;
 use App\Models\Role;
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -21,7 +21,7 @@ class SetupOrganization implements ShouldQueue
      */
     public function __construct(
         public Organization $organization,
-        public Employee $employee
+        public User $user
     ) {
     }
 
@@ -37,31 +37,31 @@ class SetupOrganization implements ShouldQueue
     {
         $administratorRole = Role::create([
             'organization_id' => $this->organization->id,
-            'label_translation_key' => 'Administrator',
+            'label_translation_key' => trans_key('Administrator'),
         ]);
 
-        $employeeRole = Role::create([
+        $userRole = Role::create([
             'organization_id' => $this->organization->id,
-            'label_translation_key' => 'Employee',
+            'label_translation_key' => trans_key('User'),
         ]);
 
-        $this->employee->role_id = $administratorRole->id;
-        $this->employee->save();
+        $this->user->role_id = $administratorRole->id;
+        $this->user->save();
 
         // permissions for administrators
         $permissionsTable = [
             [
-                'action' => Permission::COMPANY_MANAGE_PERMISSIONS,
+                'action' => Permission::ORGANIZATION_MANAGE_PERMISSIONS,
                 'label_translation_key' => 'Manage company roles and permissions',
                 'active' => true,
             ],
             [
-                'action' => Permission::COMPANY_MANAGE_EMPLOYEES,
-                'label_translation_key' => 'Manage employees',
+                'action' => Permission::ORGANIZATION_MANAGE_USERS,
+                'label_translation_key' => 'Manage users',
                 'active' => true,
             ],
             [
-                'action' => Permission::COMPANY_MANAGE_OFFICES,
+                'action' => Permission::ORGANIZATION_MANAGE_OFFICES,
                 'label_translation_key' => 'Manage offices',
                 'active' => true,
             ],
@@ -76,10 +76,10 @@ class SetupOrganization implements ShouldQueue
             ]);
         }
 
-        // permissions for employees
+        // permissions for users
         $permissionsTable = [
             [
-                'action' => 'company.permissions',
+                'action' => 'organization.permissions',
                 'label_translation_key' => 'Manage company roles and permissions',
                 'active' => false,
             ],
@@ -87,7 +87,7 @@ class SetupOrganization implements ShouldQueue
 
         foreach ($permissionsTable as $permission) {
             $object->roles()->syncWithoutDetaching([
-                $employeeRole->id => [
+                $userRole->id => [
                     'active' => $permission['active'],
                 ],
             ]);

@@ -4,9 +4,9 @@ namespace Tests\Unit\Domains\Settings\ManageOffices\Services;
 
 use App\Domains\Settings\ManageOffices\Services\CreateOffice;
 use App\Exceptions\NotEnoughPermissionException;
-use App\Models\Employee;
 use App\Models\Office;
 use App\Models\Permission;
+use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Validation\ValidationException;
 use Tests\TestCase;
@@ -18,17 +18,17 @@ class CreateOfficeTest extends TestCase
     /** @test */
     public function it_creates_an_office(): void
     {
-        $employee = $this->createEmployeeWithPermission(Permission::COMPANY_MANAGE_OFFICES);
-        $this->executeService($employee);
+        $user = $this->createUserWithPermission(Permission::ORGANIZATION_MANAGE_OFFICES);
+        $this->executeService($user);
     }
 
     /** @test */
     public function it_cant_execute_the_service_with_the_wrong_permissions(): void
     {
-        $employee = Employee::factory()->create();
+        $user = User::factory()->create();
 
         $this->expectException(NotEnoughPermissionException::class);
-        $this->executeService($employee);
+        $this->executeService($user);
     }
 
     /** @test */
@@ -42,10 +42,10 @@ class CreateOfficeTest extends TestCase
         (new CreateOffice())->execute($request);
     }
 
-    private function executeService(Employee $employee): void
+    private function executeService(User $user): void
     {
         $request = [
-            'author_id' => $employee->id,
+            'author_id' => $user->id,
             'name' => 'Dunder',
             'is_main_office' => true,
         ];

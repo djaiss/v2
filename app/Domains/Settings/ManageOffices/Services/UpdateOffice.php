@@ -15,7 +15,7 @@ class UpdateOffice extends BaseService
     public function rules(): array
     {
         return [
-            'author_id' => 'required|integer|exists:employees,id',
+            'author_id' => 'required|integer|exists:users,id',
             'office_id' => 'required|integer|exists:offices,id',
             'name' => 'required|string|max:255',
             'is_main_office' => 'required|boolean',
@@ -24,7 +24,7 @@ class UpdateOffice extends BaseService
 
     public function permissions(): string
     {
-        return Permission::COMPANY_MANAGE_OFFICES;
+        return Permission::ORGANIZATION_MANAGE_OFFICES;
     }
 
     public function execute(array $data): Office

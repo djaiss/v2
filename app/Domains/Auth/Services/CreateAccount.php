@@ -3,7 +3,7 @@
 namespace App\Domains\Auth\Services;
 
 use App\Models\Account;
-use App\Models\Employee;
+use App\Models\User;
 use App\Services\BaseService;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Hash;
@@ -16,25 +16,25 @@ class CreateAccount extends BaseService
     public function rules(): array
     {
         return [
-            'email' => 'required|unique:employees,email|email|max:255',
+            'email' => 'required|unique:users,email|email|max:255',
             'password' => 'required|min:6|max:60',
         ];
     }
 
     /**
-     * Create an account for the employee.
+     * Create an account for the user.
      */
-    public function execute(array $data): Employee
+    public function execute(array $data): User
     {
         $this->validateRules($data);
 
-        $employee = Employee::create([
+        $user = User::create([
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
 
-        event(new Registered($employee));
+        event(new Registered($user));
 
-        return $employee;
+        return $user;
     }
 }

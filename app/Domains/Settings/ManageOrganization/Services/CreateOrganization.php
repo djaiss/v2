@@ -3,15 +3,15 @@
 namespace App\Domains\Settings\ManageOrganization\Services;
 
 use App\Domains\Settings\ManageOrganization\Jobs\SetupOrganization;
-use App\Models\Employee;
 use App\Models\Organization;
+use App\Models\User;
 use App\Services\BaseService;
 use Exception;
 use Illuminate\Support\Str;
 
 class CreateOrganization extends BaseService
 {
-    private Employee $employee;
+    private User $user;
 
     private array $data;
 
@@ -23,32 +23,32 @@ class CreateOrganization extends BaseService
     public function rules(): array
     {
         return [
-            'employee_id' => 'required|integer|exists:employees,id',
+            'user_id' => 'required|integer|exists:users,id',
             'name' => 'required|string|max:255',
         ];
     }
 
     /**
-     * Create an organization and associate the employee to it, as the owner.
+     * Create an organization and associate the user to it, as the owner.
      */
     public function execute(array $data): Organization
     {
         $this->validateRules($data);
         $this->data = $data;
 
-        $this->checkEmployee();
+        $this->checkUser();
         $this->createOrganization();
-        $this->associateEmployeeToOrganization();
+        $this->associateUserToOrganization();
 
         return $this->organization;
     }
 
-    private function checkEmployee(): void
+    private function checkUser(): void
     {
-        $this->employee = Employee::findOrFail($this->data['employee_id']);
+        $this->user = User::findOrFail($this->data['user_id']);
 
-        if ($this->employee->organization_id) {
-            throw new Exception('Employee already has a company');
+        if ($this->user->organization_id) {
+            throw new Exception('User already has an organization');
         }
     }
 
@@ -59,12 +59,12 @@ class CreateOrganization extends BaseService
             'invitation_code' => Str::random(40),
         ]);
 
-        SetupOrganization::dispatch($this->organization, $this->employee);
+        SetupOrganization::dispatch($this->organization, $this->user);
     }
 
-    private function associateEmployeeToOrganization(): void
+    private function associateUserToOrganization(): void
     {
-        $this->employee->organization_id = $this->organization->id;
-        $this->employee->save();
+        $this->user->organization_id = $this->organization->id;
+        $this->user->save();
     }
 }

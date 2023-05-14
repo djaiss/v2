@@ -4,9 +4,9 @@ namespace Tests\Unit\Domains\Settings\ManageRoles\Services;
 
 use App\Domains\Settings\ManageRoles\Services\DestroyRole;
 use App\Exceptions\NotEnoughPermissionException;
-use App\Models\Employee;
 use App\Models\Permission;
 use App\Models\Role;
+use App\Models\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Validation\ValidationException;
@@ -19,11 +19,11 @@ class DestroyRoleTest extends TestCase
     /** @test */
     public function it_destroys_a_role(): void
     {
-        $employee = $this->createEmployeeWithPermission(Permission::COMPANY_MANAGE_PERMISSIONS);
+        $user = $this->createUserWithPermission(Permission::ORGANIZATION_MANAGE_PERMISSIONS);
         $role = Role::factory()->create([
-            'organization_id' => $employee->organization_id,
+            'organization_id' => $user->organization_id,
         ]);
-        $this->executeService($employee, $role);
+        $this->executeService($user, $role);
     }
 
     /** @test */
@@ -40,29 +40,29 @@ class DestroyRoleTest extends TestCase
     /** @test */
     public function it_cant_execute_the_service_with_the_wrong_permissions(): void
     {
-        $employee = Employee::factory()->create();
+        $user = User::factory()->create();
         $role = Role::factory()->create([
-            'organization_id' => $employee->organization_id,
+            'organization_id' => $user->organization_id,
         ]);
 
         $this->expectException(NotEnoughPermissionException::class);
-        $this->executeService($employee, $role);
+        $this->executeService($user, $role);
     }
 
     /** @test */
     public function it_fails_if_role_doesnt_belong_to_company(): void
     {
-        $employee = $this->createEmployeeWithPermission(Permission::COMPANY_MANAGE_PERMISSIONS);
+        $user = $this->createUserWithPermission(Permission::ORGANIZATION_MANAGE_PERMISSIONS);
         $role = Role::factory()->create();
 
         $this->expectException(ModelNotFoundException::class);
-        $this->executeService($employee, $role);
+        $this->executeService($user, $role);
     }
 
-    private function executeService(Employee $employee, Role $role): void
+    private function executeService(User $user, Role $role): void
     {
         $request = [
-            'author_id' => $employee->id,
+            'author_id' => $user->id,
             'role_id' => $role->id,
         ];
 

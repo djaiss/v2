@@ -31,7 +31,7 @@ class UpdateProfile extends Component
     public function store(): void
     {
         (new UpdateProfileInformation())->execute([
-            'employee_id' => auth()->user()->id,
+            'user_id' => auth()->user()->id,
             'first_name' => $this->firstName,
             'last_name' => $this->lastName,
             'email' => $this->email,

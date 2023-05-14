@@ -11,7 +11,7 @@ class CreateRole extends BaseService
     public function rules(): array
     {
         return [
-            'author_id' => 'required|integer|exists:employees,id',
+            'author_id' => 'required|integer|exists:users,id',
             'label' => 'required|string|max:255',
             'permissions' => 'nullable|array',
         ];
@@ -19,7 +19,7 @@ class CreateRole extends BaseService
 
     public function permissions(): string
     {
-        return Permission::COMPANY_MANAGE_PERMISSIONS;
+        return Permission::ORGANIZATION_MANAGE_PERMISSIONS;
     }
 
     public function execute(array $data): Role

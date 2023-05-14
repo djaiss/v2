@@ -2,7 +2,7 @@
 
 namespace Tests\Browser\Domains\Settings\Profile;
 
-use App\Models\Employee;
+use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTruncation;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
@@ -12,14 +12,14 @@ class UpdateProfileTest extends DuskTestCase
     use DatabaseTruncation;
 
     /** @test */
-    public function it_updates_the_profile_of_the_logged_employee(): void
+    public function it_updates_the_profile_of_the_logged_user(): void
     {
-        $employee = Employee::factory()->create([
+        $user = User::factory()->create([
             'email' => 'regis@dumb.io',
         ]);
 
-        $this->browse(function (Browser $browser) use ($employee) {
-            $browser->loginAs($employee)
+        $this->browse(function (Browser $browser) use ($user) {
+            $browser->loginAs($user)
                 ->visitRoute('settings.index')
                 ->assertRouteIs('settings.index')
                 ->assertValue('@first-name-field', '')
