@@ -1,9 +1,9 @@
 <?php
 
-namespace Tests\Unit\Domains\Settings\ManageCompany\Jobs;
+namespace Tests\Unit\Domains\Settings\ManageOrganization\Jobs;
 
-use App\Domains\Settings\ManageCompany\Jobs\SetupCompany;
-use App\Models\Company;
+use App\Domains\Settings\ManageOrganization\Jobs\SetupCompany;
+use App\Models\Organization;
 use App\Models\Employee;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
@@ -15,17 +15,17 @@ class SetupCompanyTest extends TestCase
     /** @test */
     public function it_sets_a_company_up(): void
     {
-        $company = Company::factory()->create();
+        $organization = Organization::factory()->create();
         $employee = Employee::factory()->create();
 
-        SetupCompany::dispatchSync($company, $employee);
+        SetupOrganization::dispatchSync($organization, $employee);
 
         $this->assertDatabaseHas('roles', [
-            'company_id' => $company->id,
+            'organization_id' => $organization->id,
             'label_translation_key' => 'Administrator',
         ]);
         $this->assertDatabaseHas('roles', [
-            'company_id' => $company->id,
+            'organization_id' => $organization->id,
             'label_translation_key' => 'Employee',
         ]);
 

@@ -84,7 +84,7 @@ class ManageRole extends Component
 
     public function update(int $roleId): void
     {
-        $role = Role::where('company_id', auth()->user()->company_id)
+        $role = Role::where('organization_id', auth()->user()->organization_id)
             ->findOrFail($roleId);
 
         $role = (new UpdateRole())->execute([
@@ -113,7 +113,7 @@ class ManageRole extends Component
 
     public function confirmDestroy(int $roleId): void
     {
-        $role = Role::where('company_id', auth()->user()->company_id)
+        $role = Role::where('organization_id', auth()->user()->organization_id)
             ->findOrFail($roleId);
 
         $this->dialog()->confirm([

@@ -2,7 +2,7 @@
 
 namespace Tests\Browser\Domains\Settings\Roles;
 
-use App\Domains\Settings\ManageCompany\Jobs\SetupCompany;
+use App\Domains\Settings\ManageOrganization\Jobs\SetupCompany;
 use App\Models\Employee;
 use App\Models\Role;
 use Illuminate\Foundation\Testing\DatabaseTruncation;
@@ -19,7 +19,7 @@ class ManageRoleTest extends DuskTestCase
         $employee = Employee::factory()->create([
             'email' => 'regis@dumb.io',
         ]);
-        SetupCompany::dispatch($employee->company);
+        SetupOrganization::dispatch($employee->company);
 
         $this->browse(function (Browser $browser) use ($employee) {
             // create a role

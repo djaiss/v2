@@ -1,21 +1,21 @@
 <?php
 
-namespace App\Domains\Settings\ManageCompany\Services;
+namespace App\Domains\Settings\ManageOrganization\Services;
 
-use App\Domains\Settings\ManageCompany\Jobs\SetupCompany;
-use App\Models\Company;
+use App\Domains\Settings\ManageOrganization\Jobs\SetupOrganization;
+use App\Models\Organization;
 use App\Models\Employee;
 use App\Services\BaseService;
 use Exception;
 use Illuminate\Support\Str;
 
-class CreateCompany extends BaseService
+class CreateOrganization extends BaseService
 {
     private Employee $employee;
 
     private array $data;
 
-    private Company $company;
+    private Organization $organization;
 
     /**
      * Get the validation rules that apply to the service.
@@ -29,42 +29,42 @@ class CreateCompany extends BaseService
     }
 
     /**
-     * Create a company and associate the employee to it, as the owner.
+     * Create an organization and associate the employee to it, as the owner.
      */
-    public function execute(array $data): Company
+    public function execute(array $data): Organization
     {
         $this->validateRules($data);
         $this->data = $data;
 
         $this->checkEmployee();
-        $this->createCompany();
-        $this->associateEmployeeToCompany();
+        $this->createOrganization();
+        $this->associateEmployeeToOrganization();
 
-        return $this->company;
+        return $this->organization;
     }
 
     private function checkEmployee(): void
     {
         $this->employee = Employee::findOrFail($this->data['employee_id']);
 
-        if ($this->employee->company_id) {
+        if ($this->employee->organization_id) {
             throw new Exception('Employee already has a company');
         }
     }
 
-    private function createCompany(): void
+    private function createOrganization(): void
     {
-        $this->company = Company::create([
+        $this->organization = Organization::create([
             'name' => $this->data['name'],
             'invitation_code' => Str::random(40),
         ]);
 
-        SetupCompany::dispatch($this->company, $this->employee);
+        SetupOrganization::dispatch($this->organization, $this->employee);
     }
 
-    private function associateEmployeeToCompany(): void
+    private function associateEmployeeToOrganization(): void
     {
-        $this->employee->company_id = $this->company->id;
+        $this->employee->organization_id = $this->organization->id;
         $this->employee->save();
     }
 }

@@ -19,7 +19,7 @@ class Office extends Model
      * @var array<string>
      */
     protected $fillable = [
-        'company_id',
+        'organization_id',
         'name',
         'is_main_office',
     ];
@@ -37,13 +37,13 @@ class Office extends Model
     {
         return [
             'id' => $this->id,
-            'company_id' => $this->company_id,
+            'organization_id' => $this->organization_id,
             'name' => $this->name,
         ];
     }
 
-    public function company(): BelongsTo
+    public function organization(): BelongsTo
     {
-        return $this->belongsTo(Company::class);
+        return $this->belongsTo(Organization::class);
     }
 }

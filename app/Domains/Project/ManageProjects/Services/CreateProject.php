@@ -4,9 +4,9 @@ namespace App\Domains\Project\ManageProjects\Services;
 
 use App\Exceptions\ProjectCodeAlreadyExistException;
 use App\Jobs\LogAccountAudit;
-use App\Models\Company\Employee;
-use App\Models\Company\Project;
-use App\Models\Company\ProjectMemberActivity;
+use App\Models\Organization\Employee;
+use App\Models\Organization\Project;
+use App\Models\Organization\ProjectMemberActivity;
 use App\Services\BaseService;
 use Carbon\Carbon;
 
@@ -22,7 +22,7 @@ class CreateProject extends BaseService
     public function rules(): array
     {
         return [
-            'company_id' => 'required|integer|exists:companies,id',
+            'organization_id' => 'required|integer|exists:companies,id',
             'author_id' => 'required|integer|exists:employees,id',
             'project_lead_id' => 'nullable|integer|exists:employees,id',
             'name' => 'required|string|max:255',
@@ -53,13 +53,13 @@ class CreateProject extends BaseService
         $this->validateRules($this->data);
 
         $this->author($this->data['author_id'])
-            ->inCompany($this->data['company_id'])
+            ->inCompany($this->data['organization_id'])
             ->asNormalUser()
             ->canExecuteService();
 
         // make sure the project code, if provided, is unique in the company
         if (! is_null($this->valueOrNull($this->data, 'code'))) {
-            $count = Project::where('company_id', $this->data['company_id'])
+            $count = Project::where('organization_id', $this->data['organization_id'])
                 ->where('code', $this->data['code'])
                 ->count();
 
@@ -70,7 +70,7 @@ class CreateProject extends BaseService
 
         // make sure the project short code, if provided, is unique in the company
         if (! is_null($this->valueOrNull($this->data, 'short_code'))) {
-            $count = Project::where('company_id', $this->data['company_id'])
+            $count = Project::where('organization_id', $this->data['organization_id'])
                 ->where('short_code', $this->data['short_code'])
                 ->count();
 
@@ -80,7 +80,7 @@ class CreateProject extends BaseService
         }
 
         if (! is_null($this->valueOrNull($this->data, 'project_lead_id'))) {
-            Employee::where('company_id', $this->data['company_id'])
+            Employee::where('organization_id', $this->data['organization_id'])
                 ->findOrFail($this->data['project_lead_id']);
         }
     }
@@ -88,7 +88,7 @@ class CreateProject extends BaseService
     private function createProject(): void
     {
         $this->project = Project::create([
-            'company_id' => $this->data['company_id'],
+            'organization_id' => $this->data['organization_id'],
             'project_lead_id' => $this->valueOrNull($this->data, 'project_lead_id'),
             'name' => $this->data['name'],
             'summary' => $this->valueOrNull($this->data, 'summary'),
@@ -119,7 +119,7 @@ class CreateProject extends BaseService
     private function log(): void
     {
         LogAccountAudit::dispatch([
-            'company_id' => $this->data['company_id'],
+            'organization_id' => $this->data['organization_id'],
             'action' => 'project_created',
             'author_id' => $this->author->id,
             'author_name' => $this->author->name,

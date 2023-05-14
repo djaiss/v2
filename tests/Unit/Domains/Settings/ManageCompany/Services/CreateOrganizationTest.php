@@ -2,9 +2,9 @@
 
 namespace Tests\Unit\Domains\Settings\ManageCompany\Services;
 
-use App\Domains\Settings\ManageCompany\Jobs\SetupCompany;
-use App\Domains\Settings\ManageCompany\Services\CreateCompany;
-use App\Models\Company;
+use App\Domains\Settings\ManageOrganization\Jobs\SetupOrganization;
+use App\Domains\Settings\ManageOrganization\Services\CreateOrganization;
+use App\Models\Organization;
 use App\Models\Employee;
 use Exception;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
@@ -12,15 +12,15 @@ use Illuminate\Support\Facades\Queue;
 use Illuminate\Validation\ValidationException;
 use Tests\TestCase;
 
-class CreateCompanyTest extends TestCase
+class CreateOrganizationTest extends TestCase
 {
     use DatabaseTransactions;
 
     /** @test */
-    public function it_creates_a_company(): void
+    public function it_creates_an_organization(): void
     {
         $employee = Employee::factory()->create([
-            'company_id' => null,
+            'organization_id' => null,
         ]);
         $this->executeService($employee);
     }
@@ -33,14 +33,14 @@ class CreateCompanyTest extends TestCase
         ];
 
         $this->expectException(ValidationException::class);
-        (new CreateCompany())->execute($request);
+        (new CreateOrganization())->execute($request);
     }
 
     /** @test */
     public function it_fails_if_employee_already_owns_a_company(): void
     {
         $employee = Employee::factory()->create([
-            'company_id' => Company::factory(),
+            'organization_id' => Organization::factory(),
         ]);
 
         $this->expectException(Exception::class);
@@ -56,23 +56,23 @@ class CreateCompanyTest extends TestCase
             'name' => 'acme',
         ];
 
-        $company = (new CreateCompany())->execute($request);
+        $organization = (new CreateOrganization())->execute($request);
 
-        $this->assertDatabaseHas('companies', [
-            'id' => $company->id,
+        $this->assertDatabaseHas('organizations', [
+            'id' => $organization->id,
             'name' => 'acme',
         ]);
 
         $this->assertDatabaseHas('employees', [
             'id' => $employee->id,
-            'company_id' => $company->id,
+            'organization_id' => $organization->id,
         ]);
 
         $this->assertInstanceOf(
-            Company::class,
-            $company
+            Organization::class,
+            $organization
         );
 
-        Queue::assertPushed(SetupCompany::class);
+        Queue::assertPushed(SetupOrganization::class);
     }
 }

@@ -21,7 +21,7 @@ class DestroyRoleTest extends TestCase
     {
         $employee = $this->createEmployeeWithPermission(Permission::COMPANY_MANAGE_PERMISSIONS);
         $role = Role::factory()->create([
-            'company_id' => $employee->company_id,
+            'organization_id' => $employee->organization_id,
         ]);
         $this->executeService($employee, $role);
     }
@@ -42,7 +42,7 @@ class DestroyRoleTest extends TestCase
     {
         $employee = Employee::factory()->create();
         $role = Role::factory()->create([
-            'company_id' => $employee->company_id,
+            'organization_id' => $employee->organization_id,
         ]);
 
         $this->expectException(NotEnoughPermissionException::class);

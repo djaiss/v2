@@ -10,7 +10,7 @@ class WelcomeController extends Controller
 {
     public function index(): View|RedirectResponse
     {
-        if (auth()->user()->company_id) {
+        if (auth()->user()->organization_id) {
             return redirect()->route('home.index');
         }
 

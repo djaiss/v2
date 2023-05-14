@@ -83,7 +83,7 @@ class ManageOffice extends Component
 
     public function update(int $officeId): void
     {
-        $office = Office::where('company_id', auth()->user()->company_id)
+        $office = Office::where('organization_id', auth()->user()->organization_id)
             ->findOrFail($officeId);
 
         $office = (new UpdateOffice())->execute([
@@ -113,7 +113,7 @@ class ManageOffice extends Component
 
     public function confirmDestroy(int $officeId): void
     {
-        $office = Office::where('company_id', auth()->user()->company_id)
+        $office = Office::where('organization_id', auth()->user()->organization_id)
             ->findOrFail($officeId);
 
         $this->dialog()->confirm([

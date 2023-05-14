@@ -10,12 +10,12 @@ return new class extends Migration
     {
         Schema::create('issue_types', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('company_id');
+            $table->unsignedBigInteger('organization_id');
             $table->string('label_translation_key')->nullable();
             $table->string('label')->nullable();
             $table->string('emoji', 5)->nullable();
             $table->timestamps();
-            $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
+            $table->foreign('organization_id')->references('id')->on('organizations')->onDelete('cascade');
         });
     }
 

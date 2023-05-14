@@ -12,10 +12,10 @@ class RoleTest extends TestCase
     use DatabaseTransactions;
 
     /** @test */
-    public function it_belongs_to_one_company()
+    public function it_belongs_to_one_organization()
     {
         $role = Role::factory()->create();
-        $this->assertTrue($role->company()->exists());
+        $this->assertTrue($role->organization()->exists());
     }
 
     /** @test */

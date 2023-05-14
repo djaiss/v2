@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Domains\Settings\ManageCompany\Jobs;
+namespace App\Domains\Settings\ManageOrganization\Jobs;
 
-use App\Models\Company;
+use App\Models\Organization;
 use App\Models\Employee;
 use App\Models\Permission;
 use App\Models\Role;
@@ -12,7 +12,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 
-class SetupCompany implements ShouldQueue
+class SetupOrganization implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -20,7 +20,7 @@ class SetupCompany implements ShouldQueue
      * Create a new job instance.
      */
     public function __construct(
-        public Company $company,
+        public Organization $organization,
         public Employee $employee
     ) {
     }
@@ -36,12 +36,12 @@ class SetupCompany implements ShouldQueue
     private function createRoles(): void
     {
         $administratorRole = Role::create([
-            'company_id' => $this->company->id,
+            'organization_id' => $this->organization->id,
             'label_translation_key' => 'Administrator',
         ]);
 
         $employeeRole = Role::create([
-            'company_id' => $this->company->id,
+            'organization_id' => $this->organization->id,
             'label_translation_key' => 'Employee',
         ]);
 

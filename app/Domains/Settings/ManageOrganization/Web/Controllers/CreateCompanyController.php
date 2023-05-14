@@ -12,7 +12,7 @@ class CreateCompanyController extends Controller
 {
     public function index(): View|RedirectResponse
     {
-        if (auth()->user()->company_id) {
+        if (auth()->user()->organization_id) {
             return redirect()->route('home.index');
         }
 
@@ -21,7 +21,7 @@ class CreateCompanyController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
-        if (auth()->user()->company_id) {
+        if (auth()->user()->organization_id) {
             return redirect()->route('home.index');
         }
 

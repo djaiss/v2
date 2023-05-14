@@ -22,17 +22,17 @@ class LayoutViewHelper
         ]);
 
         // current company for the logged employee
-        $company = null;
+        $organization = null;
         if (auth()->check()) {
-            $company = auth()->user()->company;
+            $organization = auth()->user()->company;
         }
 
         return [
             'currentLocale' => App::currentLocale(),
             'locales' => $localesCollection,
             'currentYear' => Carbon::now()->format('Y'),
-            'company' => $company ? [
-                'name' => $company->name,
+            'company' => $organization ? [
+                'name' => $organization->name,
             ] : null,
             'url' => [
                 'search' => route('search.show'),

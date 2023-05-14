@@ -19,7 +19,7 @@ class Employee extends Authenticatable implements MustVerifyEmail
      * @var array<int, string>
      */
     protected $fillable = [
-        'company_id',
+        'organization_id',
         'role_id',
         'first_name',
         'last_name',
@@ -48,9 +48,9 @@ class Employee extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
-    public function company(): BelongsTo
+    public function organization(): BelongsTo
     {
-        return $this->belongsTo(Company::class);
+        return $this->belongsTo(Organization::class);
     }
 
     public function role(): BelongsTo

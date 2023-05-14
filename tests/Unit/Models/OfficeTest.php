@@ -11,10 +11,10 @@ class OfficeTest extends TestCase
     use DatabaseTransactions;
 
     /** @test */
-    public function it_belongs_to_one_company()
+    public function it_belongs_to_one_organization()
     {
         $employee = Employee::factory()->create();
 
-        $this->assertTrue($employee->company()->exists());
+        $this->assertTrue($employee->organization()->exists());
     }
 }

@@ -19,14 +19,14 @@ class IssueType extends Model
      * @var array<string>
      */
     protected $fillable = [
-        'company_id',
+        'organization_id',
         'label',
         'label_translation_key',
         'emoji',
     ];
 
-    public function company(): BelongsTo
+    public function organization(): BelongsTo
     {
-        return $this->belongsTo(Company::class);
+        return $this->belongsTo(Organization::class);
     }
 }

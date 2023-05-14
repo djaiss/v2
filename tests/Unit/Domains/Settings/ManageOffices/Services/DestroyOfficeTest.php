@@ -21,7 +21,7 @@ class DestroyOfficeTest extends TestCase
     {
         $employee = $this->createEmployeeWithPermission(Permission::COMPANY_MANAGE_OFFICES);
         $office = Office::factory()->create([
-            'company_id' => $employee->company_id,
+            'organization_id' => $employee->organization_id,
         ]);
         $this->executeService($employee, $office);
     }

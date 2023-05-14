@@ -3,7 +3,7 @@
 namespace Tests\Unit\Domains\Settings\ManageRoles\Web\ViewHelpers;
 
 use App\Domains\Settings\ManageRoles\Web\ViewHelpers\SettingsRoleIndexViewHelper;
-use App\Models\Company;
+use App\Models\Organization;
 use App\Models\Permission;
 use App\Models\Role;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
@@ -16,9 +16,9 @@ class SettingsRoleIndexViewHelperTest extends TestCase
     /** @test */
     public function it_gets_the_data_needed_for_the_view(): void
     {
-        $company = Company::factory()->create();
+        $organization = Organization::factory()->create();
 
-        $viewModel = SettingsRoleIndexViewHelper::data($company);
+        $viewModel = SettingsRoleIndexViewHelper::data($organization);
 
         $this->assertArrayHasKey('roles', $viewModel);
         $this->assertArrayHasKey('all_possible_permissions', $viewModel);

@@ -11,11 +11,11 @@ class IssueTypeTest extends TestCase
     use DatabaseTransactions;
 
     /** @test */
-    public function it_belongs_to_one_company()
+    public function it_belongs_to_one_organization()
     {
         $issueType = IssueType::factory()->create();
 
-        $this->assertTrue($issueType->company()->exists());
+        $this->assertTrue($issueType->organization()->exists());
     }
 
     /** @test */

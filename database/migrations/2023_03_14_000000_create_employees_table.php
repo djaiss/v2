@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::create('employees', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('company_id')->nullable();
+            $table->unsignedBigInteger('organization_id')->nullable();
             $table->unsignedBigInteger('role_id')->nullable();
             $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();
@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('locale')->default('en');
             $table->rememberToken();
             $table->timestamps();
-            $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
+            $table->foreign('organization_id')->references('id')->on('organizations')->onDelete('cascade');
             $table->foreign('role_id')->references('id')->on('roles')->onDelete('set null');
         });
     }

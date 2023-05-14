@@ -6,11 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Company extends Model
+class Organization extends Model
 {
     use HasFactory;
 
-    protected $table = 'companies';
+    protected $table = 'organizations';
 
     /**
      * The attributes that are mass assignable.

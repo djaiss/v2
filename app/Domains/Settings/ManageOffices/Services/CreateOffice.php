@@ -32,7 +32,7 @@ class CreateOffice extends BaseService
         $this->data = $data;
 
         $this->office = Office::create([
-            'company_id' => $this->author->company_id,
+            'organization_id' => $this->author->organization_id,
             'name' => $data['name'],
             'is_main_office' => $data['is_main_office'],
         ]);
@@ -45,7 +45,7 @@ class CreateOffice extends BaseService
     private function toggleMainOfficeForAllTheOtherOffices(): void
     {
         if ($this->data['is_main_office']) {
-            Office::where('company_id', $this->author->company_id)
+            Office::where('organization_id', $this->author->organization_id)
                 ->whereNot('id', $this->office->id)
                 ->update([
                     'is_main_office' => false,

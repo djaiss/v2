@@ -27,7 +27,7 @@ class CreateRole extends BaseService
         $this->validateRules($data);
 
         $role = Role::create([
-            'company_id' => $this->author->company_id,
+            'organization_id' => $this->author->organization_id,
             'label' => $data['label'],
         ]);
 

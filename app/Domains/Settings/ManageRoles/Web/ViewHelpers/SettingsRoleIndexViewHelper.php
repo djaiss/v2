@@ -2,16 +2,16 @@
 
 namespace App\Domains\Settings\ManageRoles\Web\ViewHelpers;
 
-use App\Models\Company;
+use App\Models\Organization;
 use App\Models\Permission;
 use App\Models\Role;
 use Illuminate\Support\Collection;
 
 class SettingsRoleIndexViewHelper
 {
-    public static function data(Company $company): array
+    public static function data(Organization $organization): array
     {
-        $roles = $company->roles()
+        $roles = $organization->roles()
             ->with('permissions')
             ->get()
             ->map(fn (Role $role) => self::role($role));

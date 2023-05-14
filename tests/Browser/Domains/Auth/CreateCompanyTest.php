@@ -15,7 +15,7 @@ class CreateCompanyTest extends DuskTestCase
     public function it_redirects_to_the_welcome_page_if_employee_doesnt_belong_to_a_company(): void
     {
         $employee = Employee::factory()->create([
-            'company_id' => null,
+            'organization_id' => null,
         ]);
 
         $this->browse(function (Browser $browser) use ($employee) {

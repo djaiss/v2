@@ -25,7 +25,7 @@ class DestroyOffice extends BaseService
     {
         $this->validateRules($data);
 
-        $office = Office::where('company_id', $this->author->company_id)
+        $office = Office::where('organization_id', $this->author->organization_id)
             ->findOrFail($data['office_id']);
 
         $office->delete();

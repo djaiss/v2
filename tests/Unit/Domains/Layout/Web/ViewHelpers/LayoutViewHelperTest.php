@@ -3,7 +3,7 @@
 namespace Tests\Unit\Domains\Layout\Web\ViewHelpers;
 
 use App\Domains\Layout\Web\ViewHelpers\LayoutViewHelper;
-use App\Models\Company;
+use App\Models\Organization;
 use App\Models\Employee;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
@@ -17,11 +17,11 @@ class LayoutViewHelperTest extends TestCase
     public function it_gets_the_data_needed_for_the_view(): void
     {
         Carbon::setTestNow(Carbon::create(2023, 1, 1));
-        $company = Company::factory()->create([
+        $organization = Organization::factory()->create([
             'name' => 'Company name',
         ]);
         $employee = Employee::factory()->create([
-            'company_id' => $company->id,
+            'organization_id' => $organization->id,
         ]);
         $this->be($employee);
 

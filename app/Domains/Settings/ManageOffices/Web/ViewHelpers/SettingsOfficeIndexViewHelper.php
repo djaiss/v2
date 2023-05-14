@@ -2,14 +2,14 @@
 
 namespace App\Domains\Settings\ManageOffices\Web\ViewHelpers;
 
-use App\Models\Company;
+use App\Models\Organization;
 use App\Models\Office;
 
 class SettingsOfficeIndexViewHelper
 {
-    public static function data(Company $company): array
+    public static function data(Organization $organization): array
     {
-        $offices = $company->offices()
+        $offices = $organization->offices()
             ->orderBy('name')
             ->get()
             ->map(fn (Office $office) => self::dto($office));

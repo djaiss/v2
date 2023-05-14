@@ -32,7 +32,7 @@ class UpdateOffice extends BaseService
         $this->validateRules($data);
         $this->data = $data;
 
-        $this->office = Office::where('company_id', $this->author->company_id)
+        $this->office = Office::where('organization_id', $this->author->organization_id)
             ->findOrFail($data['office_id']);
 
         $this->edit();
@@ -51,7 +51,7 @@ class UpdateOffice extends BaseService
     private function toggleMainOfficeForAllTheOtherOffices(): void
     {
         if ($this->data['is_main_office']) {
-            Office::where('company_id', $this->author->company_id)
+            Office::where('organization_id', $this->author->organization_id)
                 ->whereNot('id', $this->office->id)
                 ->update([
                     'is_main_office' => false,

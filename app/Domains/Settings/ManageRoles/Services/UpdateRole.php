@@ -27,7 +27,7 @@ class UpdateRole extends BaseService
     {
         $this->validateRules($data);
 
-        $role = Role::where('company_id', $this->author->company_id)
+        $role = Role::where('organization_id', $this->author->organization_id)
             ->findOrFail($data['role_id']);
 
         $role->label = $data['label'];

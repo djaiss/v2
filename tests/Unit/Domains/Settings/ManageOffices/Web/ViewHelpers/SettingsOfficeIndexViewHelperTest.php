@@ -3,7 +3,7 @@
 namespace Tests\Unit\Domains\Settings\ManageOffices\Web\ViewHelpers;
 
 use App\Domains\Settings\ManageOffices\Web\ViewHelpers\SettingsOfficeIndexViewHelper;
-use App\Models\Company;
+use App\Models\Organization;
 use App\Models\office;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
@@ -15,13 +15,13 @@ class SettingsOfficeIndexViewHelperTest extends TestCase
     /** @test */
     public function it_gets_the_data_needed_for_the_view(): void
     {
-        $company = Company::factory()->create();
+        $organization = Organization::factory()->create();
         $office = Office::create([
-            'company_id' => $company->id,
+            'organization_id' => $organization->id,
             'name' => 'HQ',
         ]);
 
-        $viewModel = SettingsOfficeIndexViewHelper::data($company);
+        $viewModel = SettingsOfficeIndexViewHelper::data($organization);
 
         $this->assertArrayHasKey('offices', $viewModel);
     }
@@ -29,9 +29,9 @@ class SettingsOfficeIndexViewHelperTest extends TestCase
     /** @test */
     public function it_gets_the_data_needed_for_the_office(): void
     {
-        $company = Company::factory()->create();
+        $organization = Organization::factory()->create();
         $office = Office::create([
-            'company_id' => $company->id,
+            'organization_id' => $organization->id,
             'name' => 'HQ',
             'is_main_office' => true,
         ]);

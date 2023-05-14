@@ -20,14 +20,14 @@ class Role extends Model
      * @var array<string>
      */
     protected $fillable = [
-        'company_id',
+        'organization_id',
         'label_translation_key',
         'label',
     ];
 
-    public function company(): BelongsTo
+    public function organization(): BelongsTo
     {
-        return $this->belongsTo(Company::class);
+        return $this->belongsTo(Organization::class);
     }
 
     public function permissions(): BelongsToMany
