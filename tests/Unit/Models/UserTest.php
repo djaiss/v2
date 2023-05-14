@@ -4,6 +4,7 @@ namespace Tests\Unit\Models;
 
 use App\Models\Organization;
 use App\Models\Permission;
+use App\Models\Project;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
@@ -14,13 +15,26 @@ class UserTest extends TestCase
     use DatabaseTransactions;
 
     /** @test */
-    public function it_belongs_to_many_organizations()
+    public function it_belongs_to_many_organizations(): void
     {
         $user = User::factory()->create();
         $organization = Organization::factory()->create();
         $user->organizations()->attach($organization);
 
         $this->assertTrue($user->organizations()->exists());
+    }
+
+    /** @test */
+    public function it_has_many_projects(): void
+    {
+        $user = User::factory()->create();
+        $project = Project::factory()->create();
+
+        $project->projectable_id = $user->id;
+        $project->projectable_type = User::class;
+        $project->save();
+
+        $this->assertTrue($user->projects()->exists());
     }
 
     /** @test */

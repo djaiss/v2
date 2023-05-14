@@ -10,16 +10,13 @@ return new class extends Migration
     {
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('organization_id');
-            $table->string('status');
-            $table->boolean('completed')->default(false);
+            $table->unsignedBigInteger('projectable_id')->nullable();
+            $table->string('projectable_type')->nullable();
             $table->string('name');
+            $table->string('slug');
             $table->string('code')->nullable();
             $table->string('emoji', 5)->nullable();
-            $table->string('summary')->nullable();
-            $table->text('description')->nullable();
             $table->timestamps();
-            $table->foreign('organization_id')->references('id')->on('organizations')->onDelete('cascade');
         });
     }
 

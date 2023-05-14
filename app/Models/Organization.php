@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class Organization extends Model
 {
@@ -27,6 +28,11 @@ class Organization extends Model
     public function users(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'organization_user')->withPivot('role_id')->withTimestamps();
+    }
+
+    public function projects(): MorphMany
+    {
+        return $this->morphMany(Project::class, 'projectable');
     }
 
     public function offices(): HasMany
