@@ -2,8 +2,8 @@
 
 namespace App\Domains\Settings\ManageOrganization\Jobs;
 
-use App\Models\Organization;
 use App\Models\Employee;
+use App\Models\Organization;
 use App\Models\Permission;
 use App\Models\Role;
 use Illuminate\Bus\Queueable;

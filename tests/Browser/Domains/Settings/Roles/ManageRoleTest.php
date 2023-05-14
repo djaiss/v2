@@ -2,7 +2,6 @@
 
 namespace Tests\Browser\Domains\Settings\Roles;
 
-use App\Domains\Settings\ManageOrganization\Jobs\SetupCompany;
 use App\Models\Employee;
 use App\Models\Role;
 use Illuminate\Foundation\Testing\DatabaseTruncation;

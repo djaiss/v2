@@ -2,8 +2,8 @@
 
 namespace App\Domains\Settings\ManageOffices\Web\ViewHelpers;
 
-use App\Models\Organization;
 use App\Models\Office;
+use App\Models\Organization;
 
 class SettingsOfficeIndexViewHelper
 {

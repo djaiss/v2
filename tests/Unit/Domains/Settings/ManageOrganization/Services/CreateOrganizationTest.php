@@ -1,11 +1,11 @@
 <?php
 
-namespace Tests\Unit\Domains\Settings\ManageCompany\Services;
+namespace Tests\Unit\Domains\Settings\ManageOrganization\Services;
 
 use App\Domains\Settings\ManageOrganization\Jobs\SetupOrganization;
 use App\Domains\Settings\ManageOrganization\Services\CreateOrganization;
-use App\Models\Organization;
 use App\Models\Employee;
+use App\Models\Organization;
 use Exception;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Support\Facades\Queue;

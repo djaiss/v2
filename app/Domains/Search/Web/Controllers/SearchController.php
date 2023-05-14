@@ -11,7 +11,7 @@ class SearchController extends Controller
 {
     public function show(Request $request): View
     {
-        $viewModel = SearchIndexViewHelper::data(auth()->user()->company, $request->get('searchTerm'));
+        $viewModel = SearchIndexViewHelper::data(auth()->user()->organization, $request->get('searchTerm'));
 
         return view('search.index', [
             'view' => $viewModel,

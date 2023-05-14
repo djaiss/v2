@@ -2,9 +2,9 @@
 
 namespace Tests\Unit\Models;
 
-use App\Models\Organization;
 use App\Models\Employee;
 use App\Models\Office;
+use App\Models\Organization;
 use App\Models\Role;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;

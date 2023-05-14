@@ -2,8 +2,8 @@
 
 namespace App\Domains\Search\Web\ViewHelpers;
 
-use App\Models\Organization;
 use App\Models\Office;
+use App\Models\Organization;
 use Illuminate\Support\Collection;
 
 class SearchIndexViewHelper

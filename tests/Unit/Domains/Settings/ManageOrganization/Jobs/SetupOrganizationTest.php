@@ -2,18 +2,18 @@
 
 namespace Tests\Unit\Domains\Settings\ManageOrganization\Jobs;
 
-use App\Domains\Settings\ManageOrganization\Jobs\SetupCompany;
-use App\Models\Organization;
+use App\Domains\Settings\ManageOrganization\Jobs\SetupOrganization;
 use App\Models\Employee;
+use App\Models\Organization;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
 
-class SetupCompanyTest extends TestCase
+class SetupOrganizationTest extends TestCase
 {
     use DatabaseTransactions;
 
     /** @test */
-    public function it_sets_a_company_up(): void
+    public function it_sets_an_organization_up(): void
     {
         $organization = Organization::factory()->create();
         $employee = Employee::factory()->create();

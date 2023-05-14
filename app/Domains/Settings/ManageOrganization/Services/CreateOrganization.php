@@ -3,8 +3,8 @@
 namespace App\Domains\Settings\ManageOrganization\Services;
 
 use App\Domains\Settings\ManageOrganization\Jobs\SetupOrganization;
-use App\Models\Organization;
 use App\Models\Employee;
+use App\Models\Organization;
 use App\Services\BaseService;
 use Exception;
 use Illuminate\Support\Str;

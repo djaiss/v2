@@ -3,8 +3,8 @@
 namespace Tests\Unit\Domains\Settings\ManageOffices\Web\ViewHelpers;
 
 use App\Domains\Settings\ManageOffices\Web\ViewHelpers\SettingsOfficeIndexViewHelper;
-use App\Models\Organization;
 use App\Models\office;
+use App\Models\Organization;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
 
