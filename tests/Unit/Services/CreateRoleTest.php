@@ -1,12 +1,12 @@
 <?php
 
-namespace Tests\Unit\Domains\Settings\ManageRoles\Services;
+namespace Tests\Unit\Services;
 
-use App\Domains\Settings\ManageRoles\Services\CreateRole;
 use App\Exceptions\NotEnoughPermissionException;
 use App\Models\Permission;
 use App\Models\Role;
 use App\Models\User;
+use App\Services\CreateRole;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Validation\ValidationException;
 use Tests\TestCase;

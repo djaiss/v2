@@ -1,23 +1,23 @@
 <?php
 
-namespace Tests\Unit\Domains\Settings\ManageOffices\Services;
+namespace Tests\Unit\Services;
 
-use App\Domains\Settings\ManageOffices\Services\DestroyOffice;
 use App\Exceptions\NotEnoughPermissionException;
 use App\Models\Office;
 use App\Models\Permission;
 use App\Models\User;
+use App\Services\UpdateOffice;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Validation\ValidationException;
 use Tests\TestCase;
 
-class DestroyOfficeTest extends TestCase
+class UpdateOfficeTest extends TestCase
 {
     use DatabaseTransactions;
 
     /** @test */
-    public function it_destroys_an_office(): void
+    public function it_updates_an_office(): void
     {
         $user = $this->createUserWithPermission(Permission::ORGANIZATION_MANAGE_OFFICES);
         $office = Office::factory()->create([
@@ -34,7 +34,7 @@ class DestroyOfficeTest extends TestCase
         ];
 
         $this->expectException(ValidationException::class);
-        (new DestroyOffice())->execute($request);
+        (new UpdateOffice())->execute($request);
     }
 
     /** @test */
@@ -62,12 +62,21 @@ class DestroyOfficeTest extends TestCase
         $request = [
             'author_id' => $user->id,
             'office_id' => $office->id,
+            'name' => 'Dunder',
+            'is_main_office' => true,
         ];
 
-        (new DestroyOffice())->execute($request);
+        $office = (new UpdateOffice())->execute($request);
 
-        $this->assertDatabaseMissing('offices', [
+        $this->assertInstanceOf(
+            Office::class,
+            $office
+        );
+
+        $this->assertDatabaseHas('offices', [
             'id' => $office->id,
+            'name' => 'Dunder',
+            'is_main_office' => true,
         ]);
     }
 }

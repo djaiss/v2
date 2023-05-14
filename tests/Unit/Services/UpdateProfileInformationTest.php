@@ -1,9 +1,9 @@
 <?php
 
-namespace Tests\Unit\Domains\Settings\ManageProfile\Services;
+namespace Tests\Unit\Services;
 
-use App\Domains\Settings\ManageProfile\Services\UpdateProfileInformation;
 use App\Models\User;
+use App\Services\UpdateProfileInformation;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Validation\ValidationException;
 use Tests\TestCase;

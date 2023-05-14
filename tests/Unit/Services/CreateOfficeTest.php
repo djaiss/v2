@@ -1,12 +1,12 @@
 <?php
 
-namespace Tests\Unit\Domains\Settings\ManageOffices\Services;
+namespace Tests\Unit\Services;
 
-use App\Domains\Settings\ManageOffices\Services\CreateOffice;
 use App\Exceptions\NotEnoughPermissionException;
 use App\Models\Office;
 use App\Models\Permission;
 use App\Models\User;
+use App\Services\CreateOffice;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Validation\ValidationException;
 use Tests\TestCase;

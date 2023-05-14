@@ -1,8 +1,8 @@
 <?php
 
-namespace Tests\Unit\Domains\Settings\ManageOrganization\Jobs;
+namespace Tests\Unit\Jobs;
 
-use App\Domains\Settings\ManageOrganization\Jobs\SetupOrganization;
+use App\Jobs\SetupOrganization;
 use App\Models\Organization;
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
@@ -31,6 +31,11 @@ class SetupOrganizationTest extends TestCase
 
         $this->assertDatabaseHas('permissions', [
             'action' => 'organization.permissions',
+        ]);
+
+        $this->assertDatabaseHas('issue_types', [
+            'label_translation_key' => 'Task',
+            'emoji' => '✅',
         ]);
     }
 }

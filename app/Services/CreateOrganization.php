@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Domains\Settings\ManageOrganization\Services;
+namespace App\Services;
 
-use App\Domains\Settings\ManageOrganization\Jobs\SetupOrganization;
+use App\Jobs\SetupOrganization;
 use App\Models\Organization;
 use App\Models\User;
-use App\Services\BaseService;
 use Exception;
 use Illuminate\Support\Str;
 

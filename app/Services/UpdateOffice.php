@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Domains\Settings\ManageOffices\Services;
+namespace App\Services;
 
 use App\Models\Office;
 use App\Models\Permission;
-use App\Services\BaseService;
 
 class UpdateOffice extends BaseService
 {

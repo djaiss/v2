@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Domains\Settings\ManageRoles\Services;
+namespace App\Services;
 
 use App\Models\Permission;
 use App\Models\Role;
-use App\Services\BaseService;
 
 class DestroyRole extends BaseService
 {

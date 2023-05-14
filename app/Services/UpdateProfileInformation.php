@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Domains\Settings\ManageProfile\Services;
+namespace App\Services;
 
 use App\Models\User;
-use App\Services\BaseService;
 use Illuminate\Validation\ValidationException;
 
 class UpdateProfileInformation extends BaseService

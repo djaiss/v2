@@ -1,12 +1,12 @@
 <?php
 
-namespace Tests\Unit\Domains\Settings\ManageRoles\Services;
+namespace Tests\Unit\Services;
 
-use App\Domains\Settings\ManageRoles\Services\DestroyRole;
 use App\Exceptions\NotEnoughPermissionException;
 use App\Models\Permission;
 use App\Models\Role;
 use App\Models\User;
+use App\Services\DestroyRole;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Validation\ValidationException;

@@ -1,9 +1,9 @@
 <?php
 
-namespace Tests\Unit\Domains\Auth\Services;
+namespace Tests\Unit\Services;
 
-use App\Domains\Auth\Services\CreateAccount;
 use App\Models\User;
+use App\Services\CreateAccount;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Support\Facades\Event;

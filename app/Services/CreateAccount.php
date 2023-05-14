@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Domains\Auth\Services;
+namespace App\Services;
 
 use App\Models\Account;
 use App\Models\User;
-use App\Services\BaseService;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Hash;
 

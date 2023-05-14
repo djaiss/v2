@@ -1,18 +1,16 @@
 <?php
 
-namespace App\Domains\Settings\ManageRoles\Services;
+namespace App\Services;
 
 use App\Models\Permission;
 use App\Models\Role;
-use App\Services\BaseService;
 
-class UpdateRole extends BaseService
+class CreateRole extends BaseService
 {
     public function rules(): array
     {
         return [
             'author_id' => 'required|integer|exists:users,id',
-            'role_id' => 'required|integer|exists:roles,id',
             'label' => 'required|string|max:255',
             'permissions' => 'nullable|array',
         ];
@@ -27,11 +25,10 @@ class UpdateRole extends BaseService
     {
         $this->validateRules($data);
 
-        $role = Role::where('organization_id', $this->author->organization_id)
-            ->findOrFail($data['role_id']);
-
-        $role->label = $data['label'];
-        $role->save();
+        $role = Role::create([
+            'organization_id' => $this->author->organization_id,
+            'label' => $data['label'],
+        ]);
 
         foreach ($data['permissions'] as $permission) {
             $permissionObject = Permission::findOrFail($permission['id']);

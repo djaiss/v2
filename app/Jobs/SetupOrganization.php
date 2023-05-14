@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Domains\Settings\ManageOrganization\Jobs;
+namespace App\Jobs;
 
+use App\Models\IssueType;
 use App\Models\Organization;
 use App\Models\Permission;
 use App\Models\Role;
@@ -31,6 +32,7 @@ class SetupOrganization implements ShouldQueue
     public function handle(): void
     {
         $this->createRoles();
+        $this->createIssueTypes();
     }
 
     private function createRoles(): void
@@ -52,17 +54,17 @@ class SetupOrganization implements ShouldQueue
         $permissionsTable = [
             [
                 'action' => Permission::ORGANIZATION_MANAGE_PERMISSIONS,
-                'label_translation_key' => 'Manage company roles and permissions',
+                'label_translation_key' => trans_key('Manage company roles and permissions'),
                 'active' => true,
             ],
             [
                 'action' => Permission::ORGANIZATION_MANAGE_USERS,
-                'label_translation_key' => 'Manage users',
+                'label_translation_key' => trans_key('Manage users'),
                 'active' => true,
             ],
             [
                 'action' => Permission::ORGANIZATION_MANAGE_OFFICES,
-                'label_translation_key' => 'Manage offices',
+                'label_translation_key' => trans_key('Manage offices'),
                 'active' => true,
             ],
         ];
@@ -80,7 +82,7 @@ class SetupOrganization implements ShouldQueue
         $permissionsTable = [
             [
                 'action' => 'organization.permissions',
-                'label_translation_key' => 'Manage company roles and permissions',
+                'label_translation_key' => trans_key('Manage company roles and permissions'),
                 'active' => false,
             ],
         ];
@@ -92,5 +94,38 @@ class SetupOrganization implements ShouldQueue
                 ],
             ]);
         }
+    }
+
+    private function createIssueTypes(): void
+    {
+        IssueType::create([
+            'organization_id' => $this->organization->id,
+            'label_translation_key' => 'Epic',
+            'emoji' => '🚀',
+        ]);
+
+        IssueType::create([
+            'organization_id' => $this->organization->id,
+            'label_translation_key' => 'Story',
+            'emoji' => '📖',
+        ]);
+
+        IssueType::create([
+            'organization_id' => $this->organization->id,
+            'label_translation_key' => 'Task',
+            'emoji' => '✅',
+        ]);
+
+        IssueType::create([
+            'organization_id' => $this->organization->id,
+            'label_translation_key' => 'Bug',
+            'emoji' => '🐛',
+        ]);
+
+        IssueType::create([
+            'organization_id' => $this->organization->id,
+            'label_translation_key' => 'Subtask',
+            'emoji' => '💣',
+        ]);
     }
 }
