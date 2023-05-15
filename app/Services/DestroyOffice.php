@@ -11,6 +11,7 @@ class DestroyOffice extends BaseService
     {
         return [
             'author_id' => 'required|integer|exists:users,id',
+            'organization_id' => 'required|integer|exists:organizations,id',
             'office_id' => 'required|integer|exists:offices,id',
         ];
     }

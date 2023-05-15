@@ -46,7 +46,7 @@ class CreateOrganizationTest extends TestCase
     }
 
     /** @test */
-    public function it_fails_if_user_already_owns_a_company(): void
+    public function it_fails_if_user_already_owns_an_organization(): void
     {
         $user = User::factory()->create();
         Organization::factory()->create([

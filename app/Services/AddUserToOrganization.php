@@ -11,8 +11,6 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class AddUserToOrganization extends BaseService
 {
-    private Organization $organization;
-
     private array $data;
 
     public function rules(): array
@@ -50,7 +48,7 @@ class AddUserToOrganization extends BaseService
 
         $user = User::findOrFail($this->data['user_id']);
 
-        if (! $user->isMemberOfOrganization($this->organization)) {
+        if ($user->isMemberOfOrganization($this->organization)) {
             throw new ModelNotFoundException();
         }
 

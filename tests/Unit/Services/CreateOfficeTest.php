@@ -3,7 +3,9 @@
 namespace Tests\Unit\Services;
 
 use App\Exceptions\NotEnoughPermissionException;
+use App\Models\Member;
 use App\Models\Office;
+use App\Models\Organization;
 use App\Models\Permission;
 use App\Models\User;
 use App\Services\CreateOffice;
@@ -18,17 +20,18 @@ class CreateOfficeTest extends TestCase
     /** @test */
     public function it_creates_an_office(): void
     {
-        $user = $this->createUserWithPermission(Permission::ORGANIZATION_MANAGE_OFFICES);
-        $this->executeService($user);
+        $member = $this->createMemberWithPermission(Permission::ORGANIZATION_MANAGE_OFFICES);
+
+        $this->executeService($member, $member->organization);
     }
 
     /** @test */
     public function it_cant_execute_the_service_with_the_wrong_permissions(): void
     {
-        $user = User::factory()->create();
+        $member = $this->createMemberWithPermission('empty permission');
 
         $this->expectException(NotEnoughPermissionException::class);
-        $this->executeService($user);
+        $this->executeService($member, $member->organization);
     }
 
     /** @test */
@@ -42,10 +45,11 @@ class CreateOfficeTest extends TestCase
         (new CreateOffice())->execute($request);
     }
 
-    private function executeService(User $user): void
+    private function executeService(Member $member, Organization $organization): void
     {
         $request = [
-            'author_id' => $user->id,
+            'author_id' => $member->id,
+            'organization_id' => $organization->id,
             'name' => 'Dunder',
             'is_main_office' => true,
         ];
@@ -59,6 +63,7 @@ class CreateOfficeTest extends TestCase
 
         $this->assertDatabaseHas('offices', [
             'id' => $office->id,
+            'organization_id' => $organization->id,
             'name' => 'Dunder',
             'is_main_office' => true,
         ]);

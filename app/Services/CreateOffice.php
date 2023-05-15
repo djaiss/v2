@@ -14,7 +14,8 @@ class CreateOffice extends BaseService
     public function rules(): array
     {
         return [
-            'author_id' => 'required|integer|exists:users,id',
+            'author_id' => 'required|integer|exists:members,id',
+            'organization_id' => 'required|integer|exists:organizations,id',
             'name' => 'required|string|max:255',
             'is_main_office' => 'required|boolean',
         ];
@@ -31,7 +32,7 @@ class CreateOffice extends BaseService
         $this->data = $data;
 
         $this->office = Office::create([
-            'organization_id' => $this->author->organization_id,
+            'organization_id' => $this->organization->id,
             'name' => $data['name'],
             'is_main_office' => $data['is_main_office'],
         ]);

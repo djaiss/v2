@@ -5,7 +5,7 @@ namespace App\Services;
 use App\Models\Office;
 use App\Models\Permission;
 
-class UpdateOffice extends BaseService
+class CreateOffice extends BaseService
 {
     private Office $office;
 
@@ -14,8 +14,8 @@ class UpdateOffice extends BaseService
     public function rules(): array
     {
         return [
-            'author_id' => 'required|integer|exists:users,id',
-            'office_id' => 'required|integer|exists:offices,id',
+            'author_id' => 'required|integer|exists:members,id',
+            'organization_id' => 'required|integer|exists:organizations,id',
             'name' => 'required|string|max:255',
             'is_main_office' => 'required|boolean',
         ];
@@ -31,20 +31,15 @@ class UpdateOffice extends BaseService
         $this->validateRules($data);
         $this->data = $data;
 
-        $this->office = Office::where('organization_id', $this->author->organization_id)
-            ->findOrFail($data['office_id']);
+        $this->office = Office::create([
+            'organization_id' => $this->organization->id,
+            'name' => $data['name'],
+            'is_main_office' => $data['is_main_office'],
+        ]);
 
-        $this->edit();
         $this->toggleMainOfficeForAllTheOtherOffices();
 
         return $this->office;
-    }
-
-    private function edit(): void
-    {
-        $this->office->name = $this->data['name'];
-        $this->office->is_main_office = $this->data['is_main_office'];
-        $this->office->save();
     }
 
     private function toggleMainOfficeForAllTheOtherOffices(): void

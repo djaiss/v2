@@ -17,8 +17,6 @@ class CreateOrganization extends BaseService
 
     private array $data;
 
-    private Organization $organization;
-
     private Member $member;
 
     /**
