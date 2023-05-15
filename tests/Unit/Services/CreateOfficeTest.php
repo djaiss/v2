@@ -7,8 +7,8 @@ use App\Models\Member;
 use App\Models\Office;
 use App\Models\Organization;
 use App\Models\Permission;
-use App\Models\User;
 use App\Services\CreateOffice;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Validation\ValidationException;
 use Tests\TestCase;
@@ -43,6 +43,16 @@ class CreateOfficeTest extends TestCase
 
         $this->expectException(ValidationException::class);
         (new CreateOffice())->execute($request);
+    }
+
+    /** @test */
+    public function it_fails_if_member_doesnt_belong_to_organization(): void
+    {
+        $member = $this->createMemberWithPermission(Permission::ORGANIZATION_MANAGE_OFFICES);
+        $organization = Organization::factory()->create();
+
+        $this->expectException(ModelNotFoundException::class);
+        $this->executeService($member, $organization);
     }
 
     private function executeService(Member $member, Organization $organization): void

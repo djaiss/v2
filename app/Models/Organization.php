@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 
@@ -35,9 +34,9 @@ class Organization extends Model
         'is_public' => 'boolean',
     ];
 
-    public function users(): BelongsToMany
+    public function members(): HasMany
     {
-        return $this->belongsToMany(User::class, 'organization_user')->withPivot('role_id')->withTimestamps();
+        return $this->hasMany(Member::class);
     }
 
     public function projects(): MorphMany

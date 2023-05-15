@@ -2,11 +2,11 @@
 
 namespace Tests\Unit\Models;
 
+use App\Models\Member;
 use App\Models\Office;
 use App\Models\Organization;
 use App\Models\Project;
 use App\Models\Role;
-use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
 
@@ -15,13 +15,14 @@ class OrganizationTest extends TestCase
     use DatabaseTransactions;
 
     /** @test */
-    public function it_belongs_to_many_users(): void
+    public function it_has_many_members(): void
     {
         $organization = Organization::factory()->create();
-        $user = User::factory()->create();
-        $organization->users()->attach($user);
+        Member::factory()->create([
+            'organization_id' => $organization->id,
+        ]);
 
-        $this->assertTrue($organization->users()->exists());
+        $this->assertTrue($organization->members()->exists());
     }
 
     /** @test */

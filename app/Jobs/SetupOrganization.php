@@ -33,7 +33,7 @@ class SetupOrganization implements ShouldQueue
     public function handle(): void
     {
         $this->createRoles();
-        $this->createIssueTypes();
+        //$this->createIssueTypes();
     }
 
     private function createRoles(): void

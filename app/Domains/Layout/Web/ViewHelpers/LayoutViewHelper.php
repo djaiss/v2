@@ -2,6 +2,7 @@
 
 namespace App\Domains\Layout\Web\ViewHelpers;
 
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\App;
 
@@ -23,9 +24,9 @@ class LayoutViewHelper
 
         // current organization for the logged user
         $organization = null;
-        if (auth()->check()) {
-            $organization = auth()->user()->organization;
-        }
+        // if (auth()->check()) {
+        //     $organization = auth()->user()->organization;
+        // }
 
         return [
             'currentLocale' => App::currentLocale(),

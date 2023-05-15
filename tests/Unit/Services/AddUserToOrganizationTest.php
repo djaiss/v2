@@ -2,15 +2,12 @@
 
 namespace Tests\Unit\Services;
 
-use App\Jobs\SetupOrganization;
 use App\Models\Member;
 use App\Models\Organization;
 use App\Models\Permission;
 use App\Models\Role;
 use App\Models\User;
 use App\Services\AddUserToOrganization;
-use App\Services\CreateOrganization;
-use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Support\Facades\Queue;

@@ -7,7 +7,6 @@ use App\Models\Member;
 use App\Models\Office;
 use App\Models\Organization;
 use App\Models\Permission;
-use App\Models\User;
 use App\Services\UpdateOffice;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Testing\DatabaseTransactions;

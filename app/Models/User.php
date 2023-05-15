@@ -71,6 +71,13 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->morphMany(Project::class, 'projectable');
     }
 
+    public function isMemberOfOrganization(Organization $organization): bool
+    {
+        return $this->members()->get()->contains(
+            fn (Member $member) => $member->organization_id === $organization->id
+        );
+    }
+
     protected function age(): Attribute
     {
         return Attribute::make(
@@ -91,13 +98,6 @@ class User extends Authenticatable implements MustVerifyEmail
 
                 return $date->isoFormat(trans('format.year_month_day')).' ('.$date->age.')';
             }
-        );
-    }
-
-    public function isMemberOfOrganization(Organization $organization): bool
-    {
-        return $this->members()->get()->contains(
-            fn (Member $member) => $member->organization_id === $organization->id
         );
     }
 }

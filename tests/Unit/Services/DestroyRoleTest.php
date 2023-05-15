@@ -3,9 +3,10 @@
 namespace Tests\Unit\Services;
 
 use App\Exceptions\NotEnoughPermissionException;
+use App\Models\Member;
+use App\Models\Organization;
 use App\Models\Permission;
 use App\Models\Role;
-use App\Models\User;
 use App\Services\DestroyRole;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
@@ -19,11 +20,11 @@ class DestroyRoleTest extends TestCase
     /** @test */
     public function it_destroys_a_role(): void
     {
-        $user = $this->createUserWithPermission(Permission::ORGANIZATION_MANAGE_PERMISSIONS);
+        $member = $this->createMemberWithPermission(Permission::ORGANIZATION_MANAGE_PERMISSIONS);
         $role = Role::factory()->create([
-            'organization_id' => $user->organization_id,
+            'organization_id' => $member->organization_id,
         ]);
-        $this->executeService($user, $role);
+        $this->executeService($member, $member->organization, $role);
     }
 
     /** @test */
@@ -40,29 +41,30 @@ class DestroyRoleTest extends TestCase
     /** @test */
     public function it_cant_execute_the_service_with_the_wrong_permissions(): void
     {
-        $user = User::factory()->create();
+        $member = $this->createMemberWithPermission('wrong permission');
         $role = Role::factory()->create([
-            'organization_id' => $user->organization_id,
+            'organization_id' => $member->organization_id,
         ]);
 
         $this->expectException(NotEnoughPermissionException::class);
-        $this->executeService($user, $role);
+        $this->executeService($member, $member->organization, $role);
     }
 
     /** @test */
-    public function it_fails_if_role_doesnt_belong_to_company(): void
+    public function it_fails_if_role_doesnt_belong_to_organization(): void
     {
-        $user = $this->createUserWithPermission(Permission::ORGANIZATION_MANAGE_PERMISSIONS);
+        $member = $this->createMemberWithPermission(Permission::ORGANIZATION_MANAGE_PERMISSIONS);
         $role = Role::factory()->create();
 
         $this->expectException(ModelNotFoundException::class);
-        $this->executeService($user, $role);
+        $this->executeService($member, $member->organization, $role);
     }
 
-    private function executeService(User $user, Role $role): void
+    private function executeService(Member $member, Organization $organization, Role $role): void
     {
         $request = [
-            'author_id' => $user->id,
+            'author_id' => $member->id,
+            'organization_id' => $organization->id,
             'role_id' => $role->id,
         ];
 

@@ -2,7 +2,7 @@
 
 namespace Tests\Unit\Models;
 
-use App\Models\User;
+use App\Models\Office;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
 
@@ -13,8 +13,8 @@ class OfficeTest extends TestCase
     /** @test */
     public function it_belongs_to_one_organization()
     {
-        $user = User::factory()->create();
+        $office = Office::factory()->create();
 
-        $this->assertTrue($user->organization()->exists());
+        $this->assertTrue($office->organization()->exists());
     }
 }

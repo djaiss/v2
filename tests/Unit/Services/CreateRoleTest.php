@@ -3,10 +3,12 @@
 namespace Tests\Unit\Services;
 
 use App\Exceptions\NotEnoughPermissionException;
+use App\Models\Member;
+use App\Models\Organization;
 use App\Models\Permission;
 use App\Models\Role;
-use App\Models\User;
 use App\Services\CreateRole;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Validation\ValidationException;
 use Tests\TestCase;
@@ -18,8 +20,9 @@ class CreateRoleTest extends TestCase
     /** @test */
     public function it_creates_a_role(): void
     {
-        $user = $this->createUserWithPermission(Permission::ORGANIZATION_MANAGE_PERMISSIONS);
-        $this->executeService($user);
+        $member = $this->createMemberWithPermission(Permission::ORGANIZATION_MANAGE_PERMISSIONS);
+
+        $this->executeService($member, $member->organization);
     }
 
     /** @test */
@@ -36,18 +39,29 @@ class CreateRoleTest extends TestCase
     /** @test */
     public function it_cant_execute_the_service_with_the_wrong_permissions(): void
     {
-        $user = User::factory()->create();
+        $member = $this->createMemberWithPermission('wrong permission');
 
         $this->expectException(NotEnoughPermissionException::class);
-        $this->executeService($user);
+        $this->executeService($member, $member->organization);
     }
 
-    private function executeService(User $user): void
+    /** @test */
+    public function it_fails_if_member_doesnt_belong_to_organization(): void
+    {
+        $member = $this->createMemberWithPermission(Permission::ORGANIZATION_MANAGE_PERMISSIONS);
+        $organization = Organization::factory()->create();
+
+        $this->expectException(ModelNotFoundException::class);
+        $this->executeService($member, $organization);
+    }
+
+    private function executeService(Member $member, Organization $organization): void
     {
         $permission = Permission::factory()->create();
 
         $request = [
-            'author_id' => $user->id,
+            'author_id' => $member->id,
+            'organization_id' => $organization->id,
             'label' => 'Dunder',
             'permissions' => [
                 0 => [

@@ -5,13 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Laravel\Scout\Searchable;
 
-class Office extends Model
+class Team extends Model
 {
-    use HasFactory, Searchable;
+    use HasFactory;
 
-    protected $table = 'offices';
+    protected $table = 'teams';
 
     /**
      * The attributes that are mass assignable.
@@ -20,27 +19,11 @@ class Office extends Model
      */
     protected $fillable = [
         'organization_id',
+        'parent_team_id',
+        'office_id',
         'name',
-        'is_main_office',
+        'description',
     ];
-
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
-    protected $casts = [
-        'is_main_office' => 'boolean',
-    ];
-
-    public function toSearchableArray(): array
-    {
-        return [
-            'id' => $this->id,
-            'organization_id' => $this->organization_id,
-            'name' => $this->name,
-        ];
-    }
 
     public function organization(): BelongsTo
     {

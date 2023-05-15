@@ -10,7 +10,8 @@ class UpdateRole extends BaseService
     public function rules(): array
     {
         return [
-            'author_id' => 'required|integer|exists:users,id',
+            'author_id' => 'required|integer|exists:members,id',
+            'organization_id' => 'required|integer|exists:organizations,id',
             'role_id' => 'required|integer|exists:roles,id',
             'label' => 'required|string|max:255',
             'permissions' => 'nullable|array',

@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Validator;
 abstract class BaseService
 {
     public Member $author;
+
     public Organization $organization;
 
     /**

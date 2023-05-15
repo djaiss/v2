@@ -11,6 +11,7 @@ class CreateRole extends BaseService
     {
         return [
             'author_id' => 'required|integer|exists:users,id',
+            'organization_id' => 'required|integer|exists:organizations,id',
             'label' => 'required|string|max:255',
             'permissions' => 'nullable|array',
         ];

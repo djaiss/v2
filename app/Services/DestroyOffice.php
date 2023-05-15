@@ -10,7 +10,7 @@ class DestroyOffice extends BaseService
     public function rules(): array
     {
         return [
-            'author_id' => 'required|integer|exists:users,id',
+            'author_id' => 'required|integer|exists:members,id',
             'organization_id' => 'required|integer|exists:organizations,id',
             'office_id' => 'required|integer|exists:offices,id',
         ];
