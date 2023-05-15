@@ -5,7 +5,6 @@ namespace App\Services;
 use App\Exceptions\NotEnoughPermissionException;
 use App\Models\Member;
 use App\Models\Organization;
-use App\Models\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Validator;
 
