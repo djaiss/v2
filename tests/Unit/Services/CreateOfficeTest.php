@@ -7,7 +7,6 @@ use App\Models\Member;
 use App\Models\Office;
 use App\Models\Organization;
 use App\Models\Permission;
-use App\Models\User;
 use App\Services\CreateOffice;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Validation\ValidationException;
