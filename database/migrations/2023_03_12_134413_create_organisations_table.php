@@ -13,6 +13,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('slug');
             $table->string('invitation_code')->unique();
+            $table->boolean('is_public')->default(true);
             $table->timestamps();
         });
     }

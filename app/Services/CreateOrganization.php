@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Jobs\SetupOrganization;
+use App\Models\Member;
 use App\Models\Organization;
 use App\Models\User;
 use Exception;
@@ -18,6 +19,8 @@ class CreateOrganization extends BaseService
 
     private Organization $organization;
 
+    private Member $member;
+
     /**
      * Get the validation rules that apply to the service.
      */
@@ -26,6 +29,7 @@ class CreateOrganization extends BaseService
         return [
             'user_id' => 'required|integer|exists:users,id',
             'name' => 'required|string|max:255',
+            'is_public' => 'required|boolean',
         ];
     }
 
@@ -40,7 +44,9 @@ class CreateOrganization extends BaseService
         $this->checkUser();
         $this->checkSlugUniqueness();
         $this->createOrganization();
-        $this->associateUserToOrganization();
+        $this->addMember();
+
+        SetupOrganization::dispatch($this->organization, $this->member);
 
         return $this->organization;
     }
@@ -73,13 +79,15 @@ class CreateOrganization extends BaseService
             'name' => $this->data['name'],
             'slug' => $this->slug,
             'invitation_code' => Str::random(40),
+            'is_public' => $this->data['is_public'],
         ]);
-
-        SetupOrganization::dispatch($this->organization, $this->user);
     }
 
-    private function associateUserToOrganization(): void
+    private function addMember(): void
     {
-        $this->organization->users()->attach($this->user->id);
+        $this->member = Member::create([
+            'organization_id' => $this->organization->id,
+            'user_id' => $this->user->id,
+        ]);
     }
 }

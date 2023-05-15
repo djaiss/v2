@@ -22,8 +22,18 @@ class Project extends Model
         'projectable_type',
         'name',
         'slug',
-        'code',
+        'project_key',
         'emoji',
+        'is_public',
+    ];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'is_public' => 'boolean',
     ];
 
     public function projectable(): MorphTo

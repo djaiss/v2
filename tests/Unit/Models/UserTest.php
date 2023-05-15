@@ -2,11 +2,11 @@
 
 namespace Tests\Unit\Models;
 
+use App\Models\Member;
 use App\Models\Organization;
-use App\Models\Permission;
 use App\Models\Project;
-use App\Models\Role;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
 
@@ -15,13 +15,14 @@ class UserTest extends TestCase
     use DatabaseTransactions;
 
     /** @test */
-    public function it_belongs_to_many_organizations(): void
+    public function it_has_many_members(): void
     {
         $user = User::factory()->create();
-        $organization = Organization::factory()->create();
-        $user->organizations()->attach($organization);
+        Member::factory()->create([
+            'user_id' => $user->id,
+        ]);
 
-        $this->assertTrue($user->organizations()->exists());
+        $this->assertTrue($user->members()->exists());
     }
 
     /** @test */
@@ -38,32 +39,36 @@ class UserTest extends TestCase
     }
 
     /** @test */
-    // public function it_checks_if_a_user_can_do_an_action()
-    // {
-    //     $user = User::factory()->create();
-    //     $role = Role::factory()->create();
-    //     $permission = Permission::factory()->create([
-    //         'action' => 'organization.permissions',
-    //     ]);
-    //     $role->permissions()->syncWithoutDetaching([$permission->id => ['active' => true]]);
-    //     $user->role_id = $role->id;
-    //     $user->save();
+    public function it_gets_the_age(): void
+    {
+        Carbon::setTestNow(Carbon::create(2018, 1, 1));
+        $user = User::factory()->create();
 
-    //     $this->assertTrue($user->hasTheRightTo('organization.permissions'));
-    // }
+        $this->assertNull($user->age);
 
-    // /** @test */
-    // public function it_checks_if_a_user_cant_do_an_action()
-    // {
-    //     $user = User::factory()->create();
-    //     $role = Role::factory()->create();
-    //     $permission = Permission::factory()->create([
-    //         'action' => 'organization.permissions',
-    //     ]);
-    //     $role->permissions()->syncWithoutDetaching([$permission->id => ['active' => false]]);
-    //     $user->role_id = $role->id;
-    //     $user->save();
+        $user->born_at = Carbon::create(1990, 3, 14);
+        $user->age_preferences = User::AGE_ONLY_MONTH_DAY;
+        $user->save();
 
-    //     $this->assertFalse($user->hasTheRightTo('organization.permissions'));
-    // }
+        $this->assertEquals('Mar 14', $user->age);
+
+        $user->age_preferences = User::AGE_FULL;
+        $user->save();
+        $this->assertEquals('Mar 14, 1990 (27)', $user->age);
+    }
+
+    /** @test */
+    public function it_tells_if_the_user_is_part_of_an_organization(): void
+    {
+        $organization = Organization::factory()->create();
+
+        $user = User::factory()->create();
+        $this->assertFalse($user->isMemberOfOrganization($organization));
+
+        Member::factory()->create([
+            'user_id' => $user->id,
+            'organization_id' => $organization->id,
+        ]);
+        $this->assertTrue($user->isMemberOfOrganization($organization));
+    }
 }

@@ -22,9 +22,20 @@ class PermissionTest extends TestCase
     }
 
     /** @test */
-    public function it_gets_the_name()
+    public function it_gets_the_custom_label_if_defined()
     {
         $permission = Permission::factory()->create([
+            'label' => 'this is the real name',
+            'label_translation_key' => 'life_event_category.label',
+        ]);
+
+        $this->assertEquals(
+            'this is the real name',
+            $permission->label
+        );
+
+        $permission = Permission::factory()->create([
+            'label' => null,
             'label_translation_key' => 'life_event_category.label',
         ]);
 

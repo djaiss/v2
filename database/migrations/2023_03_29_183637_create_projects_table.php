@@ -14,8 +14,8 @@ return new class extends Migration
             $table->string('projectable_type')->nullable();
             $table->string('name');
             $table->string('slug');
-            $table->string('code')->nullable();
-            $table->string('emoji', 5)->nullable();
+            $table->string('project_key', 10)->nullable();
+            $table->boolean('is_public')->default(true);
             $table->timestamps();
         });
     }

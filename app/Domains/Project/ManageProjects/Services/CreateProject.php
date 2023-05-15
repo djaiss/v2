@@ -26,11 +26,9 @@ class CreateProject extends BaseService
             'author_id' => 'required|integer|exists:users,id',
             'project_lead_id' => 'nullable|integer|exists:users,id',
             'name' => 'required|string|max:255',
-            'code' => 'nullable|string|max:255',
-            'short_code' => 'nullable|string|max:3',
-            'summary' => 'nullable|string|max:255',
-            'emoji' => 'nullable|string|max:5',
-            'description' => 'nullable|string|max:65535',
+            'slug' => 'required|string|max:255',
+            'project_key' => 'nullable|string|max:10',
+            'is_public' => 'required|boolean',
         ];
     }
 

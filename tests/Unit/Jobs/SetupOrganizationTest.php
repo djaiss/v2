@@ -3,6 +3,7 @@
 namespace Tests\Unit\Jobs;
 
 use App\Jobs\SetupOrganization;
+use App\Models\Member;
 use App\Models\Organization;
 use App\Models\Role;
 use App\Models\User;
@@ -18,8 +19,12 @@ class SetupOrganizationTest extends TestCase
     {
         $organization = Organization::factory()->create();
         $user = User::factory()->create();
+        $member = Member::factory()->create([
+            'user_id' => $user->id,
+            'organization_id' => $organization->id,
+        ]);
 
-        SetupOrganization::dispatchSync($organization, $user);
+        SetupOrganization::dispatchSync($organization, $member);
 
         $this->assertDatabaseHas('roles', [
             'organization_id' => $organization->id,
@@ -30,7 +35,7 @@ class SetupOrganizationTest extends TestCase
             'label_translation_key' => 'User',
         ]);
 
-        $this->assertDatabaseHas('organization_user', [
+        $this->assertDatabaseHas('members', [
             'organization_id' => $organization->id,
             'user_id' => $user->id,
             'role_id' => Role::where('label_translation_key', 'Administrator')->first()->id,

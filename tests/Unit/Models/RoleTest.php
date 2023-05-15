@@ -29,7 +29,7 @@ class RoleTest extends TestCase
     }
 
     /** @test */
-    public function it_gets_the_custom_name_if_defined()
+    public function it_gets_the_custom_label_if_defined()
     {
         $role = Role::factory()->create([
             'label' => 'this is the real name',

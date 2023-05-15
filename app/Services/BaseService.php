@@ -3,12 +3,16 @@
 namespace App\Services;
 
 use App\Exceptions\NotEnoughPermissionException;
+use App\Models\Member;
+use App\Models\Organization;
 use App\Models\User;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Validator;
 
 abstract class BaseService
 {
-    public User $author;
+    public Member $author;
+    public Organization $organization;
 
     /**
      * Get the validation rules that apply to the service.
@@ -34,7 +38,12 @@ abstract class BaseService
         Validator::make($data, $this->rules())->validate();
 
         if ($this->permissions() !== '') {
-            $this->author = User::findOrFail($data['author_id']);
+            $this->author = Member::findOrFail($data['author_id']);
+            $this->organization = Organization::findOrFail($data['organization_id']);
+
+            if ($this->author->organization_id !== $data['organization_id']) {
+                throw new ModelNotFoundException();
+            }
 
             if (! $this->author->hasTheRightTo($this->permissions())) {
                 throw new NotEnoughPermissionException();

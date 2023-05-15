@@ -65,6 +65,7 @@ class CreateOrganizationTest extends TestCase
         $request = [
             'user_id' => $user->id,
             'name' => 'acme',
+            'is_public' => true,
         ];
 
         $organization = (new CreateOrganization())->execute($request);
@@ -78,9 +79,10 @@ class CreateOrganizationTest extends TestCase
             'id' => $organization->id,
             'name' => 'acme',
             'slug' => 'acme',
+            'is_public' => true,
         ]);
 
-        $this->assertDatabaseHas('organization_user', [
+        $this->assertDatabaseHas('members', [
             'organization_id' => $organization->id,
             'user_id' => $user->id,
         ]);

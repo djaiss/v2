@@ -23,6 +23,16 @@ class Organization extends Model
         'name',
         'slug',
         'invitation_code',
+        'is_public',
+    ];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'is_public' => 'boolean',
     ];
 
     public function users(): BelongsToMany

@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Casts\Attribute;
+use App\Traits\Translatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Role extends Model
 {
-    use HasFactory;
+    use HasFactory, Translatable;
 
     protected $table = 'roles';
 
@@ -33,21 +33,5 @@ class Role extends Model
     public function permissions(): BelongsToMany
     {
         return $this->belongsToMany(Permission::class, 'permission_role', 'role_id', 'permission_id')->withPivot('active');
-    }
-
-    /**
-     * @return Attribute<?string,never>
-     */
-    protected function label(): Attribute
-    {
-        return Attribute::make(
-            get: function ($value, $attributes) {
-                if (! $value) {
-                    return __($attributes['label_translation_key']);
-                }
-
-                return $value;
-            }
-        );
     }
 }

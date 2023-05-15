@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Models\IssueType;
+use App\Models\Member;
 use App\Models\Organization;
 use App\Models\Permission;
 use App\Models\Role;
@@ -12,7 +13,6 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\DB;
 
 class SetupOrganization implements ShouldQueue
 {
@@ -23,7 +23,7 @@ class SetupOrganization implements ShouldQueue
      */
     public function __construct(
         public Organization $organization,
-        public User $user
+        public Member $member
     ) {
     }
 
@@ -49,21 +49,29 @@ class SetupOrganization implements ShouldQueue
         ]);
 
         // set the user as the administrator of the organization
-        DB::table('organization_user')
-            ->where('user_id', $this->user->id)
-            ->where('organization_id', $this->organization->id)
-            ->update(['role_id' => $administratorRole->id]);
+        $this->member->role_id = $administratorRole->id;
+        $this->member->save();
 
         // permissions for administrators
         $permissionsTable = [
             [
                 'action' => Permission::ORGANIZATION_MANAGE_PERMISSIONS,
-                'label_translation_key' => trans_key('Manage company roles and permissions'),
+                'label_translation_key' => trans_key('Manage organization roles and permissions'),
+                'active' => true,
+            ],
+            [
+                'action' => Permission::ORGANIZATION_MANAGE_PROJECTS,
+                'label_translation_key' => trans_key('Manage projects'),
                 'active' => true,
             ],
             [
                 'action' => Permission::ORGANIZATION_MANAGE_USERS,
                 'label_translation_key' => trans_key('Manage users'),
+                'active' => true,
+            ],
+            [
+                'action' => Permission::ORGANIZATION_ADD_MEMBERS,
+                'label_translation_key' => trans_key('Add members to the organization'),
                 'active' => true,
             ],
             [
@@ -106,30 +114,35 @@ class SetupOrganization implements ShouldQueue
             'organization_id' => $this->organization->id,
             'label_translation_key' => 'Epic',
             'emoji' => '🚀',
+            'position' => 1,
         ]);
 
         IssueType::create([
             'organization_id' => $this->organization->id,
             'label_translation_key' => 'Story',
             'emoji' => '📖',
+            'position' => 2,
         ]);
 
         IssueType::create([
             'organization_id' => $this->organization->id,
             'label_translation_key' => 'Task',
             'emoji' => '✅',
+            'position' => 3,
         ]);
 
         IssueType::create([
             'organization_id' => $this->organization->id,
             'label_translation_key' => 'Bug',
             'emoji' => '🐛',
+            'position' => 4,
         ]);
 
         IssueType::create([
             'organization_id' => $this->organization->id,
             'label_translation_key' => 'Subtask',
             'emoji' => '💣',
+            'position' => 5,
         ]);
     }
 }
