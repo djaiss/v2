@@ -15,7 +15,7 @@ class CreateIssueType extends BaseService
     public function rules(): array
     {
         return [
-            'author_id' => 'required|integer|exists:users,id',
+            'author_id' => 'required|integer|exists:members,id',
             'label' => 'required|string|max:255',
             'emoji' => 'required|string|max:5',
         ];
