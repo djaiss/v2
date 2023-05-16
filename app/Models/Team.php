@@ -29,4 +29,19 @@ class Team extends Model
     {
         return $this->belongsTo(Organization::class);
     }
+
+    public function parentTeam(): BelongsTo
+    {
+        return $this->belongsTo(Team::class, 'parent_team_id');
+    }
+
+    public function office(): BelongsTo
+    {
+        return $this->belongsTo(Office::class);
+    }
+
+    public function teamLead(): BelongsTo
+    {
+        return $this->belongsTo(Member::class, 'team_lead_id');
+    }
 }

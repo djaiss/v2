@@ -39,7 +39,6 @@ class CreateOrganization extends BaseService
         $this->validateRules($data);
         $this->data = $data;
 
-        $this->checkUser();
         $this->checkSlugUniqueness();
         $this->createOrganization();
         $this->addMember();
@@ -47,15 +46,6 @@ class CreateOrganization extends BaseService
         SetupOrganization::dispatch($this->organization, $this->member);
 
         return $this->organization;
-    }
-
-    private function checkUser(): void
-    {
-        $this->user = User::findOrFail($this->data['user_id']);
-
-        if ($this->user->organization_id) {
-            throw new Exception('User already has an organization');
-        }
     }
 
     private function checkSlugUniqueness(): void
@@ -85,7 +75,7 @@ class CreateOrganization extends BaseService
     {
         $this->member = Member::create([
             'organization_id' => $this->organization->id,
-            'user_id' => $this->user->id,
+            'user_id' => $this->data['user_id'],
         ]);
     }
 }

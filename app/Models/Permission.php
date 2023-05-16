@@ -21,6 +21,8 @@ class Permission extends Model
 
     public const ORGANIZATION_ADD_MEMBERS = 'organization.members.add';
 
+    public const ORGANIZATION_MANAGE_TEAMS = 'organization.teams';
+
     protected $table = 'permissions';
 
     /**

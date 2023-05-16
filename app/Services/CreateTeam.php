@@ -2,13 +2,11 @@
 
 namespace App\Services;
 
-use App\Models\Office;
 use App\Models\Permission;
+use App\Models\Team;
 
-class CreateOffice extends BaseService
+class CreateTeam extends BaseService
 {
-    private Office $office;
-
     private array $data;
 
     public function rules(): array
@@ -16,40 +14,44 @@ class CreateOffice extends BaseService
         return [
             'author_id' => 'required|integer|exists:members,id',
             'organization_id' => 'required|integer|exists:organizations,id',
+            'office_id' => 'nullable|integer|exists:offices,id',
+            'team_lead_id' => 'nullable|integer|exists:members,id',
             'name' => 'required|string|max:255',
-            'is_main_office' => 'required|boolean',
+            'description' => 'nullable|string|max:65535',
         ];
     }
 
     public function permissions(): string
     {
-        return Permission::ORGANIZATION_MANAGE_OFFICES;
+        return Permission::ORGANIZATION_MANAGE_TEAMS;
     }
 
-    public function execute(array $data): Office
+    public function execute(array $data): Team
     {
-        $this->validateRules($data);
         $this->data = $data;
+        $this->validate();
 
-        $this->office = Office::create([
+        $team = Team::create([
             'organization_id' => $this->organization->id,
+            'office_id' => $this->valueOrNull($data, 'office_id'),
+            'team_lead_id' => $this->valueOrNull($data, 'team_lead_id'),
             'name' => $data['name'],
-            'is_main_office' => $data['is_main_office'],
+            'description' => $this->valueOrNull($data, 'description'),
         ]);
 
-        $this->toggleMainOfficeForAllTheOtherOffices();
-
-        return $this->office;
+        return $team;
     }
 
-    private function toggleMainOfficeForAllTheOtherOffices(): void
+    private function validate(): void
     {
-        if ($this->data['is_main_office']) {
-            Office::where('organization_id', $this->author->organization_id)
-                ->whereNot('id', $this->office->id)
-                ->update([
-                    'is_main_office' => false,
-                ]);
+        $this->validateRules($this->data);
+
+        if (! is_null($this->data['office_id'])) {
+            $this->organization->offices()->findOrFail($this->data['office_id']);
+        }
+
+        if (! is_null($this->data['team_lead_id'])) {
+            $this->organization->members()->findOrFail($this->data['team_lead_id']);
         }
     }
 }

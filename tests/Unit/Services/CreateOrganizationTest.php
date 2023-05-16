@@ -6,7 +6,6 @@ use App\Jobs\SetupOrganization;
 use App\Models\Organization;
 use App\Models\User;
 use App\Services\CreateOrganization;
-use Exception;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Support\Facades\Queue;
 use Illuminate\Validation\ValidationException;
@@ -43,19 +42,6 @@ class CreateOrganizationTest extends TestCase
 
         $this->expectException(ValidationException::class);
         (new CreateOrganization())->execute($request);
-    }
-
-    /** @test */
-    public function it_fails_if_user_already_owns_an_organization(): void
-    {
-        $user = User::factory()->create();
-        Organization::factory()->create([
-            'name' => 'acme',
-            'slug' => 'acme',
-        ]);
-
-        $this->expectException(Exception::class);
-        $this->executeService($user);
     }
 
     private function executeService(User $user): void
