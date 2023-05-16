@@ -3,7 +3,7 @@
 namespace Tests\Unit\Domains\Settings\ManageRoles\Web\ViewHelpers;
 
 use App\Domains\Settings\ManageRoles\Web\ViewHelpers\SettingsRoleIndexViewHelper;
-use App\Models\Company;
+use App\Models\Organization;
 use App\Models\Permission;
 use App\Models\Role;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
@@ -16,9 +16,9 @@ class SettingsRoleIndexViewHelperTest extends TestCase
     /** @test */
     public function it_gets_the_data_needed_for_the_view(): void
     {
-        $company = Company::factory()->create();
+        $organization = Organization::factory()->create();
 
-        $viewModel = SettingsRoleIndexViewHelper::data($company);
+        $viewModel = SettingsRoleIndexViewHelper::data($organization);
 
         $this->assertArrayHasKey('roles', $viewModel);
         $this->assertArrayHasKey('all_possible_permissions', $viewModel);
@@ -28,13 +28,13 @@ class SettingsRoleIndexViewHelperTest extends TestCase
     public function it_gets_the_data_needed_for_the_role(): void
     {
         $role = Role::factory()->create([
-            'name' => 'janitor',
+            'label' => 'janitor',
         ]);
 
         $array = SettingsRoleIndexViewHelper::role($role);
 
         $this->assertArrayHasKey('id', $array);
-        $this->assertArrayHasKey('name', $array);
+        $this->assertArrayHasKey('label', $array);
         $this->assertArrayHasKey('permissions', $array);
 
         $this->assertEquals(
@@ -43,7 +43,7 @@ class SettingsRoleIndexViewHelperTest extends TestCase
         );
         $this->assertEquals(
             'janitor',
-            $array['name']
+            $array['label']
         );
     }
 
@@ -51,7 +51,7 @@ class SettingsRoleIndexViewHelperTest extends TestCase
     public function it_gets_the_data_needed_for_the_permission(): void
     {
         $permission = Permission::factory()->create([
-            'translation_key' => 'janitor',
+            'label_translation_key' => 'janitor',
         ]);
 
         $array = SettingsRoleIndexViewHelper::permission($permission);
@@ -59,7 +59,7 @@ class SettingsRoleIndexViewHelperTest extends TestCase
         $this->assertEquals(
             [
                 'id' => $permission->id,
-                'name' => 'janitor',
+                'label' => 'janitor',
                 'active' => true,
             ],
             $array

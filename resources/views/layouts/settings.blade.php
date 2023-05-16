@@ -27,14 +27,11 @@
         <div class="flex w-full divide-x divide-slate-200">
           <nav class="pt-5 max-w-[25%] space-y-6 sidebar whitespace-nowrap p-3">
             <ul>
-              <li class="uppercase text-xs mb-2 font-light">{{ __('Employee profile') }}</li>
+              <li class="uppercase text-xs mb-2 font-light">{{ __('User profile') }}</li>
 
-              <!-- employee profile -->
-              @if (request()->route()->named('settings.index'))
-              <li class="bg-slate-100 hover:bg-slate-100 pl-2 pr-8 py-1 rounded cursor-pointer mb-1 flex items-center group">
-              @else
-              <li class="hover:bg-slate-100 pl-2 pr-8 py-1 rounded cursor-pointer mb-1 flex items-center group">
-              @endif
+              <!-- user profile -->
+              <li @class([ 'bg-slate-100 hover:bg-slate-100 pl-2 pr-8 py-1 rounded cursor-pointer mb-1 flex items-center group'=> request()->route()->named('settings.index'),
+                'hover:bg-slate-100 pl-2 pr-8 py-1 rounded cursor-pointer mb-1 flex items-center group' => !request()->route()->named('settings.index')])>
                 <x-heroicon-s-user-circle class="w-4 h-4 mr-2 text-cyan-800 group-hover:text-cyan-800" />
 
                 <x-link :route="route('settings.index')" class="no-underline text-slate-800">{{ __('Profile') }}</x-link>
@@ -48,28 +45,25 @@
 
               <!-- company permissions -->
               @if ($menu['can_see_permissions'])
-                @if (request()->route()->named('settings.roles.index'))
-                <li class="bg-slate-100 hover:bg-slate-100 pl-2 pr-8 py-1 rounded cursor-pointer mb-1 flex items-center group">
-                @else
-                <li class="hover:bg-slate-100 pl-2 pr-8 py-1 rounded cursor-pointer mb-1 flex items-center group">
-                @endif
-                  <x-heroicon-s-lock-closed class="w-4 h-4 mr-2 text-cyan-800 group-hover:text-cyan-800" />
+              <li @class([ 'bg-slate-100 hover:bg-slate-100 pl-2 pr-8 py-1 rounded cursor-pointer mb-1 flex items-center group'=> request()->route()->named('settings.roles.index'),
+                'hover:bg-slate-100 pl-2 pr-8 py-1 rounded cursor-pointer mb-1 flex items-center group' => !request()->route()->named('settings.roles.index')])>
+                <x-heroicon-s-lock-closed class="w-4 h-4 mr-2 text-cyan-800 group-hover:text-cyan-800" />
 
-                  <x-link :route="route('settings.roles.index')" class="no-underline text-slate-800">{{ __('Permissions') }}</x-link>
-                </li>
+                <x-link :route="route('settings.roles.index')" class="no-underline text-slate-800">{{ __('Permissions') }}</x-link>
+              </li>
               @endif
 
               <!-- company offices -->
               @if ($menu['can_see_offices'])
-                @if (request()->route()->named('settings.offices.index'))
-                <li class="bg-slate-100 hover:bg-slate-100 pl-2 pr-8 py-1 rounded cursor-pointer mb-1 flex items-center group">
+              @if (request()->route()->named('settings.offices.index'))
+              <li class="bg-slate-100 hover:bg-slate-100 pl-2 pr-8 py-1 rounded cursor-pointer mb-1 flex items-center group">
                 @else
-                <li class="hover:bg-slate-100 pl-2 pr-8 py-1 rounded cursor-pointer mb-1 flex items-center group">
+              <li class="hover:bg-slate-100 pl-2 pr-8 py-1 rounded cursor-pointer mb-1 flex items-center group">
                 @endif
-                  <x-heroicon-s-building-office class="w-4 h-4 mr-2 text-cyan-800 group-hover:text-cyan-800" />
+                <x-heroicon-s-building-office class="w-4 h-4 mr-2 text-cyan-800 group-hover:text-cyan-800" />
 
-                  <x-link :route="route('settings.offices.index')" class="no-underline text-slate-800">{{ __('Offices') }}</x-link>
-                </li>
+                <x-link :route="route('settings.offices.index')" class="no-underline text-slate-800">{{ __('Offices') }}</x-link>
+              </li>
               @endif
             </ul>
           </nav>

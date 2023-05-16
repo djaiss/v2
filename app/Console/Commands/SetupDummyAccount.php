@@ -3,7 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Domains\Auth\Services\CreateAccount;
-use App\Models\Employee;
+use App\Models\User;
 use Carbon\Carbon;
 use Faker\Factory as Faker;
 use Illuminate\Console\Command;
@@ -18,14 +18,14 @@ class SetupDummyAccount extends Command
 
     protected ?\Faker\Generator $faker;
 
-    protected Employee $firstEmployee;
+    protected User $firstUser;
 
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'officelife:dummy
+    protected $signature = 'opengrind:dummy
                             {--migrate : Use migrate command instead of migrate:fresh.}
                             {--force : Force the operation to run.}';
 
@@ -46,7 +46,7 @@ class SetupDummyAccount extends Command
 
         $this->start();
         $this->wipeAndMigrateDB();
-        $this->createFirstEmployees();
+        $this->createFirstUsers();
         $this->stop();
     }
 
@@ -74,7 +74,7 @@ class SetupDummyAccount extends Command
         $this->line('');
         $this->line('-----------------------------');
         $this->line('|');
-        $this->line('| Welcome to OfficeLife');
+        $this->line('| Welcome to OpenGrind');
         $this->line('|');
         $this->line('-----------------------------');
         $this->info('| You can now sign in with one of these two accounts:');
@@ -92,16 +92,16 @@ class SetupDummyAccount extends Command
         $this->info('Setup is done. Have fun.');
     }
 
-    private function createFirstEmployees(): void
+    private function createFirstUsers(): void
     {
         $this->info('☐ Create first user of the account');
 
-        $this->firstEmployee = (new CreateAccount())->execute([
+        $this->firstUser = (new CreateAccount())->execute([
             'email' => 'admin@admin.com',
             'password' => 'admin123',
         ]);
-        $this->firstEmployee->email_verified_at = Carbon::now();
-        $this->firstEmployee->save();
+        $this->firstUser->email_verified_at = Carbon::now();
+        $this->firstUser->save();
     }
 
     private function artisan(string $message, string $command, array $arguments = []): void

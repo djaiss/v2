@@ -19,7 +19,7 @@ class ManageRole extends Component
 
     public int $editedRoleId = 0;
 
-    public string $name;
+    public string $label;
 
     public Collection $roles;
 
@@ -41,7 +41,7 @@ class ManageRole extends Component
 
     public function toggle(): void
     {
-        $this->name = '';
+        $this->label = '';
         $this->openModal = ! $this->openModal;
 
         if ($this->openModal) {
@@ -59,7 +59,7 @@ class ManageRole extends Component
             })->first();
 
             $this->emit('focusNameField');
-            $this->name = $role['name'];
+            $this->label = $role['name'];
             $this->permissions = $role['permissions'];
         }
     }
@@ -68,7 +68,7 @@ class ManageRole extends Component
     {
         $role = (new CreateRole())->execute([
             'author_id' => auth()->user()->id,
-            'name' => $this->name,
+            'label' => $this->label,
             'permissions' => $this->allPossiblePermissions->toArray(),
         ]);
 
@@ -78,19 +78,19 @@ class ManageRole extends Component
         );
 
         $this->roles->push(SettingsRoleIndexViewHelper::role($role));
-        $this->name = '';
+        $this->label = '';
         $this->toggle();
     }
 
     public function update(int $roleId): void
     {
-        $role = Role::where('company_id', auth()->user()->company_id)
+        $role = Role::where('organization_id', auth()->user()->organization_id)
             ->findOrFail($roleId);
 
         $role = (new UpdateRole())->execute([
             'author_id' => auth()->user()->id,
             'role_id' => $roleId,
-            'name' => $this->name,
+            'label' => $this->label,
             'permissions' => $this->permissions,
         ]);
 
@@ -108,17 +108,17 @@ class ManageRole extends Component
 
             return $value;
         });
-        $this->name = '';
+        $this->label = '';
     }
 
     public function confirmDestroy(int $roleId): void
     {
-        $role = Role::where('company_id', auth()->user()->company_id)
+        $role = Role::where('organization_id', auth()->user()->organization_id)
             ->findOrFail($roleId);
 
         $this->dialog()->confirm([
             'title' => __('Are you sure?'),
-            'description' => __('All employees who have this permission will be without permissions, meaning they will not be able to do anything in the application.'),
+            'description' => __('All users who have this permission will be without permissions, meaning they will not be able to do anything in the application.'),
             'icon' => 'trash',
             'iconColor' => 'text-red-600',
             'accept' => [

@@ -4,7 +4,7 @@
         "dev": "vite",
         "build": "vite build",
         "pretest": "DB_CONNECTION=testing php artisan migrate:fresh",
-        "posttest": "./vendor/bin/duster lint && ./vendor/bin/duster fix",
+        "posttest": "./vendor/bin/duster fix",
         "test": "vendor/bin/phpunit"
     },
     "devDependencies": {

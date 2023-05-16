@@ -26,12 +26,12 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        $employee = (new CreateAccount())->execute([
+        $user = (new CreateAccount())->execute([
             'email' => $request->input('email'),
             'password' => $request->input('password'),
         ]);
 
-        auth()->login($employee);
+        auth()->login($user);
 
         return redirect(RouteServiceProvider::HOME);
     }

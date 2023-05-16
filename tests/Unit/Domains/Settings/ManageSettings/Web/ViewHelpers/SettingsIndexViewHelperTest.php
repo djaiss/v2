@@ -1,9 +1,9 @@
 <?php
 
-namespace Tests\Unit\Domains\ManageSettings\Web\ViewHelpers;
+namespace Tests\Unit\Domains\Settings\ManageSettings\Web\ViewHelpers;
 
 use App\Domains\Settings\ManageSettings\Web\ViewHelpers\SettingsIndexViewHelper;
-use App\Models\Employee;
+use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
 
@@ -14,13 +14,13 @@ class SettingsIndexViewHelperTest extends TestCase
     /** @test */
     public function it_gets_the_data_needed_for_the_view(): void
     {
-        $employee = Employee::factory()->create([
+        $user = User::factory()->create([
             'first_name' => 'regis',
             'last_name' => 'boudin',
             'email' => 'regis@boudin.com',
         ]);
 
-        $viewModel = SettingsIndexViewHelper::data($employee);
+        $viewModel = SettingsIndexViewHelper::data($user);
 
         $this->assertEquals(
             'regis',

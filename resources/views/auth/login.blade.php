@@ -1,7 +1,7 @@
 <x-guest-layout>
   <img src="img/logo.svg" alt="logo" class="text-center mx-auto mb-4 block">
 
-  <h2 class="font-bold text-center mb-2">{{ __('Welcome back to OfficeLife') }}</h2>
+  <h2 class="font-bold text-center mb-2">{{ __('Welcome back to OpenGrind') }}</h2>
   <p class="mb-4 text-center">
     <x-link :route="route('register')">{{ __('Don\'t have an account?') }}</x-link>
   </p>

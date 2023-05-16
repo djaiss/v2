@@ -16,7 +16,7 @@ class ValidateCompanyPresence
      */
     public function handle(Request $request, Closure $next): Response|RedirectResponse
     {
-        if (! $request->user()->company_id) {
+        if (! $request->user()->organization_id) {
             return redirect('welcome');
         }
 

@@ -50,7 +50,7 @@
           {{ $office['name'] }}
 
           @if ($office['is_main_office'])
-          <span class="ml-2 bg-blue-100 font-normal text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 hidden md:inline">{{ __('Main office') }}</span>
+          <span class="ml-2 bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 hidden md:inline">{{ __('Main office') }}</span>
           @endif
         </p>
 

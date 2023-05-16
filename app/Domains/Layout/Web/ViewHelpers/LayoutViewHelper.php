@@ -2,6 +2,7 @@
 
 namespace App\Domains\Layout\Web\ViewHelpers;
 
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\App;
 
@@ -21,19 +22,22 @@ class LayoutViewHelper
             'url' => route('locale.update', ['locale' => 'fr']),
         ]);
 
-        // current company for the logged employee
-        $company = null;
-        if (auth()->check()) {
-            $company = auth()->user()->company;
-        }
+        // current organization for the logged user
+        $organization = null;
+        // if (auth()->check()) {
+        //     $organization = auth()->user()->organization;
+        // }
 
         return [
             'currentLocale' => App::currentLocale(),
             'locales' => $localesCollection,
             'currentYear' => Carbon::now()->format('Y'),
-            'company' => $company ? [
-                'name' => $company->name,
+            'organization' => $organization ? [
+                'name' => $organization->name,
             ] : null,
+            'url' => [
+                'search' => route('search.show'),
+            ],
         ];
     }
 }

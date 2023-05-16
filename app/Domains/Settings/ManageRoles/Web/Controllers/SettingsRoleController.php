@@ -10,7 +10,7 @@ class SettingsRoleController extends Controller
 {
     public function index(): View
     {
-        $viewModel = SettingsRoleIndexViewHelper::data(auth()->user()->company);
+        $viewModel = SettingsRoleIndexViewHelper::data(auth()->user()->organization);
 
         return view('settings.roles.index', [
             'view' => $viewModel,

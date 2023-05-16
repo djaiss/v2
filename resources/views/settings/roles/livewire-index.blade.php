@@ -10,11 +10,11 @@
   @if ($openModal)
   <form wire:submit.prevent="store" class="bg-form mb-6 rounded-lg border border-gray-200 dark:border-gray-700 dark:bg-gray-900">
     <div class="border-b border-gray-200 dark:border-gray-700 p-5">
-      <!-- name -->
+      <!-- role name -->
       <div class="w-full max-w-lg">
-        <x-input-label for="name" :value="__('Label')" />
-        <x-text-input wire:model.defer="name" wire:keydown.escape="toggle()" id="name" dusk="name-field" class="block mt-1 w-full name" type="text" name="name" :value="old('name')" autofocus required />
-        <x-input-error :messages="$errors->get('name')" class="mt-2" />
+        <x-input-label for="label" :value="__('Label')" />
+        <x-text-input wire:model.defer="label" wire:keydown.escape="toggle()" id="label" dusk="name-field" class="block mt-1 w-full name" type="text" name="label" :value="old('label')" autofocus required />
+        <x-input-error :messages="$errors->get('label')" class="mt-2" />
       </div>
     </div>
 
@@ -24,7 +24,7 @@
 
       <div class="grid grid-cols-3 gap-1">
         @foreach ($allPossiblePermissions as $index => $permission)
-        <x-toggle label="{{ $permission['name'] }}"
+        <x-toggle label="{{ $permission['label'] }}"
           wire:model.defer="allPossiblePermissions.{{ $index }}.active"
           :checked="$permission['active'] == 1"
           :wire:key="$permission['id']"
@@ -52,7 +52,7 @@
     <li :wire:key="$role['id']" class="item-list border-b border-gray-200 hover:bg-slate-50 dark:border-gray-700 dark:bg-slate-900 hover:dark:bg-slate-800">
       @if ($role['id'] !== $editedRoleId)
       <div class="p-3 flex justify-between items-center">
-        <p class="font-semibold">{{ $role['name'] }}</p>
+        <p class="font-semibold">{{ $role['label'] }}</p>
 
         <x-dropdown>
           <x-dropdown.item wire:click="toggleEdit({{ $role['id'] }})" label="{{ __('Edit') }}" />
@@ -67,9 +67,9 @@
         <div class="border-b border-gray-200 dark:border-gray-700 p-5">
           <!-- name -->
           <div class="w-full max-w-lg">
-            <x-input-label for="name" :value="__('Label')" />
-            <x-text-input wire:model.defer="name" id="name" wire:keydown.escape="toggleEdit(0)" dusk="name-field" class="block mt-1 w-full name" type="text" name="name" :value="old('name')" autofocus required />
-            <x-input-error :messages="$errors->get('name')" class="mt-2" />
+            <x-input-label for="label" :value="__('Label')" />
+            <x-text-input wire:model.defer="label" id="label" wire:keydown.escape="toggleEdit(0)" dusk="name-field" class="block mt-1 w-full name" type="text" name="label" :value="old('label')" autofocus required />
+            <x-input-error :messages="$errors->get('label')" class="mt-2" />
           </div>
         </div>
 
@@ -79,7 +79,7 @@
 
           <div class="grid grid-cols-3 gap-1">
             @foreach ($permissions as $index => $permission)
-            <x-toggle label="{{ $permission['name'] }}"
+            <x-toggle label="{{ $permission['label'] }}"
               wire:model.defer="permissions.{{ $index }}.active"
               :checked="$permission['active'] == 1"
               class="text-base"

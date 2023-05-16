@@ -1,10 +1,9 @@
 <?php
 
-namespace Tests\Browser\Domains\Settings\Profile;
+namespace Tests\Browser\Domains\Settings\Roles;
 
-use App\Domains\Settings\ManageCompany\Jobs\SetupCompany;
-use App\Models\Employee;
 use App\Models\Role;
+use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTruncation;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
@@ -16,14 +15,14 @@ class ManageRoleTest extends DuskTestCase
     /** @test */
     public function it_manages_roles(): void
     {
-        $employee = Employee::factory()->create([
+        $user = User::factory()->create([
             'email' => 'regis@dumb.io',
         ]);
-        SetupCompany::dispatch($employee->company);
+        SetupOrganization::dispatch($user->company);
 
-        $this->browse(function (Browser $browser) use ($employee) {
+        $this->browse(function (Browser $browser) use ($user) {
             // create a role
-            $browser->loginAs($employee)
+            $browser->loginAs($user)
                 ->visitRoute('settings.roles.index')
                 ->click('@open-modal-button')
                 ->waitFor('@name-field')

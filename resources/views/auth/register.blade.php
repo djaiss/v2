@@ -1,7 +1,7 @@
 <x-guest-layout>
   <img src="img/logo.svg" alt="logo" class="text-center mx-auto mb-4 block">
 
-  <h2 class="font-bold text-center mb-2">{{ __('Welcome to OfficeLife') }}</h2>
+  <h2 class="font-bold text-center mb-2">{{ __('Welcome to OpenGrind') }}</h2>
   <h3 class="text-sm text-gray-700 mb-4 text-center">{{ __('Create your account now for free.') }}</h3>
 
   <form method="POST" action="{{ route('register.store') }}">

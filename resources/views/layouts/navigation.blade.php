@@ -9,7 +9,10 @@
     <svg xmlns="http://www.w3.org/2000/svg" class="icon-search absolute h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
     </svg>
-    <input type="text" class="dark:highlight-white/5 block w-64 rounded-md border border-gray-300 px-2 py-1 text-center placeholder:text-gray-600 hover:cursor-pointer focus:border-indigo-500 focus:ring-indigo-500 dark:border-0 dark:border-gray-700 dark:bg-slate-900 placeholder:dark:text-gray-400 hover:dark:bg-slate-700 sm:text-sm" @focus="goToSearchPage" />
+    <form method="POST" action="{{ $layout['url']['search'] }}">
+      @csrf
+      <input id="searchTerm" name="searchTerm" type="text" class="dark:highlight-white/5 block w-64 rounded-md border border-gray-300 px-2 py-1 text-center placeholder:text-gray-600 hover:cursor-pointer focus:border-indigo-500 focus:ring-indigo-500 dark:border-0 dark:border-gray-700 dark:bg-slate-900 placeholder:dark:text-gray-400 hover:dark:bg-slate-700 sm:text-sm" />
+    </form>
   </div>
 
   <!-- settings -->
@@ -19,7 +22,7 @@
         <div class="flex items-center">
           <x-heroicon-o-cog-8-tooth class="mr-1 inline-block h-4 w-4 cursor-pointer text-gray-600 dark:text-gray-400 sm:h-4 sm:w-4" />
 
-          <span class=" text-sm dark:text-sky-400">Settings</span>
+          <span class=" text-sm dark:text-sky-400">{{ __('Settings') }}</span>
         </div>
       </x-slot>
       <x-dropdown.item label="{{ __('Your profile') }}" />
@@ -37,35 +40,9 @@
       </svg>
     </button>
   </div>
-
-  <!-- <div class="flew-grow">
-    <ul class="relative">
-      <li class="mr-4 inline">
-        <a href class="relative inline">
-          <svg xmlns="http://www.w3.org/2000/svg" class="icon-cog relative mr-1 inline-block h-4 w-4 cursor-pointer text-gray-600 dark:text-gray-400 dark:text-gray-300 sm:h-4 sm:w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-          </svg>
-
-          <span class="text-sm dark:text-sky-400">Settings</span>
-        </a>
-      </li>
-      <li class="inline">
-        <a class="inline" method="post" href="route('logout')" as="button">
-          <svg xmlns="http://www.w3.org/2000/svg" class="mr-1 inline-block h-4 w-4 cursor-pointer text-gray-600 dark:text-gray-400 dark:text-gray-300 sm:h-4 sm:w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-          </svg>
-
-          <span class="text-sm dark:text-sky-400">logour</span>
-        </a>
-      </li>
-    </ul>
-  </div> -->
 </nav>
 
-
 <nav x-data="{ open: false }" class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
-
   <!-- Responsive Navigation Menu -->
   <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
     <div class="pt-2 pb-3 space-y-1">
@@ -95,6 +72,18 @@
             {{ __('Log Out') }}
           </x-link>
         </form>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<nav v-if="insideVault" class="bg-white dark:border-slate-300/10 dark:bg-gray-900 sm:border-b">
+  <div class="max-w-8xl mx-auto hidden px-4 py-2 sm:px-6 md:block">
+    <div class="flex items-baseline justify-between space-x-6">
+      <div>
+        <x-link :route="route('register')" class="mr-2 rounded-md px-2 py-1 text-sm font-medium hover:bg-gray-700 hover:text-white dark:bg-sky-400/20 dark:text-slate-400 dark:hover:text-slate-300">Dashboard</x-link>
+
+        <x-link :route="route('register')" class="mr-2 rounded-md px-2 py-1 text-sm font-medium hover:bg-gray-700 hover:text-white dark:bg-sky-400/20 dark:text-slate-400 hover:dark:text-slate-300">Projects</x-link>
       </div>
     </div>
   </div>

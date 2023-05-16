@@ -2,20 +2,26 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Casts\Attribute;
+use App\Traits\Translatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Permission extends Model
 {
-    use HasFactory;
+    use HasFactory, Translatable;
 
-    public const COMPANY_MANAGE_PERMISSIONS = 'company.permissions';
+    public const ORGANIZATION_MANAGE_PERMISSIONS = 'organization.permissions';
 
-    public const COMPANY_MANAGE_EMPLOYEES = 'company.employees';
+    public const ORGANIZATION_MANAGE_PROJECTS = 'organization.projects';
 
-    public const COMPANY_MANAGE_OFFICES = 'company.offices';
+    public const ORGANIZATION_MANAGE_USERS = 'organization.users';
+
+    public const ORGANIZATION_MANAGE_OFFICES = 'organization.offices';
+
+    public const ORGANIZATION_ADD_MEMBERS = 'organization.members.add';
+
+    public const ORGANIZATION_MANAGE_TEAMS = 'organization.teams';
 
     protected $table = 'permissions';
 
@@ -26,21 +32,12 @@ class Permission extends Model
      */
     protected $fillable = [
         'action',
-        'translation_key',
+        'label_translation_key',
+        'label',
     ];
 
     public function roles(): BelongsToMany
     {
         return $this->belongsToMany(Role::class, 'permission_role', 'permission_id', 'role_id')->withPivot('active');
-    }
-
-    /**
-     * @return Attribute<?string,never>
-     */
-    protected function name(): Attribute
-    {
-        return Attribute::make(
-            get: fn ($value, $attributes) => __($attributes['translation_key']),
-        );
     }
 }

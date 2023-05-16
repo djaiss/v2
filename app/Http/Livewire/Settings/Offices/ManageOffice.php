@@ -83,7 +83,7 @@ class ManageOffice extends Component
 
     public function update(int $officeId): void
     {
-        $office = Office::where('company_id', auth()->user()->company_id)
+        $office = Office::where('organization_id', auth()->user()->organization_id)
             ->findOrFail($officeId);
 
         $office = (new UpdateOffice())->execute([
@@ -113,12 +113,12 @@ class ManageOffice extends Component
 
     public function confirmDestroy(int $officeId): void
     {
-        $office = Office::where('company_id', auth()->user()->company_id)
+        $office = Office::where('organization_id', auth()->user()->organization_id)
             ->findOrFail($officeId);
 
         $this->dialog()->confirm([
             'title' => __('Are you sure?'),
-            'description' => __('All employees who have this permission will be without permissions, meaning they will not be able to do anything in the application.'),
+            'description' => __('All users who have this permission will be without permissions, meaning they will not be able to do anything in the application.'),
             'icon' => 'trash',
             'iconColor' => 'text-red-600',
             'accept' => [

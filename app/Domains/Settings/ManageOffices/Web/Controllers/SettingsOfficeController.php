@@ -10,7 +10,7 @@ class SettingsOfficeController extends Controller
 {
     public function index(): View
     {
-        $viewModel = SettingsOfficeIndexViewHelper::data(auth()->user()->company);
+        $viewModel = SettingsOfficeIndexViewHelper::data(auth()->user()->organization);
 
         return view('settings.offices.index', [
             'view' => $viewModel,
